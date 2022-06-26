@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>阿SFAG的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="阿SFAG的个人博客">
 <meta property="og:url" content="http://example.com/page/3/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="阿SFAG的个人博客">
 <meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="shangguandanyu">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="阿SFAG的个人博客" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -42,7 +42,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
+        <a href="/" id="logo">阿SFAG的个人博客</a>
       </h1>
       
     </div>
@@ -70,273 +70,6 @@
 
       <div class="outer">
         <section id="main">
-  
-    <article id="post-SpringMVC" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/06/26/SpringMVC/" class="article-date">
-  <time class="dt-published" datetime="2022-06-26T14:10:59.769Z" itemprop="datePublished">2022-06-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="IOC容器"><a href="#IOC容器" class="headerlink" title="IOC容器"></a>IOC容器</h2><p>控制反转，管理所有的组件（有功能的类），由主动的new资源变为 被动获取</p>
-<h2 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h2><p>：依赖注入 ‘</p>
-<ul>
-<li><p>容器中对象的创建是容器创建是就已经创建好的</p>
-</li>
-<li><p>同一个组件在IOC容器中是单实例的</p>
-</li>
-<li><p>IOC在创建这个组件对象的时候，property会利用setter方法为javaBean的属性进行赋值</p>
-<p>使用property注入bean：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;person&quot; class=&quot;com.sfag.bean.Person&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;name&quot; value=&quot;张三&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;password&quot; value=&quot;89412&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;age&quot; value=&quot;12&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;address&quot; value=&quot;苏州&quot;&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-
-<p>使用有参构造器注入bean：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;person01&quot; class=&quot;com.sfag.bean.Person&quot;&gt;</span><br><span class="line">	&lt;constructor-arg name=&quot;name&quot; value=&quot;李四&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;constructor-arg name=&quot;password&quot; value=&quot;lisi&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;constructor-arg name=&quot;age&quot; value=&quot;88&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;constructor-arg name=&quot;address&quot; value=&quot;张家港&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-
-<p>使用namespace注入Bean：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;person02&quot; class=&quot;com.sfag.bean.Person&quot; p:name=&quot;王五&quot; p:password=&quot;789456&quot; p:age=&quot;99&quot; p:address=&quot;上海&quot;&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>在配置文件中注入不同属性的对象：</p>
-<p>List类型：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210725163829802.png" alt="image-20210725163829802"></p>
-<p>map类型:</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210725163914768.png" alt="image-20210725163914768"></p>
-<p>properties类型:</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210725163748535.png" alt="image-20210725163748535"></p>
-<h1 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h1><p>注解：<br>@RequestParam，来映射请求参数</p>
-<ul>
-<li>value：值即请求的参数名</li>
-<li>required：该参数是否必须，默认为true</li>
-<li>defaultValue：请求默认的参数</li>
-</ul>
-<p>@RequestHeader：映射请求头 信息</p>
-<p>@CookieValue：映射一个Cookie值</p>
-<p><strong>springMVC注解</strong></p>
-<p>1，@RequestMapping(“”)</p>
-<p>2，@PathVariable (“url中的占位符”)： 此注解可以用来映射URL中的占位符到目标方法的参数中</p>
-<p>3，@Rest：表现层状态转化      </p>
-<p>Get（获取），Post（新建），Put（更新），Delete（删除）      </p>
-<p>如何发送put和delete请求？             </p>
-<ul>
-<li>需要配置HiddenHttpMethodFilter             </li>
-<li>需要发送POST请求             </li>
-<li>需要在POST请求时携带一个name&#x3D;“_method”的隐藏域，值为PUT或DELETE 4，</li>
-</ul>
-<p>4，@RequsetParam：映射请求的参数            </p>
-<p>属性值               </p>
-<ul>
-<li>value：请求参数的参数名               </li>
-<li>required：默认为true，表示该参数是必须要填的               </li>
-<li>defaultValue：请求参数的默认值</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/SpringMVC/" data-id="cl4ve2jip0000w0gv5mg7ffex" data-title="" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-vue" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/06/26/vue/" class="article-date">
-  <time class="dt-published" datetime="2022-06-26T14:10:59.769Z" itemprop="datePublished">2022-06-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h1><h2 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h2><p>只关心视图层</p>
-<h3 id="1、特点"><a href="#1、特点" class="headerlink" title="1、特点"></a>1、特点</h3><ul>
-<li>遵循MVVM模式</li>
-<li>编码简洁，体积小，运行效率高，适合移动&#x2F;pc端开发</li>
-<li>本身只关注UI，可以轻松引入vue插件或其他第三方开发项目</li>
-</ul>
-<h3 id="2、概念"><a href="#2、概念" class="headerlink" title="2、概念"></a>2、概念</h3><p>Vue：一套基于构建用户界面的渐进式框架，可以自底层向上逐层应用</p>
-<p>MVVM模式：Model-View-ViewModel，是一种简化用户界面的事件驱动编程方式，来源于经典的MVC（Model-View-Controller）模式，MVVM的核心是ViewModel层，负责转换Model层中的数据对象来让数据变得更容易管理和使用	</p>
-<p>MVVM模式的好处：主要目的是分离视图view和模型model</p>
-<ul>
-<li>低耦合</li>
-<li>可复用</li>
-<li>独立开发</li>
-<li>可测试</li>
-</ul>
-<p>Model层：模型层，在这里表示JavaScript对象</p>
-<p>View：视图层，在这里表示DOM（HTML操作的元素）</p>
-<p>ViewModel：连接视图和数据的中间件，vue.js就是MVVM中ViewModel层的实现者，它的核心就是实现了DOM监听与数据绑定</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210812201056354.png" alt="image-20210812201056354"></p>
-<h3 id="3、vue扩展插件"><a href="#3、vue扩展插件" class="headerlink" title="3、vue扩展插件"></a>3、vue扩展插件</h3><ol>
-<li>vue-cli：vue脚手架。搭建前端项目的框架结构</li>
-<li>vue-routing：控制页面跳转</li>
-</ol>
-<h3 id="4、第一个vue程序"><a href="#4、第一个vue程序" class="headerlink" title="4、第一个vue程序"></a>4、第一个vue程序</h3><ul>
-<li>导入vue.js</li>
-</ul>
-<h3 id="5、指令"><a href="#5、指令" class="headerlink" title="5、指令"></a>5、指令</h3><p>指令带有前缀v-，表示他们是Vue提供的特殊属性</p>
-<ul>
-<li><p>v-if：</p>
-</li>
-<li><p>v-else：</p>
-</li>
-<li><p>数据绑定</p>
-<ul>
-<li><p>单向绑定：v-bind：绑定，可简写为”  ：”；</p>
-</li>
-<li><p>双向绑定：v-model：只能应用于表单类元素中（输入类元素）</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814165929377.png" alt="image-20210814165929377"></p>
-</li>
-</ul>
-</li>
-<li><p>v-on：当什么什么的时候，可以简写为@</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814173438868.png" alt="image-20210814173438868"></p>
-</li>
-<li><p>v-model：</p>
-<p>修饰符：number：</p>
-<p>prevent：事件绑定时阻止页面的默认操作</p>
-<p>​</p>
-</li>
-</ul>
-<p>				</p>
-<h3 id="6、vue的七个常用属性"><a href="#6、vue的七个常用属性" class="headerlink" title="6、vue的七个常用属性"></a>6、vue的七个常用属性</h3><ul>
-<li>el属性：用来指示vue编译器从什么地方来开始解析vue的语法，可以说是一个占位符</li>
-<li>data</li>
-<li>template</li>
-<li>methods</li>
-<li>render</li>
-<li>computed</li>
-<li>watch</li>
-</ul>
-<h3 id="7、组件"><a href="#7、组件" class="headerlink" title="7、组件"></a>7、组件</h3><p>可复用的vue实例，就是一组可重复使用的模板</p>
-<p>组件化的编码流程：</p>
-<ol>
-<li>实现静态组件：抽取组件，使用组件实现静态页面效果</li>
-<li>展示动态组件<ul>
-<li>数据的类型，名称是什么</li>
-<li>数据保存在哪个组件</li>
-</ul>
-</li>
-<li>交互——从绑定时间监听开始</li>
-</ol>
-<h4 id="7-1-组件化开步骤："><a href="#7-1-组件化开步骤：" class="headerlink" title="7,1 组件化开步骤："></a>7,1 组件化开步骤：</h4><ol>
-<li><p>创建组件（组件中使用data必须写成函数式，template：配置组件的结构）</p>
-</li>
-<li><p>注册组件</p>
-<ul>
-<li><p>局部注册：components:{</p>
-<p>​							组件名</p>
-<p>​					}</p>
-</li>
-<li><p>全局注册：Vue.compoent{‘组件路径’，组件名}</p>
-</li>
-</ul>
-</li>
-<li><p>编写组件标签</p>
-</li>
-</ol>
-<p>编写组件的几个注意点：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210817105510402.png" alt="image-20210817105510402"></p>
-<p>el和data的两种写法：</p>
-<p>第一种：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">el：#root，</span><br><span class="line"></span><br><span class="line">data：&#123;</span><br><span class="line"></span><br><span class="line">​	name: &#x27;sfag&#x27;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>第二种：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$mount(&#x27;#root&#x27;)</span><br><span class="line"></span><br><span class="line">data: function（）&#123;</span><br><span class="line"></span><br><span class="line">​	return&#123;</span><br><span class="line"></span><br><span class="line">​		name: &#x27;sfag&#x27;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="8、Axios"><a href="#8、Axios" class="headerlink" title="8、Axios"></a>8、Axios</h3><p>是一个开源的可以用在浏览器和NodeJS的异步通信框架</p>
-<p>功能特点：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210813095147808.png" alt="image-20210813095147808"></p>
-<h3 id="9、计算属性"><a href="#9、计算属性" class="headerlink" title="9、计算属性"></a>9、计算属性</h3><p>突出在属性两个字上，首先它是个属性，其次要有计算的能能力，计算就是一个函数，它就是一个能将计算结果缓存起来的属性、</p>
-<h3 id="10、模板语法"><a href="#10、模板语法" class="headerlink" title="10、模板语法"></a>10、模板语法</h3><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814164901011.png" alt="image-20210814164901011"></p>
-<h3 id="11、数据代理"><a href="#11、数据代理" class="headerlink" title="11、数据代理"></a>11、数据代理</h3><p>定义：通过一个对象代理对另一个对象中属性的操作（读、写）</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814172353063.png" alt="image-20210814172353063"></p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814172601141.png" alt="image-20210814172601141"></p>
-<h3 id="12、事件处理"><a href="#12、事件处理" class="headerlink" title="12、事件处理"></a>12、事件处理</h3><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814174224223.png" alt="image-20210814174224223"></p>
-<h3 id="13、不同版本的vue"><a href="#13、不同版本的vue" class="headerlink" title="13、不同版本的vue"></a>13、不同版本的vue</h3><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210815151432925.png" alt="image-20210815151432925"></p>
-<h2 id="二、工程"><a href="#二、工程" class="headerlink" title="二、工程"></a>二、工程</h2><h3 id="1、创建工程"><a href="#1、创建工程" class="headerlink" title="1、创建工程"></a>1、创建工程</h3><p>选择工程位置cmd运行命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init webpack  +项目名</span><br></pre></td></tr></table></figure>
-
-<p>安装依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">npm install vue-router --save-dev//安装路由</span><br><span class="line"></span><br><span class="line">npm i element-ui -S //安装element-ui</span><br><span class="line"></span><br><span class="line">npm install //安装依赖</span><br><span class="line"></span><br><span class="line">npm install sass-loader node-sass --save-dev //安装sass加载器</span><br><span class="line"></span><br><span class="line">npm run dev //启动工程</span><br></pre></td></tr></table></figure>
-
-<p>新建项目警告：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814105717804.png" alt="image-20210814105717804"></p>
-<p>嵌套路由：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814133902892.png" alt="image-20210814133902892"></p>
-<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><h3 id="1、跨域问题"><a href="#1、跨域问题" class="headerlink" title="1、跨域问题"></a>1、跨域问题</h3><ul>
-<li>跨域：浏览器不能执行其他网站的脚本，也就是前后端代码运行在不同服务器上时就会出现跨域问题，是由浏览器的同源策略造成的，是浏览器对JavaScript施加的安全限制</li>
-<li>解决方案<ul>
-<li><p>方案1：使用Ajax的jsonp来解决（只能使用get请求）</p>
-</li>
-<li><p>方案2：使用JQuery的jsonp插件（对于get、post请求不做要求，但是从后台发来的消息依旧是jsonp格式的数据）</p>
-</li>
-<li><p>方案3：使用cors</p>
-</li>
-<li><p>后端程序中添加java文件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> &#123;</span><br><span class="line">		registry.addMapping(<span class="string">&quot;/**&quot;</span>)</span><br><span class="line">			.allowedOriginPatterns(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">				.allowedMethods(<span class="string">&quot;GET&quot;</span>,<span class="string">&quot;POST&quot;</span>,<span class="string">&quot;PUT&quot;</span>,<span class="string">&quot;OPTIONS&quot;</span>,<span class="string">&quot;DELETE&quot;</span>,<span class="string">&quot;PATCH&quot;</span>)</span><br><span class="line">				.allowedHeaders(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">				.allowCredentials(<span class="literal">true</span>)</span><br><span class="line">				.maxAge(<span class="number">3600</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<p>mock数据：指前后端同时开发的时候，后端接口数据没有出来，前端可以mock假数据，模拟开发；</p>
-<ul>
-<li><p>优势：</p>
-<ul>
-<li>团队可以并行工作</li>
-<li>开启TDD模式，即测试驱动开发</li>
-<li>隔离系统，不用请求数据库中的数据，以免污染数据库中的数据</li>
-<li>可以用来演示</li>
-<li>测试覆盖率</li>
-</ul>
-</li>
-<li><p>mock数据的几种方式</p>
-<ul>
-<li><p>直接在页面写死数据，后期改为动态数据后悔比较麻烦</p>
-</li>
-<li><p>在js里直接声明变量，并给变量赋值，在逻辑脚本中使用，并渲染到dom;</p>
-</li>
-<li><p>将模拟数据编辑成json数据或者是零碎的js脚本中，通过请求，取回数据，并进行业务逻辑处理，渲染到dom</p>
-</li>
-<li><p>- 前后台在需求分解之后，一起定义好接口api，包含：请求url（项目前缀+具体的接口名称）、请求方式、请求参数、数据响应； </p>
-<p>- 前端研发人员根据接口约定，模拟请求返回对应的数据，完成对应的交互； </p>
-<p>- 后台人员根据接口约定，完成对应的api，并完成对应的自测； </p>
-<p>- 待后台人员交付接口api后，前端人员直接修改接口项目前缀，切换到对应的环境，即可进入项目提测。</p>
-<hr>
-</li>
-</ul>
-</li>
-</ul>
-<p>vue-element-admin基础框架：<a target="_blank" rel="noopener" href="https://github.com/PanJiaChen/vue-element-admin">https://github.com/PanJiaChen/vue-element-admin</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/vue/" data-id="cl4ve2jix0003w0gvczet98vb" data-title="" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
   
     <article id="post-SpringCloud" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
@@ -798,7 +531,7 @@ profiles：环境(dev/test/prod)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/SpringCloud/" data-id="cl4ve2jir0001w0gvd2dc29yz" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/SpringCloud/" data-id="cl4vgwmaa000su8gv3jfe6s1y" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -882,7 +615,7 @@ profiles：环境(dev/test/prod)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/Git/" data-id="cl4vd9h1h0000ssgv78wcgm2c" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/Git/" data-id="cl4vgwm9d0001u8gve8o5ectt" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -944,7 +677,7 @@ profiles：环境(dev/test/prod)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/java%E4%B8%AD%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6/" data-id="cl4vd9h1z0004ssgv4mpi8tv9" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/java%E4%B8%AD%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6/" data-id="cl4vgwm9w000eu8gv5fxqcn5c" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -1254,44 +987,7 @@ profiles：环境(dev/test/prod)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/JVM%EF%BC%88java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%89/" data-id="cl4vd9h1t0001ssgvcj47dk0l" data-title="" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-easyBI的使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/06/26/easyBI%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
-  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="easyBI的使用"><a href="#easyBI的使用" class="headerlink" title="easyBI的使用"></a>easyBI的使用</h1><p>Dashboards：对报表进行分类</p>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
-<li><p>source Data：新建source application——-SQL</p>
-</li>
-<li><p>复制视图的SQL语句粘贴到</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210817203847333.png" alt="image-20210817203847333"></p>
-</li>
-<li></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/easyBI%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="cl4vd9h1w0002ssgv7txv66nf" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/JVM%EF%BC%88java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%89/" data-id="cl4vgwm9f0002u8gvdf35783f" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -1354,7 +1050,7 @@ profiles：环境(dev/test/prod)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/Jekins/" data-id="cl4vd9h1x0003ssgvb72scrab" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/Jekins/" data-id="cl4vgwm9o0006u8gv604d3gs5" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -1440,7 +1136,7 @@ profiles：环境(dev/test/prod)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/kettle/" data-id="cl4vd9h200005ssgvbska56e2" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/kettle/" data-id="cl4vgwm9v000du8gvfkwd7ks2" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -1479,7 +1175,169 @@ profiles：环境(dev/test/prod)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/layUI/" data-id="cl4vd9h210006ssgv4do94rpt" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/layUI/" data-id="cl4vgwm9y000fu8gv447m4ba7" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-easyBI的使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/easyBI%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="easyBI的使用"><a href="#easyBI的使用" class="headerlink" title="easyBI的使用"></a>easyBI的使用</h1><p>Dashboards：对报表进行分类</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li><p>source Data：新建source application——-SQL</p>
+</li>
+<li><p>复制视图的SQL语句粘贴到</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210817203847333.png" alt="image-20210817203847333"></p>
+</li>
+<li></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/easyBI%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="cl4vgwm9z000gu8gv2w5hhyck" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/linux/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h3 id="安装mysql服务"><a href="#安装mysql服务" class="headerlink" title="安装mysql服务"></a>安装mysql服务</h3><ul>
+<li><p>下载mysql压缩包：地址：<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/5.7.html#downloads">https://dev.mysql.com/downloads/mysql/5.7.html#downloads</a></p>
+</li>
+<li><p>解压：tar -xvf mysql-5.7.26-linux-glibc2.12-x86_64.tar</p>
+</li>
+<li><p>移动并重命名：mv mysql-5.7.26-linux-glibc2.12-x86_64 &#x2F;usr&#x2F;local&#x2F;mysql</p>
+</li>
+<li><p>创建mysql用户组和用户并修改权限</p>
+<p>groupadd mysql<br>useradd -r -g mysql mysql</p>
+</li>
+<li><p>创建数据目录并赋予权限</p>
+<p>mkdir -p  &#x2F;data&#x2F;mysql              #创建目录<br>chown mysql:mysql -R &#x2F;data&#x2F;mysql   #赋予权限</p>
+</li>
+<li><p>配置my.cnf</p>
+<p>vim &#x2F;etc&#x2F;my.cnf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">bind-address=0.0.0.0</span><br><span class="line">port=3306</span><br><span class="line">user=mysql</span><br><span class="line">basedir=/usr/local/mysql //安装目录</span><br><span class="line">datadir=/data/mysql //数据目录</span><br><span class="line">socket=/tmp/mysql.sock</span><br><span class="line">log-error=/data/mysql/mysql.err</span><br><span class="line">pid-file=/data/mysql/mysql.pid</span><br><span class="line">#character config</span><br><span class="line">character_set_server=utf8mb4</span><br><span class="line">symbolic-links=0</span><br><span class="line">explicit_defaults_for_timestamp=true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化数据库</p>
+<p>cd &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin&#x2F;</p>
+<p>.&#x2F;mysqld –defaults-file&#x3D;&#x2F;etc&#x2F;my.cnf –basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F; –datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F; –user&#x3D;mysql –initialize</p>
+</li>
+<li><p>查看密码：</p>
+<p>cat &#x2F;data&#x2F;mysql&#x2F;mysql.err</p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="keyword">@hadoop100</span> bin]# cat /data/mysql/mysql.err</span><br><span class="line"><span class="number">2021</span>-<span class="number">11</span>-<span class="number">14</span>T06:<span class="number">14</span>:<span class="number">46.843207</span>Z <span class="number">0</span> [ERROR] Can<span class="string">&#x27;t find error-message file &#x27;</span>/usr/local/mysql/share/errmsg.sys<span class="string">&#x27;. Check error-message file location and &#x27;</span>lc-messages-dir<span class="string">&#x27; configuration directive.</span></span><br><span class="line"><span class="string">2021-11-14T06:14:46.973978Z 0 [Warning] InnoDB: New log files created, LSN=45790</span></span><br><span class="line"><span class="string">2021-11-14T06:14:46.997037Z 0 [Warning] InnoDB: Creating foreign key constraint system tables.</span></span><br><span class="line"><span class="string">2021-11-14T06:14:47.053928Z 0 [Warning] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: 2abf1f2d-4512-11ec-a6e3-000c2940fa5b.</span></span><br><span class="line"><span class="string">2021-11-14T06:14:47.057500Z 0 [Warning] Gtid table is not ready to be used. Table &#x27;</span>mysql.gtid_executed<span class="string">&#x27; cannot be opened.</span></span><br><span class="line"><span class="string">2021-11-14T06:14:47.583163Z 0 [Warning] CA certificate ca.pem is self signed.</span></span><br><span class="line"><span class="string">2021-11-14T06:14:47.619381Z 1 [Note] A temporary password is generated for root@localhost: _wK)ODNgQ7UB</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动mysql并修改root密码</p>
+<ul>
+<li><p>先将mysql.server放到&#x2F;etc&#x2F;init.d&#x2F;mysql中</p>
+<p>cp &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysql</p>
+</li>
+<li><p>启动</p>
+<p>service mysql start</p>
+<p>ps -ef|grep mysql</p>
+</li>
+<li><p>登录</p>
+<p>.&#x2F;mysql -u root -p   #bin目录下</p>
+</li>
+<li><p>修改密码</p>
+<p>SET PASSWORD &#x3D; PASSWORD(‘123456’);<br>ALTER USER ‘root‘@’localhost’ PASSWORD EXPIRE NEVER;<br>FLUSH PRIVILEGES;                                 </p>
+</li>
+<li><p>开启远程连接</p>
+<p>先登录进数据库，然后执行下面的命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql                                            #访问mysql库</span><br><span class="line">update user set host = &#x27;%&#x27; where user = &#x27;root&#x27;;      #使root能再任何host访问</span><br><span class="line">FLUSH PRIVILEGES;                                    #刷新</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/linux/" data-id="cl4vgwma0000hu8gv3kydff2b" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T09:43:45.657Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/06/26/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/hello-world/" data-id="cl4vgwm9u000cu8gv9tr7a7uf" data-title="Hello World" class="article-share-link">Share</a>
       
       
       
@@ -1495,7 +1353,7 @@ profiles：环境(dev/test/prod)
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
   </nav>
 
 </section>
@@ -1535,15 +1393,15 @@ profiles：环境(dev/test/prod)
           </li>
         
           <li>
-            <a href="/2022/06/26/ody-db/">(no title)</a>
-          </li>
-        
-          <li>
             <a href="/2022/06/26/Nginx/">(no title)</a>
           </li>
         
           <li>
             <a href="/2022/06/26/PMO%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/ody-db/">(no title)</a>
           </li>
         
       </ul>
@@ -1559,7 +1417,7 @@ profiles：环境(dev/test/prod)
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2022 John Doe<br>
+      &copy; 2022 shangguandanyu<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
