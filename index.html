@@ -71,10 +71,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Git" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-RabbitMQ消息中间件" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/06/26/Git/" class="article-date">
-  <time class="dt-published" datetime="2022-06-26T10:49:51.180Z" itemprop="datePublished">2022-06-26</time>
+    <a href="/2022/06/26/RabbitMQ%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.973Z" itemprop="datePublished">2022-06-26</time>
 </a>
     
   </div>
@@ -83,67 +83,147 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><ul>
-<li><p>码云gitee：<a target="_blank" rel="noopener" href="https://gitee.com/">https://gitee.com/</a></p>
-</li>
-<li><p>github：<a target="_blank" rel="noopener" href="https://github.com/">https://github.com/</a></p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211102171505528.png" alt="image-20211102171505528"></p>
-</li>
+        <h1 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h1><h3 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h3><p>MQ从字面上看本质是一个队列。遵循FIFO先入先出原则，只不过队列中存放的内容是message而已，还是一种跨进程的通信机制，用于上下游传递消息，在互联网架构中，MQ是一种非常常见的上下游”逻辑解耦+物理解耦“的消息通信服务，使用了MQ，消息发送上游只需要依赖MQ，不用再依赖其他服务</p>
+<h4 id="broker和cluster"><a href="#broker和cluster" class="headerlink" title="broker和cluster"></a>broker和cluster</h4><ul>
+<li>broker：是指一个或多个的erlang node的逻辑分组，且node上运行这RabbitMQ程序</li>
+<li>cluster：是在broker的基础上，增加了node之间共享数据单元的约束</li>
 </ul>
-<h3 id="本地仓库"><a href="#本地仓库" class="headerlink" title="本地仓库"></a>本地仓库</h3><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211102171424721.png" alt="image-20211102171424721"></p>
-<h3 id="git常用命令"><a href="#git常用命令" class="headerlink" title="git常用命令"></a>git常用命令</h3><ul>
-<li><p>git init：初始化本地库，获取目录管理权，会自动生成.git文件夹</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211102171638576.png" alt="image-20211102171638576"></p>
-</li>
-<li><p>git status：查看当前本地库的状态</p>
-</li>
-<li><p>git clone + 远程仓库地址：克隆远程仓库到本地</p>
-</li>
-<li><p>git add *：将所有文件提交到暂存区 </p>
-</li>
-<li><p>git commit -m “备注信息”  +文件名</p>
-</li>
-<li><p>git reflog&#x2F;log：查看提交代码的版本信息&#x2F;详细信息</p>
-</li>
-<li><p>git reset –hard +版本号：切换代码版本</p>
-</li>
-<li><p>git pull</p>
-</li>
-<li><p>分支的操作：</p>
+<h4 id="元数据："><a href="#元数据：" class="headerlink" title="元数据："></a>元数据：</h4><p>​		在非cluster模式下，元数据主要分为Queue元数据、Exchange元数据、Binding元数据（存放路由关系的查找表）、Vhost元数据，在cluser模式下，还包括cluster中的node位置信息和node关系信息。元数据按照erlang node的类型确定是仅保存于RAM中，还是同时保存在RAM和disk上。元数据在cluster中时全node分布的</p>
+<p>上下游：</p>
 <ul>
-<li><p>git branch +分支名：创建分支</p>
+<li>上游：发送消息的一方</li>
+<li>下游：接收消息的一方</li>
+</ul>
+<h4 id="MQ的功能："><a href="#MQ的功能：" class="headerlink" title="MQ的功能："></a>MQ的功能：</h4><ul>
+<li><p><strong>流量消峰</strong></p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210811104453775.png" alt="image-20210811104453775"></p>
+<p>使用MQ消息队列做缓冲，取消访问量的最大限度，把访问量分散处理，但是系统处理访问请求的速度会下降</p>
 </li>
-<li><p>git branch -v：查看分支</p>
+<li><p><strong>应用解耦</strong></p>
+<p>系统中的各个子系统是相互耦合，当用户请求时，任何一个子系统出现故障都会导致请求异常。当转变为基于消息队列的的方式后，系统间调用的问题会减少很多，发生故障的子系统要处理的内存被缓存在消息队列中，用户的请求可以正常完成，当故障子系统恢复之后，再来处理请求即可，用户感觉不到出故障，提高了系统的可用性</p>
 </li>
-<li><p>git checkout  分支名：切换分支</p>
+<li><p><strong>异步处理</strong></p>
+<p>在系统中有些服务是异步的，当A服务调用B服务时，B服务往往需要很长时间来完成，完成后发送消息给MQ消息队列，MQ再发消息通知A服务已完成，这就是异步处理</p>
 </li>
-<li><p>git merge +分支名：把指定的分支合并到当当前分支上</p>
+<li><p><strong>消息通信</strong>：聊天室，好友之间在同一个queue内发送message</p>
+</li>
+</ul>
+<p>RabbitMQ</p>
+<ul>
+<li>优点：由于erlang语言的高并发性，性能较好，吞吐量达到万级。MQ功能较完备，健壮，稳定，易用，跨平台，支持多种语言，支持Ajax文档齐全，更新频率相当高</li>
+<li>缺点：商业版收费</li>
+<li>概念：RabbitMQ是一个消息中间件：它接收并转发消息，但是它不对消息数据进行处理，只是接收、存储和转发消息数据</li>
+<li>四大核心概念<ul>
+<li>生产者</li>
+<li>交换机</li>
+<li>队列</li>
+<li>消费者</li>
+</ul>
+</li>
+<li>RabbitMQ的核心部分<ul>
+<li><p>工作原理：</p>
+</li>
+<li><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210811112115269.png" alt="image-20210811112115269"></p>
 </li>
 </ul>
 </li>
-<li><p>冲突解决</p>
-<p>当同一个文件被两个人同时修改时，提交或合并后会出现代码冲突‘</p>
-<p>解决办法：</p>
+<li><strong>Broker</strong>：接收和分发消息的应用，RabbitMQ Server就是Message Broker</li>
+<li><strong>queue</strong>：消息队列</li>
+<li><strong>Virtual host</strong>：出于多租户和安全因素设计的，把AMQP的基本组件划分到一个虚拟的分组中，类似于网络中的namespace概念，当多个用户同时使用一个RabbitMQ Server时，可以划分出多个Vhost，每个用户在自己的vhost创建exchange和queue<ul>
+<li>channel：如果每一次访问RabbitMQ都建立一个Connection，在消息量大的时候建立TCP连接的开销将是巨大的，效率也较低。channel是在connection内部建立的逻辑连接，channel之间是完全隔离的，极大的减少了建立tcp连接的开销</li>
+</ul>
+</li>
+<li><strong>Exchange</strong>：交换机，是message到达broker的第一站，根据分发规则，匹配查询表中的routing key，分发消息到quere中去，Exchange和确认是一对多的关系，常用的类型有：direct（point-to-point），topic（publish-subscrib）and  fanout（mnlticase）<ul>
+<li>Quere：消息最终被传送到这里等待被consumer取走</li>
+</ul>
+</li>
+<li><strong>Binding</strong>：存放路由关系的查找表，Exchange和quere之间的虚拟连接，binding中可以包含routing key，Binding信息被保存在的exchange中的查询表中，用于message的分发依据</li>
+</ul>
+<h3 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h3><h5 id="Windows安装"><a href="#Windows安装" class="headerlink" title="Windows安装"></a>Windows安装</h5><ul>
+<li><p>先下载erlang语言包和rabbitMQ的rpm包</p>
+<p>安装Erlang，下载地址：<a target="_blank" rel="noopener" href="http://erlang.org/download/otp_win64_21.3.exe">http://erlang.org/download/otp_win64_21.3.exe</a></p>
+<p>安装RabbitMQ，下载地址：<a target="_blank" rel="noopener" href="https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.3/rabbitmq-server-3.8.3.exe">https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.3/rabbitmq-server-3.8.3.exe</a></p>
+<p>打开cmd进入RabbitMQ安装目录下的sbin目录，如：D:\devSoft\RabbitMQ Scrverk\rabbitmq_server-3.7.14\sbin</p>
+<p>输入以下命令启动管理功能：</p>
+<ul>
+<li>&#96;&#96;&#96;linux<br>rabbitmq-plugins enable rabbitmq _management<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这样就可以添加可视化插件。</span><br><span class="line"></span><br><span class="line">- 访问地址查看是否安装成功：http://localhost:15672/</span><br><span class="line">- 输入账号密码并登录：guest guest</span><br><span class="line"></span><br><span class="line">#### liunx安装</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+wget –content-disposition <a target="_blank" rel="noopener" href="https://packagecloud.io/rabbitmq/erlang/packages/el/7/erlang-23.3.4.5-1.el7.x86_64.rpm/download.rpm">https://packagecloud.io/rabbitmq/erlang/packages/el/7/erlang-23.3.4.5-1.el7.x86_64.rpm/download.rpm</a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- 安装：执行安装命令</span><br><span class="line"></span><br><span class="line">  ![image-20210811155722812](C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210811155722812.png)</span><br><span class="line"></span><br><span class="line">- 添加开机启动服务：chkconfig rabbitmq-server start</span><br><span class="line"></span><br><span class="line">- 启动服务/查看服务状态/关闭服务：/sbin/service rabbitmq-server start/status/stop</span><br><span class="line"></span><br><span class="line">- 安装web插件：（安装插件前先关闭rabbitmq服务）</span><br><span class="line"></span><br><span class="line">  - rabbitmq-plugins enable rabbitmq_management</span><br><span class="line"></span><br><span class="line">  添加用户：</span><br><span class="line"></span><br><span class="line">  - 创建账号：rabbitmqctl add_user admin 123</span><br><span class="line">  </span><br><span class="line">- 设置用户角色：rabbitmqctl  set_user_tags admin administrator</span><br><span class="line">  </span><br><span class="line">  - 设置用户权限：set_permissions -p &quot;/&quot; admin &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;;</span><br><span class="line">  </span><br><span class="line">- 查看用户：rabbitmqctl  list_user</span><br><span class="line"></span><br><span class="line">**安装位置：**</span><br><span class="line"></span><br><span class="line">hadoop100：192.168.10.100</span><br><span class="line"></span><br><span class="line">/usr/lib/rabbitmq</span><br><span class="line"></span><br><span class="line">访问：192.168.10.100:15672	</span><br><span class="line"></span><br><span class="line">### 3、hello world 消息发送和接收</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 4、Work Queres</span><br><span class="line"></span><br><span class="line">工作队列：主要思想是避免立即执行资源密集型任务，而不得不等待其完成，当有多个工作线程时，这些工作线程将一起处理这些任务</span><br><span class="line"></span><br><span class="line">![image-20210811170729682](C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210811170729682.png)</span><br><span class="line"></span><br><span class="line">### 5、轮训分发消息 </span><br><span class="line"></span><br><span class="line">**消息应答**</span><br><span class="line"></span><br><span class="line">为了保证消息在发送过程中不丢失，rabbitMQ引入了消息应答机制，消息应答就是：消费者在接收到消息并且处理该消息之后，告诉rabbitMQ它已经处理完消息，rabbitMQ可以把消息删除了</span><br><span class="line"></span><br><span class="line">- 自动应答：消息发送后立即被认为已经传送成功，这种模式需要在高吞吐量和数据传输安全方面做出权衡，所以消息容易丢失，这种模式仅适用在消费者可以高效并以某种速率能够处理这些消息的情况下使用，尽量少用！！！</span><br><span class="line"></span><br><span class="line">  - 自动应答的使用方法：</span><br><span class="line"></span><br><span class="line">  - ![image-20210812094452807](C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210812094452807.png)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    Multple：消息批量处理</span><br><span class="line"></span><br><span class="line">    - true：处理队列里的多条消息，可能造成消息未被完全处理就已经被应答，导致消息丢失，一般不设置为true</span><br><span class="line">    - false：只处理当前消息</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">- 消息自动重新入队</span><br><span class="line"></span><br><span class="line">  ​	如果消费者由于某些原因失去连接（通道已关闭，连接已关闭或者tcp连接丢失），导致消息确认ack未发送，rabbitmq将了解到消息违未被完全处理，消息将返回到对列，然后它将很快将其重新分发给另外一个消费者，保证了消息不丢失。</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  持久化：</span><br><span class="line"></span><br><span class="line">  - 队列持久化：修改queueDeclare后的durable属性值为：true</span><br><span class="line"></span><br><span class="line">    ![image-20210812135330979](C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210812135330979.png)</span><br><span class="line"></span><br><span class="line">  - 消息持久化：basicPublish（）：修改属性值</span><br><span class="line"></span><br><span class="line">    ![image-20210812135114478](C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210812135114478.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- 不公平分发：消费者中添加（能者多劳）</span><br><span class="line"></span><br><span class="line">  ```java</span><br><span class="line">  //设置不公分发:prefetchCount:分发数量</span><br><span class="line">  channel.basicQos(1);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>设置预期值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置不公分发:prefetchCount:预取值</span></span><br><span class="line">channel.basicQos(<span class="number">3</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="6、发布确认"><a href="#6、发布确认" class="headerlink" title="6、发布确认"></a>6、发布确认</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">channel.confirmSelect();<span class="comment">//开启消息确认</span></span><br><span class="line">channel.waitForConfirms();<span class="comment">//确认消息发布</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>单个发布确认：发一条，确认一条，只有当上一条确认发布后，下一条消息才能发布</p>
+</li>
+<li><p>批量发布确认：效率高，但是当某一条消息丢失时无法准确定位是那一条消息丢失了</p>
+</li>
+<li><p>异步发布确认：可靠性高，效率高</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//消息确认成功的回调函数接口</span></span><br><span class="line"><span class="type">ConfirmCallback</span> <span class="variable">ackCallback</span> <span class="operator">=</span> (deliveryTag, multiple)-&gt;&#123;&#125;;</span><br><span class="line"><span class="comment">//消息确认失败的回调函数接口</span></span><br><span class="line"><span class="type">ConfirmCallback</span> <span class="variable">nackCallback</span> <span class="operator">=</span> (deliveryTag, multiple)-&gt;&#123;&#125;;</span><br><span class="line">channel.addConfirmListener(ackCallback , nackCallback);<span class="comment">//添加监听，监听消息是否发送从成功</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>未确认成功的消息的处理</p>
 <ol>
-<li>删除特殊符号，选择要保留的内容</li>
-<li>添加到缓存区：git add +目标文件</li>
-<li>执行提交：git commit -m “备注信息”（注意：此处不能带文件名）</li>
+<li><p>使用一个map将发送的所有消息都存储起来</p>
+</li>
+<li><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210812150202282.png" alt="image-20210812150202282"></p>
+</li>
+<li><p>删除已经确认的消息</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210812150048455.png" alt="image-20210812150048455"></p>
+</li>
+<li><p>剩下的就是未确认的消息</p>
+</li>
 </ol>
 </li>
-<li><p>团队内协作</p>
-<ul>
-<li>git commit -m “版本日志信息备注”  +文件名：提交</li>
-<li>git push origin  +分支名：推送代码到远程仓库的指定分支</li>
-<li>git clone</li>
-<li>git pull ：拉取远程仓库的代码到本地仓库</li>
 </ul>
-</li>
+<h3 id="7、交换机"><a href="#7、交换机" class="headerlink" title="7、交换机"></a>7、交换机</h3><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210812150842026.png" alt="image-20210812150842026"></p>
+<p>RabbitMQ的核心思想是：生产者生产的消息从不会直接发送到对列，实际上。通常生产者甚至都不知道这些消息传递到了那些队列中，生产者只将消息发送给交换机</p>
+<p>交换机的工作：接收生产者发来的消息，将消息推入队列，交换机必须准确知道如何处理收到的消息，是推给特定队列，还是推到许多队列或者丢弃他们。这由交换机的类型决定</p>
+<p><strong>binding</strong>：绑定交换机和对列，交换机通过识别routing key将消息发给指定的队列</p>
+<h4 id="Fanout广播类型"><a href="#Fanout广播类型" class="headerlink" title="Fanout广播类型"></a><strong>Fanout</strong>广播类型</h4><p>概念：将接收到的所有消息广播到他知道的所有队列中</p>
+<p>实例：</p>
+<p>生产者：<img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210812153124939.png" alt="image-20210812153124939"></p>
+<p>消费者（两个）：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210812153204084.png" alt="image-20210812153204084"></p>
+<h4 id="Direct指定类型"><a href="#Direct指定类型" class="headerlink" title="Direct指定类型"></a>Direct指定类型</h4><p>指定队列接收消息,定义交换机类型为DIRECT，定义routing key</p>
+<p>生产者指定routing key发送消息</p>
+<h4 id="Topics主题类型交换机"><a href="#Topics主题类型交换机" class="headerlink" title="Topics主题类型交换机"></a>Topics主题类型交换机</h4><p>topics交换机的routing_key不能随意写，必须要满足一点的要求，它必须是一个单词列表，以点号分隔开</p>
+<p>替换符：</p>
+<ul>
+<li>“ * “ 可以代替一个单词</li>
+<li>“ # ” 可以替代零个或多个单词</li>
+</ul>
+<h3 id="8、死信队列"><a href="#8、死信队列" class="headerlink" title="8、死信队列"></a>8、死信队列</h3><p>概念：由于某些特定原因导致queue队列中的某些消息无法被消费，这样的消息如果没有后续的处理，就变成了死信，有死信自然就有了死信队列</p>
+<p>死信的来源：</p>
+<ul>
+<li>消息TTL过期，超过了消息的存活时间</li>
+<li>队列达到最大长度（队列满了，无法再添加消息），面试题：RabbitMQ上的一个queue存放message是否有数量限制？（可以认为是无限制的，因为限制取决于机器的内存，但是消息过多会导致处理效率的下降）</li>
+<li>消息被拒绝</li>
+</ul>
+<p>上代码：</p>
+<p>消费者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sfag.hello.consumer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.rabbitmq.client.*;</span><br><span class="line"><span class="keyword">import</span> com.sfag.hello.MQUtils.RabbitMqUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">workerDeadQueue1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">NORMAL_EXCHANGE_NAME</span> <span class="operator">=</span> <span class="string">&quot;normal_exchange&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEAD_EXCHANGE_NAME</span> <span class="operator">=</span> <span class="string">&quot;dead_exchange&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">NORMAL_QUEUE_NAME</span> <span class="operator">=</span> <span class="string">&quot;normal_queue&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEAD_QUEUE_NAME</span> <span class="operator">=</span> <span class="string">&quot;dead_queue&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">Channel</span> <span class="variable">channel</span> <span class="operator">=</span> RabbitMqUtils.getChannel();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//声明普通交换机</span></span><br><span class="line">        channel.exchangeDeclare(NORMAL_EXCHANGE_NAME, BuiltinExchangeType.DIRECT);</span><br><span class="line">        <span class="comment">//声明死信交换机</span></span><br><span class="line">        channel.exchangeDeclare(DEAD_EXCHANGE_NAME, BuiltinExchangeType.DIRECT);</span><br><span class="line"></span><br><span class="line">        Map&lt;String , Object&gt; argument = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        argument.put(<span class="string">&quot;x-dead-letter-exchange&quot;</span>,DEAD_EXCHANGE_NAME);</span><br><span class="line">        argument.put(<span class="string">&quot;x-dead-letter-routing-key&quot;</span>,<span class="string">&quot;lisi&quot;</span>);</span><br><span class="line">        <span class="comment">//声明普通对列</span></span><br><span class="line">        channel.queueDeclare(NORMAL_QUEUE_NAME,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,argument);</span><br><span class="line">        <span class="comment">//声明死信对列</span></span><br><span class="line">        channel.queueDeclare(DEAD_QUEUE_NAME,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">null</span>);</span><br><span class="line">        channel.queueBind(NORMAL_QUEUE_NAME,NORMAL_EXCHANGE_NAME,<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        channel.queueBind(DEAD_QUEUE_NAME,DEAD_EXCHANGE_NAME,<span class="string">&quot;lisi&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;等待接收消息中------------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">DeliverCallback</span> <span class="variable">deliverCallback</span> <span class="operator">=</span> (consumerTag , delivery)-&gt;&#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(delivery.getBody(),<span class="string">&quot;Utf-8&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;C1接收到的消息是&quot;</span> + message);</span><br><span class="line">        &#125;;</span><br><span class="line">        channel.basicConsume(NORMAL_QUEUE_NAME,<span class="literal">true</span>,deliverCallback, consumerTag-&gt;&#123;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>生产者：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package com.sfag.hello.producer;</span><br><span class="line">import com.rabbitmq.client.AMQP;</span><br><span class="line">import com.rabbitmq.client.Channel;</span><br><span class="line">import com.sfag.hello.MQUtils.RabbitMqUtils;</span><br><span class="line"></span><br><span class="line">public class DeadProducer &#123;</span><br><span class="line">    public static final String NORMAL_EXCHANGE_NAME = &quot;normal_exchange&quot;;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws Exception&#123;</span><br><span class="line">        Channel channel = RabbitMqUtils.getChannel();</span><br><span class="line">        AMQP.BasicProperties properties</span><br><span class="line">                = new AMQP.BasicProperties()</span><br><span class="line">                .builder().expiration(&quot;10000&quot;)</span><br><span class="line">                .build();</span><br><span class="line">        for (int i = 1; i &lt; 11; i++) &#123;</span><br><span class="line">            String ms = &quot;message&quot;+ i;</span><br><span class="line">            System.out.println(&quot;消息发送中&quot;+ms);</span><br><span class="line">            channel.basicPublish(NORMAL_EXCHANGE_NAME,&quot;zhangsan&quot;,properties,ms.getBytes(&quot;UTF-8&quot;));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210812163329097.png" alt="image-20210812163329097"></p>
+<h3 id="9、延迟队列"><a href="#9、延迟队列" class="headerlink" title="9、延迟队列"></a>9、延迟队列</h3><p>概念：存放需要在指定时间内处理的元素的队列</p>
+<p>使用场景：</p>
+<ul>
+<li>订单十分钟内未支付则自动取消</li>
+<li>新创建的店铺，如果十天内都没有上传过商品则进行短信提醒</li>
+<li>用户注册后，如果三天内没有登录则进行短信提醒</li>
+<li>预定会议后，需要在预定的时间点前十分钟通知各个参会人员参加会议</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/Git/" data-id="cl4vd9h1h0000ssgv78wcgm2c" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/RabbitMQ%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/" data-id="cl4ve2jo4000lw0gv1cbg886t" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -155,10 +235,10 @@
 
 
   
-    <article id="post-java中的修饰符" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-redis" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/06/26/java%E4%B8%AD%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6/" class="article-date">
-  <time class="dt-published" datetime="2022-06-26T10:49:51.180Z" itemprop="datePublished">2022-06-26</time>
+    <a href="/2022/06/26/redis/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.973Z" itemprop="datePublished">2022-06-26</time>
 </a>
     
   </div>
@@ -167,45 +247,19 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="java中的修饰符"><a href="#java中的修饰符" class="headerlink" title="java中的修饰符"></a>java中的修饰符</h1><ul>
-<li><p>类修饰符</p>
-<ul>
-<li><p>访问修饰符：public（公共类修饰符）</p>
-<p>java 语言中类的访问控制符只有 public 即公共的。每个 Java 程序的有且只有一个类是 public，它被称为主类 ，其他外部类无访问控制修饰符，具有包访问性。注意：一个类的内部类可以被其他访问控制修饰符protected、缺省默认(default、friendly)、private修饰，相当于类的成员。</p>
-</li>
-<li><p>非访问类修饰符：抽象类abstract，最终类final</p>
-<ul>
-<li>抽象类abstract：用 abstract 修饰符修饰的类，被称为抽象类。</li>
-<li>最终类final：当一个类不能被继承时可用修饰符 final修饰为最终类。被定义为 final 的类通常是一些有固定作用、用来完成某种标准功能的类。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>方法修饰符</p>
-<ul>
-<li><p>访问控制修饰符</p>
-<p>公共访问控制符<strong>public</strong>、保护访问控制符<strong>protected</strong>、缺省默认访问控制符、私有访问控制符<strong>private</strong></p>
-</li>
-<li><p>非访问控制修饰符</p>
-<p> 抽象方法控制符<strong>abstract</strong> 、静态方法控制符<strong>static</strong> 、最终方法控制符<strong>final</strong> 、本地方法控制符<strong>native</strong> 、同步方法控制符<strong>synchronized</strong></p>
-<p>（1）抽象方法控制符 abstract ： abstract 修饰的方法称为抽象方法。抽象方法仅有方法头，没有方法体和具体实现。</p>
-<p>（2）静态方法控制符 static ：用修饰符 static 修饰的方法称为静态方法。静态方法是属于整个类的类方法；而不使用static 修饰、限定的方法是属于某个具体类对象的方法。 由于 static方法是属于整个类的，所以它不能操纵和处理属于某个对象的成员变量，而只能处理属于整个类的成员变量，即 static 方法只能处理 static的域。</p>
-<p>（3）最终方法控制符 final ：用修饰符 final修饰的方法称为最终方法。最终方法是功能和内部语句不能更改的方法，即最终方法不能重写覆盖。final固定了方法所具有的功能和操作，防止当前类的子类对父类关键方法的错误定义，保证了程序的安全性和正确性。所有被 private 修饰符限定为私有的方法，以及所有包含在 final 类 ( 最终类) 中的方法，都被认为是最终方法。</p>
-<p>（4）本地方法控制符 native ：用修饰符 native 修饰的方法称为本地方法。为了提高程序的运行速度，需要用其它的高级语言书写程序的方法体，那么该方法可定义为本地方法用修饰符 native 来修饰。</p>
-<p>（5）同步方法控制符 synchronized ：该修饰符主要用于多线程程序中的协调和同步。</p>
-</li>
-</ul>
-</li>
-<li><p>变量修饰符</p>
-</li>
-<li><p>访问控制修饰符</p>
-</li>
-</ul>
+        <h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><p>redis默认有16个数据库，从0号到15号</p>
+<p>常用5大数据类型：字符串（String），列表（List），集合（Set），哈希（Hash），有序集合（Zset）</p>
+<h3 id="springboot集成redis"><a href="#springboot集成redis" class="headerlink" title="springboot集成redis"></a>springboot集成redis</h3><h5 id="1，配置pom依赖"><a href="#1，配置pom依赖" class="headerlink" title="1，配置pom依赖"></a>1，配置pom依赖</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 使用lettuce做redis的连接池需要额外引入这个包--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2，配置application</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># Redis 数据库索引（默认为 0）</span><br><span class="line">spring.redis.database=0</span><br><span class="line"># Redis 服务器地址</span><br><span class="line">spring.redis.host=localhost</span><br><span class="line"># Redis 服务器连接端口</span><br><span class="line">spring.redis.port=6379</span><br><span class="line"># Redis 服务器连接密码（默认为空）</span><br><span class="line">spring.redis.password=</span><br><span class="line"># 连接池最大连接数（使用负值表示没有限制） 默认 8</span><br><span class="line">spring.redis.lettuce.pool.max-active=8</span><br><span class="line"># 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1</span><br><span class="line">spring.redis.lettuce.pool.max-wait=-1</span><br><span class="line"># 连接池中的最大空闲连接 默认 8</span><br><span class="line">spring.redis.lettuce.pool.max-idle=8</span><br><span class="line"># 连接池中的最小空闲连接 默认 0</span><br><span class="line">spring.redis.lettuce.pool.min-idle=0</span><br></pre></td></tr></table></figure>
+
+<h3 id="redisTemplae的使用"><a href="#redisTemplae的使用" class="headerlink" title="redisTemplae的使用"></a>redisTemplae的使用</h3><p>springboot帮我们注入的RedisTemplate类，泛型只能写&lt;String,String&gt;或&lt;Object,Object&gt;</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/java%E4%B8%AD%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6/" data-id="cl4vd9h1z0004ssgv4mpi8tv9" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/redis/" data-id="cl4ve2jop000nw0gv2tccbf5h" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -217,10 +271,10 @@
 
 
   
-    <article id="post-JVM（java虚拟机）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-ody-db" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/06/26/JVM%EF%BC%88java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%89/" class="article-date">
-  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
+    <a href="/2022/06/26/ody-db/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.958Z" itemprop="datePublished">2022-06-26</time>
 </a>
     
   </div>
@@ -229,395 +283,262 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">title:java虚拟机(JVM)</span><br><span class="line">tags:JVM</span><br></pre></td></tr></table></figure>
+        <h1 id="ody-db"><a href="#ody-db" class="headerlink" title="ody-db"></a>ody-db</h1><h2 id="低代码生成的使用"><a href="#低代码生成的使用" class="headerlink" title="低代码生成的使用"></a>低代码生成的使用</h2><ol>
+<li>点击新建模块旁边的设置配置数据源（数据库）</li>
+<li>pool管理，新增模型</li>
+<li>模型管理，点击新增，选择要生成代码的数据库中的表</li>
+<li>生成低代码</li>
+</ol>
+<h2 id="springboot集成ody-db的配置"><a href="#springboot集成ody-db的配置" class="headerlink" title="springboot集成ody-db的配置"></a>springboot集成ody-db的配置</h2><h5 id="1，导入jar包"><a href="#1，导入jar包" class="headerlink" title="1，导入jar包"></a>1，导入jar包</h5><ul>
+<li>ody-utils：Excels, BeanUtils等各种工具类</li>
+<li>ody-db：基于spring-jdbc, mybatis封装了常用的持久化操作</li>
+<li>ody-project-assist：组件：cache, dict, lock, log等, BaseService模板类</li>
+<li>ody-project-base：从ody-project-support中原base包分离出来, 不依赖ouser-filter，提供BasePO， OdyEntityService 等与业务紧           耦合的基础类</li>
+<li>ody-project-support：依赖ouser-filter，主要提供code, page_info, domain_info, area, switcher及导入导出组件服务</li>
+</ul>
+<h5 id="2，maven依赖"><a href="#2，maven依赖" class="headerlink" title="2，maven依赖"></a>2，maven依赖</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;ody-project-base.version&gt;0.3.0-SNAPSHOT&lt;/ody-project-base.version&gt;</span><br><span class="line">&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.odianyun.util&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;ody-project-base&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;$&#123;ody-project-base.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
-<h1 id="JVM（java虚拟机）"><a href="#JVM（java虚拟机）" class="headerlink" title="JVM（java虚拟机）"></a>JVM（java虚拟机）</h1><p><strong>java：跨平台的语言</strong></p>
-<p><strong>jvm：跨语言的平台</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <ul>
-<li>三种JVM<ul>
-<li>Sun公司：Java HotShop</li>
-<li>BEA ：JRockit</li>
-<li>IBM：J9VM</li>
+<li>&#96;&#96;&#96;<br> package com.odianyun.springboottest.startup.config; <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import com.google.common.collect.ImmutableMap;</span><br><span class="line">import com.google.common.collect.Lists;</span><br><span class="line">import com.odianyun.db.mybatis.MapperFactoryBean;</span><br><span class="line">import com.odianyun.db.mybatis.interceptor.BaseMapperInterceptor;</span><br><span class="line">import com.odianyun.project.support.base.configuration.EnableProjectMapper;</span><br><span class="line">    import com.odianyun.project.support.base.configuration.EnableProjectTx;</span><br><span class="line">    import com.odianyun.util.spring.SpringApplicationContext;</span><br><span class="line">    import org.apache.ibatis.logging.slf4j.Slf4jImpl;</span><br><span class="line">    import org.apache.ibatis.plugin.Interceptor;</span><br><span class="line">import org.mybatis.spring.SqlSessionFactoryBean;</span><br><span class="line">    import org.mybatis.spring.annotation.MapperScan;</span><br><span class="line">    import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;</span><br><span class="line">    import org.springframework.context.annotation.Bean;</span><br><span class="line">    import org.springframework.context.annotation.Configuration;</span><br><span class="line">    import org.springframework.context.annotation.DependsOn;</span><br><span class="line">    import org.springframework.core.io.Resource;</span><br><span class="line">    import org.springframework.core.io.support.PathMatchingResourcePatternResolver;</span><br><span class="line">    import org.springframework.jdbc.datasource.DataSourceTransactionManager;</span><br><span class="line">    import org.springframework.transaction.PlatformTransactionManager;</span><br><span class="line">    import org.springframework.transaction.TransactionDefinition;</span><br><span class="line">    import org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource;</span><br><span class="line">    import org.springframework.transaction.interceptor.RollbackRuleAttribute;</span><br><span class="line">    import org.springframework.transaction.interceptor.RuleBasedTransactionAttribute;</span><br><span class="line">    import org.springframework.transaction.interceptor.TransactionInterceptor;</span><br><span class="line"></span><br><span class="line">    import javax.sql.DataSource;</span><br><span class="line">    import java.util.Arrays;</span><br><span class="line">    import java.util.Collections;</span><br><span class="line">    import java.util.List;</span><br><span class="line">    </span><br><span class="line">    /**</span><br><span class="line">    </span><br><span class="line">     * @description:</span><br><span class="line">    </span><br><span class="line">     * @author: EDZ</span><br><span class="line">    </span><br><span class="line">     * @time: 20:10</span><br><span class="line">    </span><br><span class="line">     * @date: 2021/7/24</span><br><span class="line">       */</span><br><span class="line">       @EnableProjectTx(txAdviceBeanName = &quot;txAdvice&quot;, txInterceptionPackage = &quot;com.odianyun.springboottest.service&quot;, txAdvisorOrder = 2)</span><br><span class="line">       @EnableProjectMapper(datasourceBeanName = &quot;dataSource&quot;, mapperAspectJExpression = &quot;execution(* com.odianyun.springboottest.mapper..*.*(..))&quot;)</span><br><span class="line">       @MapperScan(basePackages = &quot;com.odianyun.springboottest.mapper&quot;, sqlSessionFactoryRef = &quot;sqlSessionFactory&quot;, factoryBean = MapperFactoryBean.class)</span><br><span class="line">       @Configuration</span><br><span class="line">   public class DaoConfig &#123;</span><br><span class="line">    </span><br><span class="line">       @Bean</span><br><span class="line">       public PlatformTransactionManager transactionManager(DataSource dataSource) &#123;</span><br><span class="line">           return new DataSourceTransactionManager(dataSource);</span><br><span class="line">       &#125;</span><br><span class="line">    </span><br><span class="line">       @Bean</span><br><span class="line">   public TransactionInterceptor txAdvice(PlatformTransactionManager transactionManager) &#123;</span><br><span class="line">           NameMatchTransactionAttributeSource source = new NameMatchTransactionAttributeSource();</span><br><span class="line">           RuleBasedTransactionAttribute baseTx = new RuleBasedTransactionAttribute();</span><br><span class="line">       baseTx.setRollbackRules(Collections.singletonList(new RollbackRuleAttribute(Throwable.class)));</span><br><span class="line">           RuleBasedTransactionAttribute requiredTx = new RuleBasedTransactionAttribute(baseTx);</span><br><span class="line">           requiredTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);</span><br><span class="line">       RuleBasedTransactionAttribute requiredNewTx = new RuleBasedTransactionAttribute(baseTx);</span><br><span class="line">           requiredNewTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);</span><br><span class="line">           RuleBasedTransactionAttribute requiredNestedTx = new RuleBasedTransactionAttribute(baseTx);</span><br><span class="line">           requiredNestedTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_NESTED);</span><br><span class="line">           source.setNameMap(ImmutableMap.of(&quot;*WithTx&quot;, requiredTx, &quot;*WithNewTx&quot;, requiredNewTx, &quot;*WithNestedTx&quot;, requiredNestedTx));</span><br><span class="line">           return new TransactionInterceptor(transactionManager, source);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    @DependsOn(&quot;mapperProvider&quot;)</span><br><span class="line">    @Bean</span><br><span class="line">    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws Exception &#123;</span><br><span class="line">        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();</span><br><span class="line">        // datasource</span><br><span class="line">        bean.setDataSource(dataSource);</span><br><span class="line">        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();</span><br><span class="line">        /**</span><br><span class="line">     </span><br><span class="line">       * 自动装配改为手动，mybatis实体类包</span><br><span class="line">          同mybatis.type-aliases-package=com.odianyun.springboottest.model</span><br><span class="line">               */</span><br><span class="line">             bean.setTypeAliasesPackage(&quot;com.odianyun.springboottest.model&quot;);</span><br><span class="line">             List&lt;Resource&gt; resources = Lists.newArrayList();</span><br><span class="line">             /**</span><br><span class="line">            * mybatis mapper.xml</span><br><span class="line">               同mybatis.mapper-locations=classpath:mybatis/mapper/*.xml</span><br><span class="line">                    */</span><br><span class="line">                  resources.addAll(Arrays.asList(resolver.getResources(&quot;classpath:mybatis/mapper/*.xml&quot;)));</span><br><span class="line">                  bean.setMapperLocations(resources.toArray(new Resource[resources.size()]));</span><br><span class="line">     </span><br><span class="line">    ​    org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();</span><br><span class="line">    ​    // 同mybatis-config.xml中配置</span><br><span class="line">    ​    configuration.setMapUnderscoreToCamelCase(true);</span><br><span class="line">    ​    configuration.setLogImpl(Slf4jImpl.class);</span><br><span class="line">    ​    bean.setConfiguration(configuration);</span><br><span class="line">     </span><br><span class="line">    ​    bean.setPlugins(new Interceptor[] &#123;</span><br><span class="line">    //                new MybatisPageInterceptor(),</span><br><span class="line">    ​            new BaseMapperInterceptor()</span><br><span class="line">    ​    &#125;);</span><br><span class="line">     </span><br><span class="line">    ​    return bean;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    @ConditionalOnMissingBean</span><br><span class="line">    @Bean</span><br><span class="line">    public SpringApplicationContext springAppCtx() &#123;</span><br><span class="line">        return new SpringApplicationContext();</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>MessageConfig.java</p>
+<p>package com.odianyun.springboottest.startup.config;</p>
+<p>import javax.validation.Validator;<br>import org.hibernate.validator.HibernateValidator;<br>import org.springframework.context.MessageSource;<br>import org.springframework.context.annotation.Bean;<br>import org.springframework.context.annotation.Configuration;<br>import org.springframework.context.support.ResourceBundleMessageSource;<br>import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;<br>import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;</p>
+<p>@Configuration<br>public class MessageConfig {</p>
+<p>​    @Bean<br>​    public MessageSource localeMessageSource() {<br>​        ResourceBundleMessageSource messageSource &#x3D; buildMessageSource();<br>​        messageSource.setBasenames(“message&#x2F;locale”, “message&#x2F;i18n”);<br>​        return messageSource;<br>​    }<br>​<br>​    @Bean<br>​    public MessageSource validatorMessageSource() {<br>​        ResourceBundleMessageSource messageSource &#x3D; buildMessageSource();<br>​        messageSource.setBasenames(“message&#x2F;ValidationMessages”);<br>​        return messageSource;<br>​    }<br>​<br>​    @Bean<br>​    public Validator validator(MessageSource validatorMessageSource) {<br>​        LocalValidatorFactoryBean factoryBean &#x3D; new LocalValidatorFactoryBean();<br>​        factoryBean.setProviderClass(HibernateValidator.class);<br>​        factoryBean.setValidationMessageSource(validatorMessageSource);<br>​        return factoryBean;<br>​    }<br>​<br>​    @Bean<br>​    public MethodValidationPostProcessor methodValidationPostProcessor(Validator validator) {<br>​        MethodValidationPostProcessor processor &#x3D; new MethodValidationPostProcessor();<br>​        processor.setValidator(validator);<br>​        return processor;<br>​    }<br>​<br>​    private static ResourceBundleMessageSource buildMessageSource() {<br>​        ResourceBundleMessageSource messageSource &#x3D; new ResourceBundleMessageSource();<br>​        messageSource.setUseCodeAsDefaultMessage(false);<br>​        messageSource.setDefaultEncoding(“UTF-8”);<br>​        return messageSource;<br>​    }<br>}<br> &#96;&#96;&#96;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/ody-db/" data-id="cl4ve2jo0000jw0gv2gckaf6m" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Nginx" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/Nginx/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.958Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><h3 id="Nginx的基本概念"><a href="#Nginx的基本概念" class="headerlink" title="Nginx的基本概念"></a>Nginx的基本概念</h3><ul>
+<li><p>概念</p>
+<p>Nginx是一个高性能的HTTP和反向代理服务器，特点是占有内存小，并发能力强，事实上Nginx在并发能力确实在同类型的网页服务器中表现较好</p>
+<p>Nginx的专门为性能优化而开发的，性能是最重要的考量</p>
+</li>
+<li><p><strong>反向代理</strong></p>
+<ul>
+<li><strong>正向代理</strong>：如果把局域网外的Internet想象成一个巨大的资源库，则局域网中的客户端要访问internet，则需要通过代理服务器来实现，而这个代理服务就称为正向代理</li>
+<li><strong>反向代理</strong>：其实客户端对代理服务器是无感知的，因为客户端不需要做任何的配置就可以访问，我们只需要将请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴露的是代理服务器的地址，隐藏的是目标服务器的IP地址</li>
 </ul>
 </li>
-</ul>
-<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><ul>
-<li>概念：就是一台虚拟的计算机。它是一款软件，用来执行一系列虚拟计算机指令。大体上可分为系统虚拟机（如：VMware）和程序虚拟机（JVM）</li>
-<li>java虚拟机是一台用于执行java字节码的虚拟计算机，它拥有独立的运行机制，其运行的java字节码也未必由java语言编译而成</li>
-<li>java技术的核心就是java虚拟机</li>
-</ul>
-<p><strong>特点：</strong></p>
-<ul>
-<li>一次编译，多处运行</li>
-<li>自动内存管理</li>
-<li>自动垃圾回收功能</li>
-</ul>
-<p><strong>JVM是运行在操作系统上的， 与硬件没有直接的交互</strong></p>
-<p>JVM的整体结构：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211128135252574.png" alt="image-20211128135252574"></p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211128135653464.png" alt="image-20211128135653464"></p>
-<p>java程序执行流程：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211128140444203.png" alt="image-20211128140444203"> </p>
-<h3 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h3><p>主要是在方法区和堆进行调优，java栈、本地方法栈和程序计数器中不会出现垃圾回收</p>
-<h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h3><ul>
-<li><p>JVM提供了ClassLoader</p>
-<ul>
-<li><strong>Bootstrap classLoader</strong>:主要负责加载核心的类库(java.lang.*等)，构造ExtClassLoader和APPClassLoader</li>
-<li><strong>ExtClassLoader</strong>：主要负责加载jre&#x2F;lib&#x2F;ext目录下的一些扩展的jar</li>
-<li><strong>AppClassLoader</strong>：主要负责加载应用程序的主函数类</li>
-</ul>
+<li><p><strong>负载均衡</strong></p>
+<p>当客户端的请求量比较大，单个服务器难以处理，我们增加服务器的数量，然后将请求分发到各个服务器上，将原先的请求集中到单个服务器上的情况改为将请求分发到多个服务器上，将负载分发到多个服务器上，这就是负载均衡</p>
 </li>
-<li><p>作用：加载class文件</p>
+<li><p><strong>动静分离</strong></p>
+<p>为了加快网站的解析速度，可以把动态页面和静态页面由不同的服务器来解析，加快解析速度，降低原来单个服务器的压力</p>
 </li>
-<li><p><strong>加载过程</strong></p>
+</ul>
+<h3 id="Nginx的安装，常用命令和配置文件"><a href="#Nginx的安装，常用命令和配置文件" class="headerlink" title="Nginx的安装，常用命令和配置文件"></a>Nginx的安装，常用命令和配置文件</h3><ul>
+<li><p>linux中安装Nginx</p>
 <ul>
-<li>类加载器收到类加载的请求（Application）</li>
-<li>将这个请求向上委托给父类加载器去完成，一直向上委托了，直到启动类加载器（BOOT）</li>
-<li>启动加载器检查是否能加载当前的这个类，能加载就结束，并使用当前类加载器，否则，抛出异常，通知子加载器进行加载</li>
-<li>Class not found</li>
-</ul>
-</li>
-<li><h6 id=""><a href="#" class="headerlink" title=""></a><img src="https://img-blog.csdnimg.cn/2020121722082798.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NvZGV5YW5iYW8=,size_16,color_FFFFFF,t_70" alt="img"></h6></li>
-</ul>
-<h3 id="双亲委派机制（类加载机制）"><a href="#双亲委派机制（类加载机制）" class="headerlink" title="双亲委派机制（类加载机制）"></a>双亲委派机制（类加载机制）</h3><p>​		当一个Hello.class这样的文件要被加载时。不考虑我们自定义类加载器，首先会在AppClassLoader中检查是否加载过，如果有那就无需再加载了。如果没有，那么会拿到父加载器，然后调用父加载器的loadClass方法。父类中同理也会先检查自己是否已经加载过，如果没有再往上。注意这个类似递归的过程，直到到达Bootstrap classLoader之前，都是在检查是否加载过，并不会选择自己去加载。直到BootstrapClassLoader，已经没有父加载器了，这时候开始考虑自己是否能加载了，如果自己无法加载，会下沉到子加载器去加载，一直到最底层，如果没有任何加载器能加载，就会抛出ClassNotFoundException</p>
-<p>作用：为了安全，一定程度上防止的危险代码的植入，防止有人恶意篡改系统级别的类</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211128150615195.png" alt="image-20211128150615195"></p>
-<p><strong>new一个对象所发生的一系列事情：</strong></p>
+<li><p>第一步：</p>
+<p>安装pcre：</p>
 <ol>
-<li>new student（）</li>
-<li>类加载器加载<ul>
-<li>加载：由类加载器负责根据一个类的全限定名来读取此类的二进制字节流到JVM内部，并存储在运行时内存区的方法区，然后将其转换为一个与目标类型对应的java.lang.Class对象实例</li>
-<li>验证：验证是否符合class文件规范</li>
-<li>准备：为类中的所有静态变量分配内存空间，并为其设置一个初始值（由于还没有产生对象，实例变量不在此操作范围内），被final修饰的static变量（常量），会直接赋值；</li>
-<li>初始化：先父后子<ul>
-<li>为静态变量赋值</li>
-<li>执行static代码块（static代码块只有jvm能够调用）</li>
+<li>wget <a target="_blank" rel="noopener" href="http://downloads.sourceforge.net/project/pcre/pcre/8.37/pcre-8.37.tar.gz">http://downloads.sourceforge.net/project/pcre/pcre/8.37/pcre-8.37.tar.gz</a>  &#x2F;&#x2F;下载压缩包</li>
+<li>解压压缩包</li>
+<li>进入解压后的目录，分别执行 ：. &#x2F;configure   和  make &amp;&amp; make install  两个命令</li>
+</ol>
+</li>
+<li><p>第二步：安装OpenSSL</p>
+</li>
+<li><p>第三步：安装zlib</p>
+<p>yum install -y make zlib zlib-devel gcc-c++ libtool openssl openssl-devel</p>
+</li>
+<li><p>第四步：安装Nginx</p>
+<ol>
+<li>下载Nginx的压缩包</li>
+<li>解压</li>
+<li>进入解压后的目录，分别执行 ：. &#x2F;configure   和  make &amp;&amp; make install  两个命令</li>
+<li>安装成功后，usr&#x2F;local目录下会有一个名为nginx的目录，nginx &#x2F;sbin下有Nginx的执行脚本</li>
+</ol>
+</li>
+<li><p>添加防火墙开放端口</p>
+<ul>
+<li>查看开放端口：firewall-cmd –list-all</li>
+<li>添加端口：firewall-cmd –add-port&#x3D;80&#x2F;tcp –permanent</li>
+<li>重启防火墙：firewall-cmd –reload</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>创建对象<ul>
-<li>在堆内分配对象所需要的内存</li>
-<li>对所有实例变量赋默认值</li>
-<li>执行实例初始化代码，先执行实例代码，然后执行构造方法，建立引用关系</li>
+<li><p>Nginx的常用命令</p>
+<p>使用nginx命令时，必须进入到nginx的目录下，&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin</p>
+<ul>
+<li><p>查看nginx的版本号</p>
+<p>.&#x2F;nginx -v</p>
+</li>
+<li><p>启动nginx</p>
+<p>.&#x2F;nginx</p>
+</li>
+<li><p>关闭nginx</p>
+<p>.&#x2F;nginx -s stop</p>
+</li>
+<li><p>重新加载nginx</p>
+<p>.&#x2F;nginx -s reload</p>
+</li>
 </ul>
+</li>
+<li><p>Nginx的配置文件</p>
+<p>位置：&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;nginx.conf</p>
+<p>分析：</p>
+<ul>
+<li><p>全局块：从开始到events之间的内容</p>
+<p>如：worker——processes    1；值越大，可以支持的并发处理量就越大，但是会受到硬件的限制 </p>
+</li>
+<li><p>events块：主要影响nginx服务器与用户的网络连接</p>
+</li>
+<li><p>http块：</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="配置实例"><a href="#配置实例" class="headerlink" title="配置实例"></a>配置实例</h2><h4 id="反向代理实例："><a href="#反向代理实例：" class="headerlink" title="反向代理实例："></a><strong>反向代理实例：</strong></h4><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210810173120232.png" alt="image-20210810173120232"></p>
+<ol>
+<li><p>修改hosts文件配置域名：</p>
+<p>以本机为反向代理服务器</p>
 </li>
 </ol>
-<h3 id="沙箱安全机制"><a href="#沙箱安全机制" class="headerlink" title="沙箱安全机制"></a>沙箱安全机制</h3><p>组成沙箱的基本组件</p>
-<ul>
-<li><p>字节码校验器：确保java类文件遵循java语言规范。可以帮助java实现内存保护。但不是所有的类文件都会经过字节码校验，比如核心类</p>
-</li>
-<li><p>类加载器：在三个方面对沙箱起作用：</p>
-<ul>
-<li>防止恶意的代码去干涉善意的代码</li>
-<li>守护了被信任的类库边界</li>
-<li>将代码归入保护域，确定了代码可以进行那些操作</li>
-</ul>
-<p>虚拟机为不同的类加载器载入的类提供不同的命名空间，命名空间由一系列唯一的名称组成，每个被装载的类都将有一个名字，这个命名空间是由java虚拟机为每一个类加载器维护的，它们之间甚至不可见</p>
-</li>
-<li><p>存取控制器：存取控制器可以控制核心API对操作系统的存取权限，而这个控制策略的设定，可以由用户指定</p>
-</li>
-<li><p>安全管理器：是核心API和操作系统之间的主要接口，实现权限控制，比存取控制器优先级高</p>
-</li>
-<li><p>安全软件包：java.security下的类和扩展包下的类，允许用户为自己的应用增加新的安全特性，包括：</p>
-<ul>
-<li>安全提供者</li>
-<li>消息摘要</li>
-<li>数字签名</li>
-<li>加密</li>
-<li>鉴别</li>
-</ul>
-</li>
-</ul>
-<h3 id="native关键字"><a href="#native关键字" class="headerlink" title="native关键字"></a>native关键字</h3><p>凡是带了native关键字的方法，说明Java的作用范围无法实现了，需要调用底层C语言的库，会进入本地方法栈（Native Method Strack），随后调用本地方法接口（Java Native Interface，简称：JNI）</p>
-<ul>
-<li>本地方法接口（Java Native Interface，简称：JNI）的作用：扩展java的使用，融合不同的编程语言为java所用</li>
-<li>产生背景：java诞生之初，c语言和c++横行，所以想要立足，就必须能融合c和c++，最初JNI就用于扩展c和c++为java所用</li>
-<li>在内存区域中，专门开辟了一块标记区域：本地方法栈（Native Method Strack），登记native关键字的方法，最终执行的时候，通过JNI加载本地方法库中的方法</li>
-</ul>
-<h3 id="PC寄存器（Program-Counter-Register）"><a href="#PC寄存器（Program-Counter-Register）" class="headerlink" title="PC寄存器（Program Counter Register）"></a>PC寄存器（Program Counter Register）</h3><p>又称程序计数器</p>
-<p>每个线程都有一个程序计数器，是线程私有的，就是一个指针，指向方法区中的方法字节码（用于存贮指向一条指令的地址，也就是将要执行的指令代码），在执行引擎读取下一条指令，是一个非常狭小的内存空间，几乎可以忽略不计</p>
-<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>Method Area</p>
-<p>​		是被所有线程共享的，所有字段和方法字节码，以及一些特殊方法，如构造函数、接口代码也在这里定义，简单说，所有定义的方法的信息都保存在该区域，属于共享空间；</p>
-<p>​		静态方法、常量、类信息（构造方法、接口定义）、运行时的常量池存在方法区中，但是实例变量存在堆内存中，和方法区无关</p>
-<p>static、class、final、常量池</p>
-<h3 id="JVM内存"><a href="#JVM内存" class="headerlink" title="JVM内存"></a>JVM内存</h3><p>运行时数据区Runable Date area</p>
-<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈是运行时的单位，</p>
-<ul>
-<li>程序&#x3D;算法+数据结构</li>
-<li>栈：先进后出，后进先出</li>
-<li>队列：先进先出（FIFO）</li>
-<li>主管程序的运行、生命周期和线程同步，线程结束后，则栈内存也会释放，所以对于栈不存在垃圾回收</li>
-<li>主要存储：8大基本类型、对象引用、实例的方法<ul>
-<li>栈运行原理：栈帧，每个方法在执行时都会创建一个栈帧用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每个方法从调用到执行结束，就对应着一个栈帧从虚拟机栈中入栈到出栈的过程</li>
-<li>局部变量表：存放了编译器可知的各种基本类型(boolean、byte、char、short、int、float、long、double)、对象引用(reference 类型)和 returnAddress 类型(指向了一条字节码指令的地址)</li>
-</ul>
-</li>
-<li>栈满：StackOverFlowErorr</li>
-</ul>
-<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>Heap</p>
-<p>堆是存储时的单位，主要存放对象实例和数组</p>
-<p>内存划分：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211129222840327.png" alt="image-20211129222840327"></p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211202153633679.png" alt="image-20211202153633679"></p>
-<ul>
-<li><p>一个JVM只有一个堆内存，且堆内存是可以调节的</p>
-</li>
-<li><p>堆内存的用途：存放的是对象，垃圾收集器就是收集这些对象，然后根据GC算法回收</p>
-</li>
-<li><p>堆内存中划分</p>
-<ul>
-<li><p>年轻代</p>
-<ul>
-<li>新生区（Eden区）</li>
-<li>幸存区（谁空谁是to）<ul>
-<li>FromSpace </li>
-<li>ToSpace</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>老年代</p>
-<p>Java7及以前将堆空间逻辑上分成三部分：新生区+养老区+永久代</p>
-</li>
-</ul>
-<p>　　Java8及以后将堆内存逻辑上分为：新生区+养老区+元空间（逻辑上存在，物理上不存在）</p>
-</li>
-<li><p>GC垃圾回收主要在新生区和养老区，假如内存满了，会报<strong>OOM错误</strong>（java.lang.OutOfMemory）</p>
-</li>
-<li><p>java1.8废除了永久代，替代的是<strong>元空间</strong>，元空间和永久代类似，都是方法区的实现，最大的区别是：<strong>元空间并不在JVM中</strong>，而是使用本地内存</p>
-<ul>
-<li>元空间有两个参数：<ul>
-<li><strong>MetaspaceSize</strong> ：初始化元空间大小，控制发生GC阈值</li>
-<li><strong>MaxMetaspaceSize</strong> ： 限制元空间大小上限，防止异常占用过多物理内存</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>移除永久代的原因</strong>：</p>
-<ul>
-<li>为融合HotSpot JVM与JRockit VM（新JVM技术）而做出的改变，因为JRockit没有永久代</li>
-<li>有了元空间就不会出现永久代OOM问题（内存溢出）问题了</li>
-</ul>
-</li>
-<li><p><strong>堆内存溢出（OOM）的原因</strong></p>
-<p>在新生代中经过GC后还存活的对象会被复制到老年代中。当老年代空间不足时，JVM会对老年代进行完全的垃圾回收。如果GC后还是无法存放从幸存区（survivor区）复制过来的对象，就会出现OOM（OutOfMemory）</p>
-<p><strong>解决方案：</strong></p>
-<ul>
-<li><p>先尝试将堆内存扩大，再次运行看结果</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xms1024m -Xmx1024m -XX:+PrintGCDetail</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>扩大内存无法解决则需要分析内存占用情况，找问题原因</p>
-<p>使用内存快照分析工具：Jprofiler、MAT</p>
-<p>内存快照分析工具作用</p>
-<ul>
-<li>分析Dump内存文件，快速定位内存泄露</li>
-<li>分析堆中的数据</li>
-<li>获得大的对象</li>
-</ul>
-<p>使用方法：</p>
-<ul>
-<li><p>IDEA安装Jprofiler插件，重启IDEA</p>
-</li>
-<li><p>安装Jprofiler客户端工具，下载：<a target="_blank" rel="noopener" href="https://www.ej-technologies.com/download/jprofiler/files">https://www.ej-technologies.com/download/jprofiler/files</a></p>
-</li>
-<li><p>IDEA配置：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211202163901504.png" alt="image-20211202163901504"></p>
-</li>
-<li><p>配置JVM参数：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211202164010355.png" alt="image-20211202164010355"></p>
-</li>
-<li><p>程序代码：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211202164041124.png" alt="image-20211202164041124"></p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>代码分析</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">BirthDate</span><span class="params">(<span class="type">int</span> d, <span class="type">int</span> m, <span class="type">int</span> y)</span>&#123;</span><br><span class="line">    day =d;</span><br><span class="line">    mouth=m;</span><br><span class="line">    year=y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">BirthDate</span> <span class="variable">bir</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BirthDate</span>(<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>);</span><br></pre></td></tr></table></figure>
-
-<p>代码中bir为对象引用，存在栈中；</p>
-<p>对象new BirthDate（）存在堆中</p>
-<p>d&#x3D;7,m&#x3D;8,y&#x3D;9为局部变量且数据类型为基本数据类型，所以变量和值都存储在栈中</p>
-<p>day，mouth，year为BirthDate的成员变量，它们存储在堆中存储的new BirthDate（）对象中</p>
-<h3 id="垃圾回收机制（GC）"><a href="#垃圾回收机制（GC）" class="headerlink" title="垃圾回收机制（GC）"></a>垃圾回收机制（GC）</h3><ul>
-<li><p>垃圾回收作用范围：堆和方法区</p>
-</li>
-<li><p>垃圾回收的两种类型：轻GC（普通的GC）、重GC（全局的GC）</p>
-</li>
-<li><p><strong>垃圾</strong>：在堆中存在，但是不可能再被任何途径使用的对象</p>
-<ul>
-<li><p>垃圾判断算法</p>
-<ul>
-<li><strong>引用判断法</strong>：为对象添加一个引用计数器，当对象增加一个引用时计数器加 1，引用失效时计数器减 1。引用计数为 0 的对象可被回收。</li>
-<li><strong>可达性分析法</strong>：以 <code>GC Roots</code> 为起始点进行搜索，可达的对象都是存活的，不可达的对象可被回收。</li>
-</ul>
-</li>
-<li><p>GC root中包含的东西</p>
-<ul>
-<li>虚拟机栈空间中非静态变量表中引用的对象</li>
-<li>本地方法栈中 <code>JNI</code> 中引用的对象</li>
-<li>方法区中静态变量引用的对象</li>
-<li>方法区中的常量引用的对象</li>
-</ul>
-</li>
-<li><p>垃圾回收算法</p>
-<ul>
-<li><strong>复制算法</strong>：</li>
-<li><strong>标记清除算法</strong>：扫描所有的对象，将需要存活的对象进行标记，然后清除没有标记的对象<ul>
-<li>优点：不需要额外的空间</li>
-<li>缺点：两次扫描会严重浪费时间，会产生内存碎片</li>
-</ul>
-</li>
-<li><strong>标记压缩算法</strong>：防止产生内存碎片，再次扫描，向一端移动存活的对象，标记—清除—压缩</li>
-</ul>
-</li>
-<li><p>常用的<strong>垃圾收集器</strong></p>
-<ul>
-<li><strong>serial</strong>：年轻代单线程串行垃圾收集器</li>
-<li><strong>CMS</strong>：老年代多线程并行垃圾收集器</li>
-</ul>
-</li>
-<li><p>垃圾回收器可以马上回收内存么？</p>
-<ul>
-<li><p>垃圾回收器不会马上释放内存空间，而是在某个对象被标记为垃圾之后的下一次GC时才会对内存空间进行释放。</p>
-<p>我们可以手动执行<code>System.gc()</code>，通知虚拟机进行GC，但是Java语言规范并不保证GC一定会执行。</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>总结：</p>
-<ul>
-<li><p>算法对比</p>
-<ul>
-<li>内存效率：复制算法&gt;标记清除算法&gt;标记压缩算法（时间复杂度）</li>
-<li>内存整齐度：复制算法&#x3D;标记压缩算法&gt;标记清除算法</li>
-<li>内存利用率：标记压缩算法&#x3D;标记清除算法&gt;复制算法</li>
-</ul>
-</li>
-<li><p>没有最优的算法，只有最合适的算法</p>
-<p>年轻代：</p>
-<ul>
-<li>存活率低</li>
-<li>复制算法</li>
-</ul>
-<p>老年代</p>
-<ul>
-<li>区域大，存活率高</li>
-<li>标记清除+标记压缩（多次标记清楚，一次压缩）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/JVM%EF%BC%88java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%89/" data-id="cl4vd9h1t0001ssgvcj47dk0l" data-title="" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-easyBI的使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/06/26/easyBI%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
-  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="easyBI的使用"><a href="#easyBI的使用" class="headerlink" title="easyBI的使用"></a>easyBI的使用</h1><p>Dashboards：对报表进行分类</p>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
-<li><p>source Data：新建source application——-SQL</p>
-</li>
-<li><p>复制视图的SQL语句粘贴到</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210817203847333.png" alt="image-20210817203847333"></p>
-</li>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210810174450799.png" alt="image-20210810174450799"></p>
+<p>修改hosts文件无权限？</p>
+<p>左上角文件—以管理员身份运行powershell—notepad +文件名</p>
+<p>   2.在nginx中进行请求转发的配置</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210810175727523.png" alt="image-20210810175727523"></p>
+<ol start="3">
 <li></li>
 </ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/easyBI%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="cl4vd9h1w0002ssgv7txv66nf" data-title="" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Jekins" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/06/26/Jekins/" class="article-date">
-  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h1><h3 id="持续部署"><a href="#持续部署" class="headerlink" title="持续部署"></a>持续部署</h3><p>关注点在于项目功能部署至服务器后能正常运行，项目push到git后能立马通过钩子程序通知Jenkins进行部署</p>
-<h3 id="持续集成"><a href="#持续集成" class="headerlink" title="持续集成"></a>持续集成</h3><p>各个小组分别负责各个模块的具体开发，各个模块独立测试时虽然能正常运行，但整合到一块后一起集成测试却出现很多问题，持续集成就是经常性的、频繁的把所有模块集成在一起测试，有问题尽早发现</p>
-<p>关注点；尽早发现项目整体运行的问题，尽早解决</p>
-<h3 id="持续交付"><a href="#持续交付" class="headerlink" title="持续交付"></a>持续交付</h3><p>面向用户，持续交付的关注点在于研发团队的最新代码能尽快的让用户体验到 </p>
-<p>优点：</p>
-<ul>
-<li>减少风险</li>
-<li>减少重复过程</li>
-<li>任何时间、任何地点生成可部署的软件</li>
-<li>增强项目的可见性</li>
-<li>建立团队对开发产品的信息</li>
-</ul>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210810103412650.png"></p>
-<h4 id="jenkins使用"><a href="#jenkins使用" class="headerlink" title="**jenkins使用"></a>**jenkins使用</h4><p>将Jenkins的war包放在tomcat服务器的webApp目录下</p>
-<p>启动tomcat，使用网址192.168.10.100:8080&#x2F;Jenkins即可访问Jenkins</p>
-<p>使用：</p>
-<ul>
-<li>全局安全配置：允许用户注册</li>
-<li>授权策略：任何用户可以做任何事（学习时使用）</li>
-<li>全局工具配置：指定maven的setting.xml文件位置、指定jdk路径、指定maven路径</li>
-<li>安装插件Deploy to Co ntainer</li>
-</ul>
-<p>配置步骤：</p>
-<p><strong>git上配置钩子程序，实现每次push到git后立马可以在Jenkins中构建项目</strong></p>
-<p>1. </p>
-<p>忘记用户名密码？</p>
-<p>进入用户目录下.jenkins&#x2F;config.xml  ，改为false，然后咋在Jenkins中修改密码</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210904162347498.png" alt="image-20210904162347498"></p>
-<h2 id="linux下配置jenkins"><a href="#linux下配置jenkins" class="headerlink" title="linux下配置jenkins"></a>linux下配置jenkins</h2><ol>
-<li>下载jenkins.war包</li>
-<li>运行jenkins，java -jar jenkins.war</li>
-<li>登录jenkins：服务器地址：8080</li>
-<li>git版本过低</li>
+<h4 id="负载均衡实例："><a href="#负载均衡实例：" class="headerlink" title="负载均衡实例："></a><strong>负载均衡实例：</strong></h4><ol>
+<li>准备两台tomcat服务器，tomcat的webapp下准备相同的文件</li>
+<li>在nginx的配置文件下做如下配置</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="http://10.10.0.153:8080//job/test3/build?token=token_ims">http://10.10.0.153:8080//job/test3/build?token=token_ims</a></p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210810210435735.png"></p>
+<h4 id="动静分离配置实例"><a href="#动静分离配置实例" class="headerlink" title="动静分离配置实例"></a>动静分离配置实例</h4><p>通过location指定不同的后缀名实现不同的请求转发。通过expires参数设置，可以使浏览器缓存过期时间，减少与服务器之间的请求和流量</p>
+<p>步骤：</p>
+<ol>
+<li><p>准备静态资源，在根目录下创建文件夹</p>
+<ol>
+<li><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210810213929007.png" alt="image-20210810213929007"></p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210810213949408.png" alt="image-20210810213949408"></p>
+</li>
+</ol>
+</li>
+<li><p>在nginx配置文件中配置静态资源访问：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210810214200977.png" alt="image-20210810214200977"></p>
+</li>
+<li><p>测试访问</p>
+</li>
+</ol>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210810214253811.png" alt="image-20210810214253811"></p>
+<h3 id="遇到的问题和解决方案："><a href="#遇到的问题和解决方案：" class="headerlink" title="遇到的问题和解决方案："></a>遇到的问题和解决方案：</h3><h5 id="linux解压文件："><a href="#linux解压文件：" class="headerlink" title="linux解压文件："></a><strong>linux解压文件：</strong></h5><ul>
+<li>tar文件：tar -xvf +目标文件 </li>
+<li>zip文件：<ul>
+<li>先安装unzip服务:yum install -y unzip</li>
+<li>unzip +目标文件</li>
+</ul>
+</li>
+</ul>
+<h5 id="linux启动tomcat权限不够时："><a href="#linux启动tomcat权限不够时：" class="headerlink" title="linux启动tomcat权限不够时："></a><strong>linux启动tomcat权限不够时：</strong></h5><p>​	1、先进入bin目录,执行chmod u+x *.sh</p>
+<p>​	2、在bin命令行重启应用服务: .&#x2F;startup.sh</p>
+<p>​	3、问题解决</p>
+<h5 id="jenkins提示反向代理设置有误"><a href="#jenkins提示反向代理设置有误" class="headerlink" title="jenkins提示反向代理设置有误"></a>jenkins提示反向代理设置有误</h5><p>​	解决：系统管理–&gt;系统设置里的Jenkins URL和端口没有写对，纠正就可以</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/Jekins/" data-id="cl4vd9h1x0003ssgvb72scrab" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/Nginx/" data-id="cl4ve2jo2000kw0gvd6fnenwx" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -629,10 +550,10 @@
 
 
   
-    <article id="post-kettle" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-PMO权限设计" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/06/26/kettle/" class="article-date">
-  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
+    <a href="/2022/06/26/PMO%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.958Z" itemprop="datePublished">2022-06-26</time>
 </a>
     
   </div>
@@ -641,69 +562,11 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="kettle"><a href="#kettle" class="headerlink" title="kettle"></a>kettle</h1><p>kettle是一款开源的ETL 工具，纯java编写，可以在windows，linux、Unix上运行，绿色无需安装，数据抽取高效稳定</p>
-<p>工程存储方式：</p>
-<ul>
-<li><p>kettle的两种设计：Transformation（转化）：完成针对数据的基础转换</p>
-</li>
-<li><p>Job（作业）：完成对整个工作流的控制 </p>
-<p>区别：</p>
-<ul>
-<li>作业是步骤流，转换是数据流，这是作业和转换最大的区别</li>
-<li>作业的每一个步骤，必须等到前面的步骤都跑完了，后面的步骤才会执行，而转换会 一次性把所有空间全部先启动（一个控件对应启动一个线程），然后数据流会从第一个控件开始，一条记录一条记录地流向最后的控件</li>
-<li><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210816144959990.png" alt="image-20210816144959990"></li>
-</ul>
-</li>
-</ul>
-<p>案例一：两个表之间的插入和更新:</p>
-<ul>
-<li>注意事项：<ul>
-<li>用来查询的字段只能是两个表里共同有的字段</li>
-</ul>
-</li>
-</ul>
-<h3 id="windows下使用kettle："><a href="#windows下使用kettle：" class="headerlink" title="windows下使用kettle："></a>windows下使用kettle：</h3><p>安装：</p>
-<ul>
-<li>安装JDK</li>
-<li>kettle安装包上传到linux，解压</li>
-<li>将mysql驱动拷贝到lib下</li>
-<li>运行</li>
-</ul>
-<h3 id="Linux下使用kettle："><a href="#Linux下使用kettle：" class="headerlink" title="Linux下使用kettle："></a>Linux下使用kettle：</h3><ul>
-<li>运行数据资源库中的转换 :  .&#x2F;pan.sh -rep&#x3D;my_repo -user&#x3D;admin -pass&#x3D;admin -trans&#x3D;stu1tostu2 -dir&#x3D;&#x2F;<ul>
-<li>-rep：资源库名</li>
-<li>-user：用户名</li>
-<li>-pass：密码</li>
-<li>-tran：转换名</li>
-<li>-dir：要运行的转换所在的目录</li>
-</ul>
-</li>
-<li>运行数据资源库中的作业： .&#x2F;pan.sh -rep&#x3D;my_repo -user&#x3D;admin -pass&#x3D;admin -job&#x3D;job1 -logfile&#x3D;.&#x2F;logs&#x2F;log.txt -dir&#x3D;&#x2F;<ul>
-<li>-job：作业名</li>
-<li>-log：日志目录</li>
-</ul>
-</li>
-</ul>
-<p>后台运行job：nohup  .&#x2F;kitchen.sh -file&#x3D;&#x2F;usr&#x2F;softwares&#x2F;kettle&#x2F;job&#x2F;发送邮件.kjb &amp;</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget  ftp://ftp.pbone.net/mirror/ftp5.gwdg.de/pub/opensuse/repositories/home:/matthewdva:/build:/EPEL:/el7/RHEL_7/x86_64/webkitgtk-2.4.9-1.el7.x86_64.rpm </span><br><span class="line"></span><br><span class="line">yum install webkitgtk-2.4.9-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
-
-<p>参数参考：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210816175538583.png" alt="image-20210816175538583"></p>
-<h3 id="多表级联："><a href="#多表级联：" class="headerlink" title="多表级联："></a>多表级联：</h3><p>将一个数据库student中的stu1，stu2，stuinfo的信息集中到数据库b中的表stu_item上：</p>
-<ul>
-<li>新建一个转换</li>
-<li>建立数据库连接，连接数据库a和数据库b</li>
-<li>新建一个表输入</li>
-<li>编辑数据输入源，双击表输入</li>
-</ul>
-<h3 id="kettle发送邮件邮件主题表格显示"><a href="#kettle发送邮件邮件主题表格显示" class="headerlink" title="kettle发送邮件邮件主题表格显示"></a>kettle发送邮件邮件主题表格显示</h3><p>SQL语句嵌套HTML查询——&gt;设置查询数据为一个变量——&gt;在邮件内容中使用变量</p>
-<p>注意：如果查询出来的数据不完整，需要修改数据库的配置文件，配置文件中添加以下内容</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210904163119109.png" alt="image-20210904163119109"></p>
-
+        <h1 id="PMO权限设计"><a href="#PMO权限设计" class="headerlink" title="PMO权限设计"></a>PMO权限设计</h1>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/kettle/" data-id="cl4vd9h200005ssgvbska56e2" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/PMO%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/" data-id="cl4ve2jo6000mw0gvhg02hgb9" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -715,10 +578,10 @@
 
 
   
-    <article id="post-layUI" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-MyBatis_plus" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/06/26/layUI/" class="article-date">
-  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
+    <a href="/2022/06/26/MyBatis_plus/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.949Z" itemprop="datePublished">2022-06-26</time>
 </a>
     
   </div>
@@ -727,22 +590,26 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="layUI"><a href="#layUI" class="headerlink" title="layUI"></a>layUI</h1><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
-<li>下载layui：<a target="_blank" rel="noopener" href="https://www.layuiweb.com/index.htm">https://www.layuiweb.com/index.htm</a></li>
-</ul>
-<p>使用某个模块的实现步骤：</p>
-<ul>
-<li><p>引入资源（css）</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;layui-v2.5.6/layui/css/layui.css&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;layui-v2.5.6/layui/layui.js&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <h1 id="MyBatis-plus"><a href="#MyBatis-plus" class="headerlink" title="MyBatis-plus"></a>MyBatis-plus</h1><h3 id="1、使用"><a href="#1、使用" class="headerlink" title="1、使用"></a>1、使用</h3><ul>
+<li><p>添加依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：尽量不要同时导入mybatis和mybatis-plus，只导入mybatis-plus即可</p>
 </li>
-<li><p>加载依赖模块</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 导航 依赖element模块,否则无法进行功能性操作    </span></span></span><br><span class="line"><span class="language-javascript">    layui.<span class="title function_">use</span>(<span class="string">&#x27;element&#x27;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;        </span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> element = layui.<span class="property">element</span>;    </span></span><br><span class="line"><span class="language-javascript">    &#125;);					</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>mapper层继承baseMapper，baseMapper已经实现了常用的增删改查接口</p>
+</li>
 </ul>
+<h3 id="2、配置日志"><a href="#2、配置日志" class="headerlink" title="2、配置日志"></a>2、配置日志</h3><p>application.propertys：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210904180100772.png" alt="image-20210904180100772"></p>
+<h3 id="3、分页查询实现"><a href="#3、分页查询实现" class="headerlink" title="3、分页查询实现"></a>3、分页查询实现</h3><ol>
+<li><p>配置分页插件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> MybatisPlusInterceptor <span class="title function_">mybatisPlusInterceptor</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">MybatisPlusInterceptor</span> <span class="variable">interceptor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MybatisPlusInterceptor</span>();</span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> <span class="title class_">PaginationInnerInterceptor</span>(DbType.H2));</span><br><span class="line">        <span class="keyword">return</span> interceptor;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/layUI/" data-id="cl4vd9h210006ssgv4do94rpt" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/MyBatis_plus/" data-id="cl4ve2jmy000gw0gv1m235fjp" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -754,10 +621,10 @@
 
 
   
-    <article id="post-linux" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-MySQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/06/26/linux/" class="article-date">
-  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
+    <a href="/2022/06/26/MySQL/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.949Z" itemprop="datePublished">2022-06-26</time>
 </a>
     
   </div>
@@ -766,57 +633,20 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h3 id="安装mysql服务"><a href="#安装mysql服务" class="headerlink" title="安装mysql服务"></a>安装mysql服务</h3><ul>
-<li><p>下载mysql压缩包：地址：<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/5.7.html#downloads">https://dev.mysql.com/downloads/mysql/5.7.html#downloads</a></p>
-</li>
-<li><p>解压：tar -xvf mysql-5.7.26-linux-glibc2.12-x86_64.tar</p>
-</li>
-<li><p>移动并重命名：mv mysql-5.7.26-linux-glibc2.12-x86_64 &#x2F;usr&#x2F;local&#x2F;mysql</p>
-</li>
-<li><p>创建mysql用户组和用户并修改权限</p>
-<p>groupadd mysql<br>useradd -r -g mysql mysql</p>
-</li>
-<li><p>创建数据目录并赋予权限</p>
-<p>mkdir -p  &#x2F;data&#x2F;mysql              #创建目录<br>chown mysql:mysql -R &#x2F;data&#x2F;mysql   #赋予权限</p>
-</li>
-<li><p>配置my.cnf</p>
-<p>vim &#x2F;etc&#x2F;my.cnf</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">bind-address=0.0.0.0</span><br><span class="line">port=3306</span><br><span class="line">user=mysql</span><br><span class="line">basedir=/usr/local/mysql //安装目录</span><br><span class="line">datadir=/data/mysql //数据目录</span><br><span class="line">socket=/tmp/mysql.sock</span><br><span class="line">log-error=/data/mysql/mysql.err</span><br><span class="line">pid-file=/data/mysql/mysql.pid</span><br><span class="line">#character config</span><br><span class="line">character_set_server=utf8mb4</span><br><span class="line">symbolic-links=0</span><br><span class="line">explicit_defaults_for_timestamp=true</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>初始化数据库</p>
-<p>cd &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin&#x2F;</p>
-<p>.&#x2F;mysqld –defaults-file&#x3D;&#x2F;etc&#x2F;my.cnf –basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F; –datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F; –user&#x3D;mysql –initialize</p>
-</li>
-<li><p>查看密码：</p>
-<p>cat &#x2F;data&#x2F;mysql&#x2F;mysql.err</p>
-<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="keyword">@hadoop100</span> bin]# cat /data/mysql/mysql.err</span><br><span class="line"><span class="number">2021</span>-<span class="number">11</span>-<span class="number">14</span>T06:<span class="number">14</span>:<span class="number">46.843207</span>Z <span class="number">0</span> [ERROR] Can<span class="string">&#x27;t find error-message file &#x27;</span>/usr/local/mysql/share/errmsg.sys<span class="string">&#x27;. Check error-message file location and &#x27;</span>lc-messages-dir<span class="string">&#x27; configuration directive.</span></span><br><span class="line"><span class="string">2021-11-14T06:14:46.973978Z 0 [Warning] InnoDB: New log files created, LSN=45790</span></span><br><span class="line"><span class="string">2021-11-14T06:14:46.997037Z 0 [Warning] InnoDB: Creating foreign key constraint system tables.</span></span><br><span class="line"><span class="string">2021-11-14T06:14:47.053928Z 0 [Warning] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: 2abf1f2d-4512-11ec-a6e3-000c2940fa5b.</span></span><br><span class="line"><span class="string">2021-11-14T06:14:47.057500Z 0 [Warning] Gtid table is not ready to be used. Table &#x27;</span>mysql.gtid_executed<span class="string">&#x27; cannot be opened.</span></span><br><span class="line"><span class="string">2021-11-14T06:14:47.583163Z 0 [Warning] CA certificate ca.pem is self signed.</span></span><br><span class="line"><span class="string">2021-11-14T06:14:47.619381Z 1 [Note] A temporary password is generated for root@localhost: _wK)ODNgQ7UB</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动mysql并修改root密码</p>
-<ul>
-<li><p>先将mysql.server放到&#x2F;etc&#x2F;init.d&#x2F;mysql中</p>
-<p>cp &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysql</p>
-</li>
-<li><p>启动</p>
-<p>service mysql start</p>
-<p>ps -ef|grep mysql</p>
-</li>
-<li><p>登录</p>
-<p>.&#x2F;mysql -u root -p   #bin目录下</p>
-</li>
-<li><p>修改密码</p>
-<p>SET PASSWORD &#x3D; PASSWORD(‘123456’);<br>ALTER USER ‘root‘@’localhost’ PASSWORD EXPIRE NEVER;<br>FLUSH PRIVILEGES;                                 </p>
-</li>
-<li><p>开启远程连接</p>
-<p>先登录进数据库，然后执行下面的命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql                                            #访问mysql库</span><br><span class="line">update user set host = &#x27;%&#x27; where user = &#x27;root&#x27;;      #使root能再任何host访问</span><br><span class="line">FLUSH PRIVILEGES;                                    #刷新</span><br></pre></td></tr></table></figure></li>
+        <h1 id="MySQL高级"><a href="#MySQL高级" class="headerlink" title="MySQL高级"></a>MySQL高级</h1><ul>
+<li>Top子句：规定要返回的记录条数</li>
+<li>通配符：</li>
 </ul>
-</li>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210818091433952.png" alt="image-20210818091433952"></p>
+<ul>
+<li>between：BETWEEN 操作符在 WHERE 子句中使用，作用是选取介于两个值之间的数据范围。</li>
+<li></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/linux/" data-id="cl4vd9h220007ssgv36tq5f90" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/MySQL/" data-id="cl4ve2jny000iw0gv26vu451e" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -828,46 +658,385 @@
 
 
   
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-mybatis" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/06/26/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2022-06-26T09:43:45.657Z" itemprop="datePublished">2022-06-26</time>
+    <a href="/2022/06/26/mybatis/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.942Z" itemprop="datePublished">2022-06-26</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/06/26/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <h1 id="mybatis"><a href="#mybatis" class="headerlink" title="mybatis"></a>mybatis</h1><h2 id="1，增删改查"><a href="#1，增删改查" class="headerlink" title="1，增删改查"></a><strong>1，增删改查</strong></h2><p>  ①，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert：insert into student(id , user_name) values (#&#123;id&#125;,#&#123;userName&#125;)      useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;     </span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>自增主键：</p>
+<ul>
+<li>userGenratedKeys：使用自增主键值测策略       </li>
+<li>keyProperty：指定对应的主键</li>
+</ul>
+<p>非自增主键：      使用<selectKey>标签，先查询主键值          </p>
+<p>例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;selectKey keyProperty=&quot;id&quot; order=&quot;before&quot; resultType=&quot;integer&quot;&gt;               </span><br><span class="line"></span><br><span class="line">//查询语句             </span><br><span class="line"></span><br><span class="line">&lt;/selectKey&gt;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>​      </p>
+<p>②，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete：delete from student where id = #&#123;id&#125;     </span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>③，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update ：update student set user_name = #&#123;userName&#125;      where id = #&#123;id&#125;   </span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>④，select</p>
+<h2 id="2，参数处理"><a href="#2，参数处理" class="headerlink" title="2，参数处理"></a><strong>2，参数处理</strong></h2><p>①单个参数处理         #{参数名}       </p>
+<p>②多个参数的处理         </p>
+<p>mybatis会对多个参数进行特殊处理，将其封装为一个map         </p>
+<p>可在方法传参时对参数进行命名，@param(“给参数的命名”)         </p>
+<p>例：User getById(@param(“id”)Long id);             </p>
+<p>③#{}和${}的区别        </p>
+<p> #{}是以预编译的方式，将参数设置到sql语句中，能防止sql注入         </p>
+<p>${}取出的值直接拼装在SQL语句中，会有安全问题        </p>
+<p>大多数情况下使用#{}来传参       </p>
+<p>特殊情况：原生jdbc不支持占位符的情况下，例如分表，排序等情况下使用${}进行取值  </p>
+<p>（占位符： 占位符就是先占住一个固定的位置，等着你再往里 面添加内容的符号 ）</p>
+<h2 id="3，结果集配置方法"><a href="#3，结果集配置方法" class="headerlink" title="3，结果集配置方法"></a>3，结果集配置方法</h2><p>resultType：指定结果的封装类型           </p>
+<p>resultMap：自定义结果集                       </p>
+<p>属性：    </p>
+<p>type：指定结果集Java类型        </p>
+<p>id：设置唯一id，方便引用   </p>
+<p>extends：继承其他的结果集                       </p>
+<p>标签（定义结果集规则）：                              </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;id   column=&quot;id&quot;   property=&quot;id&quot;&gt;:主键列                             </span><br><span class="line">&lt;result  column=&quot;user_name&quot;   property=&quot;userName&quot;&gt;：普通列                  </span><br></pre></td></tr></table></figure>
+
+<p>多表关联查询时可使用                              </p>
+<p>关联一个对象（学生表和学院表：在查询学生的时候查询所属的学院）                              </p>
+<p>①嵌套结果集                                                                       </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;association&gt;                                       </span><br><span class="line">&lt;id   column=&quot;id&quot;   property=&quot;id&quot;&gt;:主键列                                        </span><br><span class="line">&lt;result  column=&quot;user_name&quot;   property=&quot;userName&quot;&gt;：普通列                              </span><br><span class="line">&lt;/association&gt;                     </span><br></pre></td></tr></table></figure>
+
+<p><association>标签还可定义分步查询方法，使用select属性指定第一步查询使用的方法，传入column属性的值      </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;association select=“com.odianyun.hello.mapper.UserMapper.getById”column=&quot;d_id&quot;&gt;                           </span><br><span class="line">&lt;id   column=&quot;id&quot;   property=&quot;id&quot;&gt;:主键列                                       </span><br><span class="line">&lt;result  column=&quot;user_name&quot;   property=&quot;userName&quot;&gt;：普通列                             </span><br><span class="line">&lt;/association&gt;  </span><br></pre></td></tr></table></figure>
+
+<p>分步查询的基础下可使用延迟加载（在需要时使用）                              </p>
+<p>全局配置文件中加入两个配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;setting name=&quot;lazyloadingEnable&quot;  value=&quot;true&quot;/&gt;                                                    </span><br><span class="line">&lt;setting name=&quot;aggressiveLazyLoading&quot;  value=&quot;false&quot;/&gt; </span><br></pre></td></tr></table></figure>
+
+<p>关联多个对象：集合类型（学生表和学院表：在查询学院的时候查询这个学院的所有学生）                                </p>
+<p>使用<collection></collection>标签                                         </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> &lt;collection property=“student”ofType=&quot;com.odianyun.hello.mapper.User&quot;&gt;                                     </span><br><span class="line">&lt;!--定义学生的结果集规则--!&gt;                                          </span><br><span class="line">&lt;/collection&gt;</span><br></pre></td></tr></table></figure>
+
+<p><discriminator></discriminator>鉴别器：                                                   </p>
+<p> 属性：column：指定判定的列名                                                               </p>
+<p>javaType：列名的java类型 </p>
+<h2 id="4，动态sql"><a href="#4，动态sql" class="headerlink" title="4，动态sql"></a>4，动态sql</h2><p>①</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;if&gt;&lt;/if&gt;//多个条件中，哪个条件带了值就使用哪个条件进行操作，可选用多个条件     </span><br></pre></td></tr></table></figure>
+
+<p>②</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;choose&gt;//多条件分支中只选择一个条件分支进行查询                        </span><br><span class="line"></span><br><span class="line">&lt;when&gt;条件分支&lt;/when&gt;                        </span><br><span class="line"></span><br><span class="line">&lt;otherwise&gt; //上面条件都没有值时使用此方法操作                        </span><br><span class="line"></span><br><span class="line">&lt;/otherwise&gt;               </span><br><span class="line"></span><br><span class="line"> &lt;/choose&gt; </span><br></pre></td></tr></table></figure>
+
+<p>③</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;set&gt;&lt;/set&gt;：用于更新操作中       </span><br></pre></td></tr></table></figure>
+
+<p>④</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;trim  prefix=&quot;要处理的标签名&quot; prefixOverides=&quot;前置要处理的符号&quot;  suffixfixOverides=&quot;后置要处理的符号&quot;&gt;             &lt;/trim&gt;//对sql语句中多余的字符等进行处理           </span><br></pre></td></tr></table></figure>
+
+<p>⑤更新操作中使用set标签            </p>
+<p>⑥<foreach></foreach>：用于批量查询 和批量保存，循环遍历            </p>
+<p>⑦</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bind name=&quot;_lastName&quot; value=&quot;&#x27;%&#x27;+lastName&quot;+&#x27;%&#x27;/&gt;//将value中的OGNL表达式绑定到变量_lastName中，方便使用    </span><br></pre></td></tr></table></figure>
+
+<p>⑧</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;sql id=&quot;设置的id名&quot;&gt;sql片段&lt;/sql&gt;      </span><br></pre></td></tr></table></figure>
+
+<p>⑨</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;include refid=&quot;&quot;&gt;&lt;/include&gt;//引用外部定义的sql语句片段</span><br></pre></td></tr></table></figure>
+
+<h2 id="5，mybatis的缓存机制"><a href="#5，mybatis的缓存机制" class="headerlink" title="5，mybatis的缓存机制"></a>5，mybatis的缓存机制</h2><p> 一级缓存（本地缓存）：SQLSession级别的缓存，一级缓存是一直开启的，与数据库同一次会话期间查到的数据会保存在本地缓存中，当再次查询相同数据时，会直接在缓存中取数据，没必要再去数据库中查询          </p>
+<p><strong>一级缓存失效的四种情况：</strong>                    </p>
+<p>①：SQLSession不同                    </p>
+<p>②：查询条件不同                    </p>
+<p>③：两次查询之间执行了增删改操作，数据库数据发生了变化                    </p>
+<p>④：手动清除了一级缓存   </p>
+<p>二级缓存</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/26/hello-world/" data-id="cl4v4ugyw0000dggv1fyyblwh" data-title="Hello World" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/26/mybatis/" data-id="cl4ve2jn1000hw0gv3avecxta" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MangoDB的使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/MangoDB%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.926Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="MangoDB的使用"><a href="#MangoDB的使用" class="headerlink" title="MangoDB的使用"></a>MangoDB的使用</h2><h2 id="增"><a href="#增" class="headerlink" title="增"></a>增</h2><ul>
+<li><strong>insertOne，</strong></li>
+<li><strong>insetMany，</strong></li>
+<li><strong>insert</strong>       可以添加一个或多个</li>
+</ul>
+<p>示例</p>
+<p>db.getCollection(‘so’).insertMany<br>([{<br>    “name”: “redis设计与实现”,<br>    “type”: “小说”,<br>    “desc”: “redis相关介绍”,<br>    },{<br>    “name”: “spring设计与实现”,<br>    “type”: “技术”,<br>    “desc”: “Spring相关介绍”,<br>    },{<br>    “name”: “spring设计与实现”,<br>    “type”: “技术”,<br>    “desc”: “Spring相关介绍”,<br>    “price”: “100”<br>    }<br>]);</p>
+<h2 id="删"><a href="#删" class="headerlink" title="删"></a>删</h2><ul>
+<li>db.collection.deleteMany()  &#x2F;&#x2F;删除多个</li>
+<li>db.collection.deleteOne()  &#x2F;&#x2F;删除一个</li>
+<li>db.collection.remove()  &#x2F;&#x2F;全部删除</li>
+</ul>
+<p>示例：</p>
+<p>db.getCollection(‘so’).deleteMany({“name”:”redis设计与实现”})</p>
+<h2 id="改"><a href="#改" class="headerlink" title="改"></a>改</h2><p>updateOne()</p>
+<p>uipdateMany()</p>
+<h2 id="查"><a href="#查" class="headerlink" title="查"></a>查</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/MangoDB%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="cl4ve2jml000fw0gvgpyl42d6" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Docker" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/Docker/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.832Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p>概念：解决了运行环境和配置文件的软件容器，方便做持续集成并有助于整体发布的容器虚拟化技术</p>
+<p>作用：透过镜像，将作业系统核心除外，运作应用程序所需要的系统环境，由上而下的，达到应用程序跨平台间的无缝接轨运行，达到一次封装，多处运行</p>
+<p>其实就是缩小版，高度浓缩版的小型linux系统</p>
+<p>Docker本身是一个容器运行载体或称之为管理引擎，我们把应用程序和配置依赖打包好形成一个可交付的运行环境，这个打包好的运行环境就是image镜像文件，只有通过这个镜像文件才能生成Docker容器。image文件可以看作是容器的模板，Docker根据image文件生成容器之间的实例。同一个image文件，可以生成多个同时运行的容器实例</p>
+<p>传统虚拟机技术：</p>
+<ul>
+<li>资源占用多</li>
+<li>冗余步骤多</li>
+<li>启动慢</li>
+</ul>
+<p>Docker和传统虚拟化方式的不同之处：</p>
+<ul>
+<li>传统虚拟技术是虚拟出一套硬件后，在其上面运行一个完整操作系统，再在该系统上运行所需应用程序</li>
+<li>而容器内的应用程序直接运行在宿主的内核，容器内没有自己的内核，也没有硬件虚拟，所以Docker更加轻便</li>
+<li>每个容器之间互相隔离，每个容器都有自己的文件系统，容器间进程不会互相影响，能区分计算资源</li>
+<li><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210808160355478.png" alt="image-20210808160355478"></li>
+</ul>
+<p><strong>Docker三要素：</strong></p>
+<ul>
+<li><p>镜像：即由image文件生成的容器实例，Docker镜像就是一个只读的模板，镜像可以用来创建容器，一个镜像可以创建多个容器</p>
+</li>
+<li><p>容器：容器是用镜像创建的运行实例，一个容器运行一种服务，容器可以被启动，开始，停止，删除。每个容器都是相互隔离的、保证安全的平台，</p>
+<p>可以把容器看成是一个简易版的linux环境和运行在其中的应用程序，容器和镜像的定义几乎一模一样，唯一的区别就是容器最上面的那一层是可读可写的</p>
+</li>
+<li><p>仓库：仓库是集中存放镜像文件的场所。仓库（repository）和仓库注册服务器（registry）是有区别的，仓库注册服务器往往存放着多个仓库，每个仓库又包含了多个镜像，每个镜像都有不同的标签</p>
+<ul>
+<li>公开仓库：最大的公开仓库是Docker Hub（<a target="_blank" rel="noopener" href="https://hub.docker.com),存放了数量庞大的镜像供用户下载.国内的公开仓库包括阿里云、网易云等/">https://hub.docker.com），存放了数量庞大的镜像供用户下载。国内的公开仓库包括阿里云、网易云等</a></li>
+<li>私有仓库</li>
+</ul>
+</li>
+</ul>
+<p>运行步骤：</p>
+<ol>
+<li>拉取镜像文件到本地</li>
+<li>以镜像文件为模板，运行一个容器实例</li>
+</ol>
+<p><strong>Docker常用命令：</strong></p>
+<ol>
+<li>辅助命令<ul>
+<li>docker version：查看docker版本</li>
+<li>docker info：查看docker信息描述</li>
+<li>docker –help：查看docker命令帮助</li>
+</ul>
+</li>
+<li>镜像命令<ul>
+<li>docker images：列出本地主机上的镜像<ul>
+<li>-a：列出本地主机上的所有镜像（包括中间映射层）</li>
+<li>-q：列出本地主机上的所有镜像的id</li>
+<li>–digests：显示镜像的摘要信息</li>
+<li>–no-truncs：显示完整的镜像信息</li>
+</ul>
+</li>
+<li>docker search +镜像名：在dockerHub中查询某镜像文件<ul>
+<li>–no-truncs：显示完整的镜像信息<ul>
+<li>-s：列出收藏数不小于指定值的镜像</li>
+<li>–automated：只列出automated bulid类型的镜像</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>docker pull +镜像名：拉取某镜像文件</li>
+<li>docker rmi + 镜像名：删除镜像文件<ul>
+<li>-f：强制删除</li>
+<li>删除全部镜像：docker rmi -f ${docker images -qa}</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>容器命令<ul>
+<li>docker run +镜像名或镜像id：新建并启动容器<ul>
+<li>-i：以交互模式运行容器，通常与-t同时使用</li>
+<li>-t：为容器重新输入一个伪输入终端，通常与-i同时使用</li>
+<li>-d：后台运行容器，并返回容器id<ul>
+<li>-P：随机端口映射：docker run -it -P tomcat</li>
+</ul>
+</li>
+<li>-p：指定端口映射：docker run -it -p 8888:8080 tomcat</li>
+<li>–name&#x3D;“名称”：为容器指定一个新名称</li>
+</ul>
+</li>
+<li>docker ps：查看正在运行的容器<ul>
+<li>-l：查看上一次运行的容器】</li>
+<li>-n +数字：查看前几次运行的容器</li>
+<li>-q：静默模式：只显示容器编号</li>
+<li>–no-trunc：</li>
+</ul>
+</li>
+<li>exit：退出当前容器</li>
+<li>docker start + 容器名或容器id：启动容器 </li>
+<li>docker restart   + 容器名或容器id：重启容器</li>
+<li>docker stop +  + 容器名或容器id：停止容器</li>
+<li>docker kill +  + 容器名或容器id：强制停止容器</li>
+<li>docker rm + 容器名或容器id：删除容器； -f：强制删除</li>
+<li>docker rm -f ${docker images -qa} 或docker ps -aq | xargs docker rm：删除多个容器</li>
+<li>docker run -d ：守护式启动容器，不进入容器，不发生交互</li>
+<li>docker logs -f -t –tail + 数字 + 容器id：查看容器日志<ul>
+<li>-t：加入时间戳</li>
+<li>-f：跟随最新的日志打印</li>
+<li>–tail + 数字：显示最后多少条</li>
+</ul>
+</li>
+<li>docker top + 容器id：查看容器内运行的进程</li>
+<li>docker inspect + 容器id：查看容器内部的细节</li>
+<li>docker exec -it 容器id bashshell：重新进入容器并以命令行模式进行交互，在容器中打开新的终端，可以启动新的进程</li>
+<li>docker attach 容器id：重新进入容器，直接进入容器启动命令的终端，不会启动新的进程</li>
+<li>docker cp 容器id ：容器内路径   目的主机路径：在容器内拷贝文件到主机上</li>
+<li>docker commit -a “作者信息” -m “备注信息”  + 容器id + 新生成的容器名&#x2F;tags ：提交容器副本使之成为一个新的镜像</li>
+</ul>
+</li>
+</ol>
+<p><strong>Docker 镜像：</strong></p>
+<p>概念：镜像是一种轻量级的、可执行的独立软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含某个软件所需的所有内容，包括代码、运行时、库、环境变量和配置文件</p>
+<p>UnionFS（联合文件系统）：Union文件系统是一种分层 、轻量级且高性能的文件系统，它支持对文件系统的修改作为一次次来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下。Union文件系统是Docker镜像的基础。镜像可以通过分层来继承，基于基础镜像，可以制作各种具体的应用镜像</p>
+<p>特性：一次同时加载多个文件系统，但从外面看来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件会包含所有底层的文件和目录</p>
+<p>Docker镜像加载原理：</p>
+<ul>
+<li><p>bootfs（boot file system）主要包含bootloader和kernel，bootloader主要是引导加载kernel，linux刚启动时回家再包bootfs文件系统，在Docker镜像的最底层是bootfs。这一层与典型的linux&#x2F;Unix系统是一样的，包含boot加载器和内核，当boot加载完成之后整个内核就都在内存中了，此时内存的使用权已经由bootfs转交给内核，此时系统也会卸载bootfs</p>
+<ul>
+<li><p>rootfs：在bootfs之上。包含的就是linux系统中的&#x2F;dev ,   &#x2F;bin等标准目录和文件。rootfs就是各种不同的操作系统发行版，如Ubuntu，centos等，rootfs可以很小，只需要包括最基本的命令、工具和程序库就可以了，所以在Docker中安装的centos镜像文件比较小。对于不同的linux发行版，bootfs是基本一致的，rootfs会有差别。所以不同的发行版可以公共bootfs</p>
+</li>
+<li><p>镜像文件分层结构：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210809102621508.png" alt="image-20210809102621508"></p>
+</li>
+<li><p>docker镜像都是只读的，当容器启动时，一个新的可写层被加载到镜像的顶部。这一层通常被称为“容器层”，“容器层”之下的都称为“镜像层”。</p>
+<p><strong>Docker容器数据卷</strong>：就是目录或者文件，存在于一个或多个容器中，由docker挂载到容器，但不属于联合文件系统，因此能绕过Union file System提供一些用于持续存储和共享数据的特性</p>
+</li>
+</ul>
+<p>作用：</p>
+<ul>
+<li>容器持久化</li>
+<li>容器间的继承和数据共享</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>数据卷可以在容器之间共享或重用数据</li>
+<li>卷中的更改可以直接生效</li>
+<li>数据卷的更改不会包含在镜像的更新中</li>
+<li>数据卷的更新一致持续到没有容器使用它为止</li>
+<li>容器停止运行后，主机修改数据，数据一样能同步到容器上</li>
+</ul>
+<p><strong>创建容器数据卷：</strong></p>
+<p>使用-v 创建容器数据卷：</p>
+<p>docker run -it -v &#x2F;MyDataVolumn:&#x2F;DataVolumnContainer centos  ：运行centos并创建容器数据卷，可读可写</p>
+<p>创建带权限的容器数据卷 ：</p>
+<p>docker run -it -v &#x2F;MyDataVolumn:&#x2F;DataVolumnContainer <strong>ro</strong> centos：运行centos并创建容器数据卷，只读</p>
+<p>使用dockerFile添加容器数据卷</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210809145258349.png" alt="image-20210809145258349"></p>
+</li>
+</ul>
+<p><strong>DockerFile解析：</strong></p>
+<p>DockerFile是用来构建Docker镜像的构建文件，是由一系列命令和参数构成的脚本</p>
+<p>构建三步骤</p>
+<ul>
+<li>编写DockerFile文件</li>
+<li>docker build 目标文件 -t +新镜像名字：TAG ，获得自定义镜像</li>
+<li>运行镜像文件</li>
+</ul>
+<p>DockerFile内容基础知识：</p>
+<ul>
+<li>每条保留字指令都必须为大写字母且后面要跟随至少一个参数</li>
+<li>指令按照从上到下，顺序执行</li>
+<li>#表示注释</li>
+<li>每条指令都会创建一个新的镜像层，并对镜像进行提交</li>
+</ul>
+<p>DockerFile体系结构（保留字指令）：</p>
+<ol>
+<li>FROM：指定基础镜像</li>
+<li>MAINTAINER：镜像维护者的名字和邮箱地址</li>
+<li>RUN：容器构建石需要运行的命令</li>
+<li>EXPOSE：当前容器对外暴露的端口号</li>
+<li>WORKDIR：指定在创建容器后，终端默认登录的进来工作目录，一个落脚点</li>
+<li>ENV：用来在构建镜像是设置环境变量</li>
+<li>ADD：将宿主机目录下的文件拷贝进镜像且ADD命令会自动处理URL和解压他tar压缩包</li>
+<li>COPY：类似ADD，拷贝文件到目标镜像中；将从构建上下文目录中&lt;源路径&gt;的文件&#x2F;目录复制到新的一层镜像内的&lt;目标路径&gt;位置，两种写法<ul>
+<li>COPY src dest</li>
+<li>COPY [“src” , “dest”]</li>
+</ul>
+</li>
+<li>VOLUME：容器数据卷，用于数据保存和持久化工作</li>
+<li>CMD：指定一个容器启动时要运行的命令，dockerFile中可以有多个CMD命令，但是只有最后一个会生效，CMD会被docker run之后的参数替换</li>
+<li>ENTRYPOINT：指定一个容器启动时要运行的命令，目的和CMD一样，但是命令不会被覆盖，都会生效 </li>
+<li>ONBUILD：当构建一个被继承的DockerFile时运行命令，父镜像在被子继承之后父镜像的onbuild会被触发</li>
+</ol>
+<p>安装mysql：</p>
+<ul>
+<li>拉取mysql镜像文件</li>
+<li>运行mysql容器</li>
+</ul>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210809192841682.png" alt="image-20210809192841682"></p>
+<ul>
+<li>进入mysql容器：<img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210809201820771.png" alt="image-20210809201820771"></li>
+</ul>
+<p>安装redis：</p>
+<p>docker run -p 6397:6397 -v &#x2F;sfag&#x2F;myredis&#x2F;data:&#x2F;data -v &#x2F;sfag&#x2F;myredis&#x2F;conf&#x2F;redis.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis.conf&#x2F;redis.conf -d redis redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis.conf&#x2F;redis.conf –appendonly yes</p>
+<p>推送镜像文件到云平台：</p>
+<ol>
+<li>docker login –username registry. cn-hangzhou,aliyuncs.com</li>
+<li>docker tag 镜像id  registry cn-hangzhou,aliyuncs.com&#x2F;镜像文件：版本号</li>
+<li>docker push registry cn-hangzhou,aliyuncs.com&#x2F;镜像文件：版本号</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1QgnpSqd6DFyWqsfVJp3ePw">https://pan.baidu.com/s/1QgnpSqd6DFyWqsfVJp3ePw</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/Docker/" data-id="cl4ve2jls0007w0gv4amn7fu9" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -880,6 +1049,11 @@
 
   
 
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -910,23 +1084,23 @@
       <ul>
         
           <li>
-            <a href="/2022/06/26/Git/">(no title)</a>
+            <a href="/2022/06/26/RabbitMQ%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2022/06/26/java%E4%B8%AD%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6/">(no title)</a>
+            <a href="/2022/06/26/redis/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2022/06/26/JVM%EF%BC%88java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%89/">(no title)</a>
+            <a href="/2022/06/26/ody-db/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2022/06/26/easyBI%E7%9A%84%E4%BD%BF%E7%94%A8/">(no title)</a>
+            <a href="/2022/06/26/Nginx/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2022/06/26/Jekins/">(no title)</a>
+            <a href="/2022/06/26/PMO%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/">(no title)</a>
           </li>
         
       </ul>

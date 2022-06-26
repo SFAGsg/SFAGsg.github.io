@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="mybatis1，增删改查  ①， 1insert：insert into student(id , user_name) values (#&amp;#123;id&amp;#125;,#&amp;#123;userName&amp;#125;)      useGeneratedKeys&#x3D;&quot;true&quot; keyProperty&#x3D;&quot;id&quot;       自增主键：  userGenrated">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/06/26/mybatis/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="mybatis1，增删改查  ①， 1insert：insert into student(id , user_name) values (#&amp;#123;id&amp;#125;,#&amp;#123;userName&amp;#125;)      useGeneratedKeys&#x3D;&quot;true&quot; keyProperty&#x3D;&quot;id&quot;       自增主键：  userGenrated">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-26T14:10:59.942Z">
+<meta property="article:modified_time" content="2021-07-25T12:07:58.669Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-mybatis" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/mybatis/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.942Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="mybatis"><a href="#mybatis" class="headerlink" title="mybatis"></a>mybatis</h1><h2 id="1，增删改查"><a href="#1，增删改查" class="headerlink" title="1，增删改查"></a><strong>1，增删改查</strong></h2><p>  ①，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert：insert into student(id , user_name) values (#&#123;id&#125;,#&#123;userName&#125;)      useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;     </span><br></pre></td></tr></table></figure>
+
+<p>自增主键：</p>
+<ul>
+<li>userGenratedKeys：使用自增主键值测策略       </li>
+<li>keyProperty：指定对应的主键</li>
+</ul>
+<p>非自增主键：      使用<selectKey>标签，先查询主键值          </p>
+<p>例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;selectKey keyProperty=&quot;id&quot; order=&quot;before&quot; resultType=&quot;integer&quot;&gt;               </span><br><span class="line"></span><br><span class="line">//查询语句             </span><br><span class="line"></span><br><span class="line">&lt;/selectKey&gt;</span><br></pre></td></tr></table></figure>
+
+<p>​      </p>
+<p>②，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete：delete from student where id = #&#123;id&#125;     </span><br></pre></td></tr></table></figure>
+
+<p>③，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update ：update student set user_name = #&#123;userName&#125;      where id = #&#123;id&#125;   </span><br></pre></td></tr></table></figure>
+
+<p>④，select</p>
+<h2 id="2，参数处理"><a href="#2，参数处理" class="headerlink" title="2，参数处理"></a><strong>2，参数处理</strong></h2><p>①单个参数处理         #{参数名}       </p>
+<p>②多个参数的处理         </p>
+<p>mybatis会对多个参数进行特殊处理，将其封装为一个map         </p>
+<p>可在方法传参时对参数进行命名，@param(“给参数的命名”)         </p>
+<p>例：User getById(@param(“id”)Long id);             </p>
+<p>③#{}和${}的区别        </p>
+<p> #{}是以预编译的方式，将参数设置到sql语句中，能防止sql注入         </p>
+<p>${}取出的值直接拼装在SQL语句中，会有安全问题        </p>
+<p>大多数情况下使用#{}来传参       </p>
+<p>特殊情况：原生jdbc不支持占位符的情况下，例如分表，排序等情况下使用${}进行取值  </p>
+<p>（占位符： 占位符就是先占住一个固定的位置，等着你再往里 面添加内容的符号 ）</p>
+<h2 id="3，结果集配置方法"><a href="#3，结果集配置方法" class="headerlink" title="3，结果集配置方法"></a>3，结果集配置方法</h2><p>resultType：指定结果的封装类型           </p>
+<p>resultMap：自定义结果集                       </p>
+<p>属性：    </p>
+<p>type：指定结果集Java类型        </p>
+<p>id：设置唯一id，方便引用   </p>
+<p>extends：继承其他的结果集                       </p>
+<p>标签（定义结果集规则）：                              </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;id   column=&quot;id&quot;   property=&quot;id&quot;&gt;:主键列                             </span><br><span class="line">&lt;result  column=&quot;user_name&quot;   property=&quot;userName&quot;&gt;：普通列                  </span><br></pre></td></tr></table></figure>
+
+<p>多表关联查询时可使用                              </p>
+<p>关联一个对象（学生表和学院表：在查询学生的时候查询所属的学院）                              </p>
+<p>①嵌套结果集                                                                       </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;association&gt;                                       </span><br><span class="line">&lt;id   column=&quot;id&quot;   property=&quot;id&quot;&gt;:主键列                                        </span><br><span class="line">&lt;result  column=&quot;user_name&quot;   property=&quot;userName&quot;&gt;：普通列                              </span><br><span class="line">&lt;/association&gt;                     </span><br></pre></td></tr></table></figure>
+
+<p><association>标签还可定义分步查询方法，使用select属性指定第一步查询使用的方法，传入column属性的值      </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;association select=“com.odianyun.hello.mapper.UserMapper.getById”column=&quot;d_id&quot;&gt;                           </span><br><span class="line">&lt;id   column=&quot;id&quot;   property=&quot;id&quot;&gt;:主键列                                       </span><br><span class="line">&lt;result  column=&quot;user_name&quot;   property=&quot;userName&quot;&gt;：普通列                             </span><br><span class="line">&lt;/association&gt;  </span><br></pre></td></tr></table></figure>
+
+<p>分步查询的基础下可使用延迟加载（在需要时使用）                              </p>
+<p>全局配置文件中加入两个配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;setting name=&quot;lazyloadingEnable&quot;  value=&quot;true&quot;/&gt;                                                    </span><br><span class="line">&lt;setting name=&quot;aggressiveLazyLoading&quot;  value=&quot;false&quot;/&gt; </span><br></pre></td></tr></table></figure>
+
+<p>关联多个对象：集合类型（学生表和学院表：在查询学院的时候查询这个学院的所有学生）                                </p>
+<p>使用<collection></collection>标签                                         </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> &lt;collection property=“student”ofType=&quot;com.odianyun.hello.mapper.User&quot;&gt;                                     </span><br><span class="line">&lt;!--定义学生的结果集规则--!&gt;                                          </span><br><span class="line">&lt;/collection&gt;</span><br></pre></td></tr></table></figure>
+
+<p><discriminator></discriminator>鉴别器：                                                   </p>
+<p> 属性：column：指定判定的列名                                                               </p>
+<p>javaType：列名的java类型 </p>
+<h2 id="4，动态sql"><a href="#4，动态sql" class="headerlink" title="4，动态sql"></a>4，动态sql</h2><p>①</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;if&gt;&lt;/if&gt;//多个条件中，哪个条件带了值就使用哪个条件进行操作，可选用多个条件     </span><br></pre></td></tr></table></figure>
+
+<p>②</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;choose&gt;//多条件分支中只选择一个条件分支进行查询                        </span><br><span class="line"></span><br><span class="line">&lt;when&gt;条件分支&lt;/when&gt;                        </span><br><span class="line"></span><br><span class="line">&lt;otherwise&gt; //上面条件都没有值时使用此方法操作                        </span><br><span class="line"></span><br><span class="line">&lt;/otherwise&gt;               </span><br><span class="line"></span><br><span class="line"> &lt;/choose&gt; </span><br></pre></td></tr></table></figure>
+
+<p>③</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;set&gt;&lt;/set&gt;：用于更新操作中       </span><br></pre></td></tr></table></figure>
+
+<p>④</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;trim  prefix=&quot;要处理的标签名&quot; prefixOverides=&quot;前置要处理的符号&quot;  suffixfixOverides=&quot;后置要处理的符号&quot;&gt;             &lt;/trim&gt;//对sql语句中多余的字符等进行处理           </span><br></pre></td></tr></table></figure>
+
+<p>⑤更新操作中使用set标签            </p>
+<p>⑥<foreach></foreach>：用于批量查询 和批量保存，循环遍历            </p>
+<p>⑦</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bind name=&quot;_lastName&quot; value=&quot;&#x27;%&#x27;+lastName&quot;+&#x27;%&#x27;/&gt;//将value中的OGNL表达式绑定到变量_lastName中，方便使用    </span><br></pre></td></tr></table></figure>
+
+<p>⑧</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;sql id=&quot;设置的id名&quot;&gt;sql片段&lt;/sql&gt;      </span><br></pre></td></tr></table></figure>
+
+<p>⑨</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;include refid=&quot;&quot;&gt;&lt;/include&gt;//引用外部定义的sql语句片段</span><br></pre></td></tr></table></figure>
+
+<h2 id="5，mybatis的缓存机制"><a href="#5，mybatis的缓存机制" class="headerlink" title="5，mybatis的缓存机制"></a>5，mybatis的缓存机制</h2><p> 一级缓存（本地缓存）：SQLSession级别的缓存，一级缓存是一直开启的，与数据库同一次会话期间查到的数据会保存在本地缓存中，当再次查询相同数据时，会直接在缓存中取数据，没必要再去数据库中查询          </p>
+<p><strong>一级缓存失效的四种情况：</strong>                    </p>
+<p>①：SQLSession不同                    </p>
+<p>②：查询条件不同                    </p>
+<p>③：两次查询之间执行了增删改操作，数据库数据发生了变化                    </p>
+<p>④：手动清除了一级缓存   </p>
+<p>二级缓存</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/mybatis/" data-id="cl4ve2jn1000hw0gv3avecxta" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/06/26/MySQL/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/06/26/MangoDB%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/26/RabbitMQ%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/redis/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/ody-db/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/Nginx/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/PMO%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

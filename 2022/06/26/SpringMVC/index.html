@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="SpringIOC容器控制反转，管理所有的组件（有功能的类），由主动的new资源变为 被动获取 DI：依赖注入 ‘  容器中对象的创建是容器创建是就已经创建好的  同一个组件在IOC容器中是单实例的  IOC在创建这个组件对象的时候，property会利用setter方法为javaBean的属性进行赋值 使用property注入bean： 123456&lt;bean id&#x3D;&quot;perso">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/06/26/SpringMVC/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SpringIOC容器控制反转，管理所有的组件（有功能的类），由主动的new资源变为 被动获取 DI：依赖注入 ‘  容器中对象的创建是容器创建是就已经创建好的  同一个组件在IOC容器中是单实例的  IOC在创建这个组件对象的时候，property会利用setter方法为javaBean的属性进行赋值 使用property注入bean： 123456&lt;bean id&#x3D;&quot;perso">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/SFAG/AppData/Roaming/Typora/typora-user-images/image-20210725163829802.png">
+<meta property="og:image" content="c:/Users/SFAG/AppData/Roaming/Typora/typora-user-images/image-20210725163914768.png">
+<meta property="og:image" content="c:/Users/SFAG/AppData/Roaming/Typora/typora-user-images/image-20210725163748535.png">
+<meta property="article:published_time" content="2022-06-26T14:10:59.769Z">
+<meta property="article:modified_time" content="2021-07-25T12:10:36.366Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/SFAG/AppData/Roaming/Typora/typora-user-images/image-20210725163829802.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-SpringMVC" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/SpringMVC/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.769Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="IOC容器"><a href="#IOC容器" class="headerlink" title="IOC容器"></a>IOC容器</h2><p>控制反转，管理所有的组件（有功能的类），由主动的new资源变为 被动获取</p>
+<h2 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h2><p>：依赖注入 ‘</p>
+<ul>
+<li><p>容器中对象的创建是容器创建是就已经创建好的</p>
+</li>
+<li><p>同一个组件在IOC容器中是单实例的</p>
+</li>
+<li><p>IOC在创建这个组件对象的时候，property会利用setter方法为javaBean的属性进行赋值</p>
+<p>使用property注入bean：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;person&quot; class=&quot;com.sfag.bean.Person&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;name&quot; value=&quot;张三&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;password&quot; value=&quot;89412&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;age&quot; value=&quot;12&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;address&quot; value=&quot;苏州&quot;&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用有参构造器注入bean：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;person01&quot; class=&quot;com.sfag.bean.Person&quot;&gt;</span><br><span class="line">	&lt;constructor-arg name=&quot;name&quot; value=&quot;李四&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;constructor-arg name=&quot;password&quot; value=&quot;lisi&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;constructor-arg name=&quot;age&quot; value=&quot;88&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;constructor-arg name=&quot;address&quot; value=&quot;张家港&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用namespace注入Bean：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;person02&quot; class=&quot;com.sfag.bean.Person&quot; p:name=&quot;王五&quot; p:password=&quot;789456&quot; p:age=&quot;99&quot; p:address=&quot;上海&quot;&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>在配置文件中注入不同属性的对象：</p>
+<p>List类型：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210725163829802.png" alt="image-20210725163829802"></p>
+<p>map类型:</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210725163914768.png" alt="image-20210725163914768"></p>
+<p>properties类型:</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210725163748535.png" alt="image-20210725163748535"></p>
+<h1 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h1><p>注解：<br>@RequestParam，来映射请求参数</p>
+<ul>
+<li>value：值即请求的参数名</li>
+<li>required：该参数是否必须，默认为true</li>
+<li>defaultValue：请求默认的参数</li>
+</ul>
+<p>@RequestHeader：映射请求头 信息</p>
+<p>@CookieValue：映射一个Cookie值</p>
+<p><strong>springMVC注解</strong></p>
+<p>1，@RequestMapping(“”)</p>
+<p>2，@PathVariable (“url中的占位符”)： 此注解可以用来映射URL中的占位符到目标方法的参数中</p>
+<p>3，@Rest：表现层状态转化      </p>
+<p>Get（获取），Post（新建），Put（更新），Delete（删除）      </p>
+<p>如何发送put和delete请求？             </p>
+<ul>
+<li>需要配置HiddenHttpMethodFilter             </li>
+<li>需要发送POST请求             </li>
+<li>需要在POST请求时携带一个name&#x3D;“_method”的隐藏域，值为PUT或DELETE 4，</li>
+</ul>
+<p>4，@RequsetParam：映射请求的参数            </p>
+<p>属性值               </p>
+<ul>
+<li>value：请求参数的参数名               </li>
+<li>required：默认为true，表示该参数是必须要填的               </li>
+<li>defaultValue：请求参数的默认值</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/SpringMVC/" data-id="cl4ve2jip0000w0gv5mg7ffex" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/06/26/Zookeeper/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/06/26/vue/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/26/RabbitMQ%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/redis/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/ody-db/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/Nginx/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/PMO%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

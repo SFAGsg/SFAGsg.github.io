@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="ody-db低代码生成的使用 点击新建模块旁边的设置配置数据源（数据库） pool管理，新增模型 模型管理，点击新增，选择要生成代码的数据库中的表 生成低代码  springboot集成ody-db的配置1，导入jar包 ody-utils：Excels, BeanUtils等各种工具类 ody-db：基于spring-jdbc, mybatis封装了常用的持久化操作 ody-project-as">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/06/26/ody-db/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ody-db低代码生成的使用 点击新建模块旁边的设置配置数据源（数据库） pool管理，新增模型 模型管理，点击新增，选择要生成代码的数据库中的表 生成低代码  springboot集成ody-db的配置1，导入jar包 ody-utils：Excels, BeanUtils等各种工具类 ody-db：基于spring-jdbc, mybatis封装了常用的持久化操作 ody-project-as">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-26T14:10:59.958Z">
+<meta property="article:modified_time" content="2021-07-26T08:58:50.706Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-ody-db" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/ody-db/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.958Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="ody-db"><a href="#ody-db" class="headerlink" title="ody-db"></a>ody-db</h1><h2 id="低代码生成的使用"><a href="#低代码生成的使用" class="headerlink" title="低代码生成的使用"></a>低代码生成的使用</h2><ol>
+<li>点击新建模块旁边的设置配置数据源（数据库）</li>
+<li>pool管理，新增模型</li>
+<li>模型管理，点击新增，选择要生成代码的数据库中的表</li>
+<li>生成低代码</li>
+</ol>
+<h2 id="springboot集成ody-db的配置"><a href="#springboot集成ody-db的配置" class="headerlink" title="springboot集成ody-db的配置"></a>springboot集成ody-db的配置</h2><h5 id="1，导入jar包"><a href="#1，导入jar包" class="headerlink" title="1，导入jar包"></a>1，导入jar包</h5><ul>
+<li>ody-utils：Excels, BeanUtils等各种工具类</li>
+<li>ody-db：基于spring-jdbc, mybatis封装了常用的持久化操作</li>
+<li>ody-project-assist：组件：cache, dict, lock, log等, BaseService模板类</li>
+<li>ody-project-base：从ody-project-support中原base包分离出来, 不依赖ouser-filter，提供BasePO， OdyEntityService 等与业务紧           耦合的基础类</li>
+<li>ody-project-support：依赖ouser-filter，主要提供code, page_info, domain_info, area, switcher及导入导出组件服务</li>
+</ul>
+<h5 id="2，maven依赖"><a href="#2，maven依赖" class="headerlink" title="2，maven依赖"></a>2，maven依赖</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;ody-project-base.version&gt;0.3.0-SNAPSHOT&lt;/ody-project-base.version&gt;</span><br><span class="line">&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.odianyun.util&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;ody-project-base&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;$&#123;ody-project-base.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ul>
+<li>&#96;&#96;&#96;<br> package com.odianyun.springboottest.startup.config; <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import com.google.common.collect.ImmutableMap;</span><br><span class="line">import com.google.common.collect.Lists;</span><br><span class="line">import com.odianyun.db.mybatis.MapperFactoryBean;</span><br><span class="line">import com.odianyun.db.mybatis.interceptor.BaseMapperInterceptor;</span><br><span class="line">import com.odianyun.project.support.base.configuration.EnableProjectMapper;</span><br><span class="line">    import com.odianyun.project.support.base.configuration.EnableProjectTx;</span><br><span class="line">    import com.odianyun.util.spring.SpringApplicationContext;</span><br><span class="line">    import org.apache.ibatis.logging.slf4j.Slf4jImpl;</span><br><span class="line">    import org.apache.ibatis.plugin.Interceptor;</span><br><span class="line">import org.mybatis.spring.SqlSessionFactoryBean;</span><br><span class="line">    import org.mybatis.spring.annotation.MapperScan;</span><br><span class="line">    import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;</span><br><span class="line">    import org.springframework.context.annotation.Bean;</span><br><span class="line">    import org.springframework.context.annotation.Configuration;</span><br><span class="line">    import org.springframework.context.annotation.DependsOn;</span><br><span class="line">    import org.springframework.core.io.Resource;</span><br><span class="line">    import org.springframework.core.io.support.PathMatchingResourcePatternResolver;</span><br><span class="line">    import org.springframework.jdbc.datasource.DataSourceTransactionManager;</span><br><span class="line">    import org.springframework.transaction.PlatformTransactionManager;</span><br><span class="line">    import org.springframework.transaction.TransactionDefinition;</span><br><span class="line">    import org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource;</span><br><span class="line">    import org.springframework.transaction.interceptor.RollbackRuleAttribute;</span><br><span class="line">    import org.springframework.transaction.interceptor.RuleBasedTransactionAttribute;</span><br><span class="line">    import org.springframework.transaction.interceptor.TransactionInterceptor;</span><br><span class="line"></span><br><span class="line">    import javax.sql.DataSource;</span><br><span class="line">    import java.util.Arrays;</span><br><span class="line">    import java.util.Collections;</span><br><span class="line">    import java.util.List;</span><br><span class="line">    </span><br><span class="line">    /**</span><br><span class="line">    </span><br><span class="line">     * @description:</span><br><span class="line">    </span><br><span class="line">     * @author: EDZ</span><br><span class="line">    </span><br><span class="line">     * @time: 20:10</span><br><span class="line">    </span><br><span class="line">     * @date: 2021/7/24</span><br><span class="line">       */</span><br><span class="line">       @EnableProjectTx(txAdviceBeanName = &quot;txAdvice&quot;, txInterceptionPackage = &quot;com.odianyun.springboottest.service&quot;, txAdvisorOrder = 2)</span><br><span class="line">       @EnableProjectMapper(datasourceBeanName = &quot;dataSource&quot;, mapperAspectJExpression = &quot;execution(* com.odianyun.springboottest.mapper..*.*(..))&quot;)</span><br><span class="line">       @MapperScan(basePackages = &quot;com.odianyun.springboottest.mapper&quot;, sqlSessionFactoryRef = &quot;sqlSessionFactory&quot;, factoryBean = MapperFactoryBean.class)</span><br><span class="line">       @Configuration</span><br><span class="line">   public class DaoConfig &#123;</span><br><span class="line">    </span><br><span class="line">       @Bean</span><br><span class="line">       public PlatformTransactionManager transactionManager(DataSource dataSource) &#123;</span><br><span class="line">           return new DataSourceTransactionManager(dataSource);</span><br><span class="line">       &#125;</span><br><span class="line">    </span><br><span class="line">       @Bean</span><br><span class="line">   public TransactionInterceptor txAdvice(PlatformTransactionManager transactionManager) &#123;</span><br><span class="line">           NameMatchTransactionAttributeSource source = new NameMatchTransactionAttributeSource();</span><br><span class="line">           RuleBasedTransactionAttribute baseTx = new RuleBasedTransactionAttribute();</span><br><span class="line">       baseTx.setRollbackRules(Collections.singletonList(new RollbackRuleAttribute(Throwable.class)));</span><br><span class="line">           RuleBasedTransactionAttribute requiredTx = new RuleBasedTransactionAttribute(baseTx);</span><br><span class="line">           requiredTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);</span><br><span class="line">       RuleBasedTransactionAttribute requiredNewTx = new RuleBasedTransactionAttribute(baseTx);</span><br><span class="line">           requiredNewTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);</span><br><span class="line">           RuleBasedTransactionAttribute requiredNestedTx = new RuleBasedTransactionAttribute(baseTx);</span><br><span class="line">           requiredNestedTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_NESTED);</span><br><span class="line">           source.setNameMap(ImmutableMap.of(&quot;*WithTx&quot;, requiredTx, &quot;*WithNewTx&quot;, requiredNewTx, &quot;*WithNestedTx&quot;, requiredNestedTx));</span><br><span class="line">           return new TransactionInterceptor(transactionManager, source);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    @DependsOn(&quot;mapperProvider&quot;)</span><br><span class="line">    @Bean</span><br><span class="line">    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws Exception &#123;</span><br><span class="line">        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();</span><br><span class="line">        // datasource</span><br><span class="line">        bean.setDataSource(dataSource);</span><br><span class="line">        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();</span><br><span class="line">        /**</span><br><span class="line">     </span><br><span class="line">       * 自动装配改为手动，mybatis实体类包</span><br><span class="line">          同mybatis.type-aliases-package=com.odianyun.springboottest.model</span><br><span class="line">               */</span><br><span class="line">             bean.setTypeAliasesPackage(&quot;com.odianyun.springboottest.model&quot;);</span><br><span class="line">             List&lt;Resource&gt; resources = Lists.newArrayList();</span><br><span class="line">             /**</span><br><span class="line">            * mybatis mapper.xml</span><br><span class="line">               同mybatis.mapper-locations=classpath:mybatis/mapper/*.xml</span><br><span class="line">                    */</span><br><span class="line">                  resources.addAll(Arrays.asList(resolver.getResources(&quot;classpath:mybatis/mapper/*.xml&quot;)));</span><br><span class="line">                  bean.setMapperLocations(resources.toArray(new Resource[resources.size()]));</span><br><span class="line">     </span><br><span class="line">    ​    org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();</span><br><span class="line">    ​    // 同mybatis-config.xml中配置</span><br><span class="line">    ​    configuration.setMapUnderscoreToCamelCase(true);</span><br><span class="line">    ​    configuration.setLogImpl(Slf4jImpl.class);</span><br><span class="line">    ​    bean.setConfiguration(configuration);</span><br><span class="line">     </span><br><span class="line">    ​    bean.setPlugins(new Interceptor[] &#123;</span><br><span class="line">    //                new MybatisPageInterceptor(),</span><br><span class="line">    ​            new BaseMapperInterceptor()</span><br><span class="line">    ​    &#125;);</span><br><span class="line">     </span><br><span class="line">    ​    return bean;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    @ConditionalOnMissingBean</span><br><span class="line">    @Bean</span><br><span class="line">    public SpringApplicationContext springAppCtx() &#123;</span><br><span class="line">        return new SpringApplicationContext();</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>MessageConfig.java</p>
+<p>package com.odianyun.springboottest.startup.config;</p>
+<p>import javax.validation.Validator;<br>import org.hibernate.validator.HibernateValidator;<br>import org.springframework.context.MessageSource;<br>import org.springframework.context.annotation.Bean;<br>import org.springframework.context.annotation.Configuration;<br>import org.springframework.context.support.ResourceBundleMessageSource;<br>import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;<br>import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;</p>
+<p>@Configuration<br>public class MessageConfig {</p>
+<p>​    @Bean<br>​    public MessageSource localeMessageSource() {<br>​        ResourceBundleMessageSource messageSource &#x3D; buildMessageSource();<br>​        messageSource.setBasenames(“message&#x2F;locale”, “message&#x2F;i18n”);<br>​        return messageSource;<br>​    }<br>​<br>​    @Bean<br>​    public MessageSource validatorMessageSource() {<br>​        ResourceBundleMessageSource messageSource &#x3D; buildMessageSource();<br>​        messageSource.setBasenames(“message&#x2F;ValidationMessages”);<br>​        return messageSource;<br>​    }<br>​<br>​    @Bean<br>​    public Validator validator(MessageSource validatorMessageSource) {<br>​        LocalValidatorFactoryBean factoryBean &#x3D; new LocalValidatorFactoryBean();<br>​        factoryBean.setProviderClass(HibernateValidator.class);<br>​        factoryBean.setValidationMessageSource(validatorMessageSource);<br>​        return factoryBean;<br>​    }<br>​<br>​    @Bean<br>​    public MethodValidationPostProcessor methodValidationPostProcessor(Validator validator) {<br>​        MethodValidationPostProcessor processor &#x3D; new MethodValidationPostProcessor();<br>​        processor.setValidator(validator);<br>​        return processor;<br>​    }<br>​<br>​    private static ResourceBundleMessageSource buildMessageSource() {<br>​        ResourceBundleMessageSource messageSource &#x3D; new ResourceBundleMessageSource();<br>​        messageSource.setUseCodeAsDefaultMessage(false);<br>​        messageSource.setDefaultEncoding(“UTF-8”);<br>​        return messageSource;<br>​    }<br>}<br> &#96;&#96;&#96;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/ody-db/" data-id="cl4ve2jo0000jw0gv2gckaf6m" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/06/26/redis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/06/26/Nginx/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/26/RabbitMQ%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/redis/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/ody-db/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/Nginx/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/PMO%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

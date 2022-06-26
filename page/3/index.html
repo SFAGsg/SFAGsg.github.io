@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-SpringMVC" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/SpringMVC/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.769Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="IOC容器"><a href="#IOC容器" class="headerlink" title="IOC容器"></a>IOC容器</h2><p>控制反转，管理所有的组件（有功能的类），由主动的new资源变为 被动获取</p>
+<h2 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h2><p>：依赖注入 ‘</p>
+<ul>
+<li><p>容器中对象的创建是容器创建是就已经创建好的</p>
+</li>
+<li><p>同一个组件在IOC容器中是单实例的</p>
+</li>
+<li><p>IOC在创建这个组件对象的时候，property会利用setter方法为javaBean的属性进行赋值</p>
+<p>使用property注入bean：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;person&quot; class=&quot;com.sfag.bean.Person&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;name&quot; value=&quot;张三&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;password&quot; value=&quot;89412&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;age&quot; value=&quot;12&quot;&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name=&quot;address&quot; value=&quot;苏州&quot;&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用有参构造器注入bean：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;person01&quot; class=&quot;com.sfag.bean.Person&quot;&gt;</span><br><span class="line">	&lt;constructor-arg name=&quot;name&quot; value=&quot;李四&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;constructor-arg name=&quot;password&quot; value=&quot;lisi&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;constructor-arg name=&quot;age&quot; value=&quot;88&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">	&lt;constructor-arg name=&quot;address&quot; value=&quot;张家港&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用namespace注入Bean：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;person02&quot; class=&quot;com.sfag.bean.Person&quot; p:name=&quot;王五&quot; p:password=&quot;789456&quot; p:age=&quot;99&quot; p:address=&quot;上海&quot;&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>在配置文件中注入不同属性的对象：</p>
+<p>List类型：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210725163829802.png" alt="image-20210725163829802"></p>
+<p>map类型:</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210725163914768.png" alt="image-20210725163914768"></p>
+<p>properties类型:</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210725163748535.png" alt="image-20210725163748535"></p>
+<h1 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h1><p>注解：<br>@RequestParam，来映射请求参数</p>
+<ul>
+<li>value：值即请求的参数名</li>
+<li>required：该参数是否必须，默认为true</li>
+<li>defaultValue：请求默认的参数</li>
+</ul>
+<p>@RequestHeader：映射请求头 信息</p>
+<p>@CookieValue：映射一个Cookie值</p>
+<p><strong>springMVC注解</strong></p>
+<p>1，@RequestMapping(“”)</p>
+<p>2，@PathVariable (“url中的占位符”)： 此注解可以用来映射URL中的占位符到目标方法的参数中</p>
+<p>3，@Rest：表现层状态转化      </p>
+<p>Get（获取），Post（新建），Put（更新），Delete（删除）      </p>
+<p>如何发送put和delete请求？             </p>
+<ul>
+<li>需要配置HiddenHttpMethodFilter             </li>
+<li>需要发送POST请求             </li>
+<li>需要在POST请求时携带一个name&#x3D;“_method”的隐藏域，值为PUT或DELETE 4，</li>
+</ul>
+<p>4，@RequsetParam：映射请求的参数            </p>
+<p>属性值               </p>
+<ul>
+<li>value：请求参数的参数名               </li>
+<li>required：默认为true，表示该参数是必须要填的               </li>
+<li>defaultValue：请求参数的默认值</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/SpringMVC/" data-id="cl4ve2jip0000w0gv5mg7ffex" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-vue" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/vue/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.769Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h1><h2 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h2><p>只关心视图层</p>
+<h3 id="1、特点"><a href="#1、特点" class="headerlink" title="1、特点"></a>1、特点</h3><ul>
+<li>遵循MVVM模式</li>
+<li>编码简洁，体积小，运行效率高，适合移动&#x2F;pc端开发</li>
+<li>本身只关注UI，可以轻松引入vue插件或其他第三方开发项目</li>
+</ul>
+<h3 id="2、概念"><a href="#2、概念" class="headerlink" title="2、概念"></a>2、概念</h3><p>Vue：一套基于构建用户界面的渐进式框架，可以自底层向上逐层应用</p>
+<p>MVVM模式：Model-View-ViewModel，是一种简化用户界面的事件驱动编程方式，来源于经典的MVC（Model-View-Controller）模式，MVVM的核心是ViewModel层，负责转换Model层中的数据对象来让数据变得更容易管理和使用	</p>
+<p>MVVM模式的好处：主要目的是分离视图view和模型model</p>
+<ul>
+<li>低耦合</li>
+<li>可复用</li>
+<li>独立开发</li>
+<li>可测试</li>
+</ul>
+<p>Model层：模型层，在这里表示JavaScript对象</p>
+<p>View：视图层，在这里表示DOM（HTML操作的元素）</p>
+<p>ViewModel：连接视图和数据的中间件，vue.js就是MVVM中ViewModel层的实现者，它的核心就是实现了DOM监听与数据绑定</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210812201056354.png" alt="image-20210812201056354"></p>
+<h3 id="3、vue扩展插件"><a href="#3、vue扩展插件" class="headerlink" title="3、vue扩展插件"></a>3、vue扩展插件</h3><ol>
+<li>vue-cli：vue脚手架。搭建前端项目的框架结构</li>
+<li>vue-routing：控制页面跳转</li>
+</ol>
+<h3 id="4、第一个vue程序"><a href="#4、第一个vue程序" class="headerlink" title="4、第一个vue程序"></a>4、第一个vue程序</h3><ul>
+<li>导入vue.js</li>
+</ul>
+<h3 id="5、指令"><a href="#5、指令" class="headerlink" title="5、指令"></a>5、指令</h3><p>指令带有前缀v-，表示他们是Vue提供的特殊属性</p>
+<ul>
+<li><p>v-if：</p>
+</li>
+<li><p>v-else：</p>
+</li>
+<li><p>数据绑定</p>
+<ul>
+<li><p>单向绑定：v-bind：绑定，可简写为”  ：”；</p>
+</li>
+<li><p>双向绑定：v-model：只能应用于表单类元素中（输入类元素）</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814165929377.png" alt="image-20210814165929377"></p>
+</li>
+</ul>
+</li>
+<li><p>v-on：当什么什么的时候，可以简写为@</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814173438868.png" alt="image-20210814173438868"></p>
+</li>
+<li><p>v-model：</p>
+<p>修饰符：number：</p>
+<p>prevent：事件绑定时阻止页面的默认操作</p>
+<p>​</p>
+</li>
+</ul>
+<p>				</p>
+<h3 id="6、vue的七个常用属性"><a href="#6、vue的七个常用属性" class="headerlink" title="6、vue的七个常用属性"></a>6、vue的七个常用属性</h3><ul>
+<li>el属性：用来指示vue编译器从什么地方来开始解析vue的语法，可以说是一个占位符</li>
+<li>data</li>
+<li>template</li>
+<li>methods</li>
+<li>render</li>
+<li>computed</li>
+<li>watch</li>
+</ul>
+<h3 id="7、组件"><a href="#7、组件" class="headerlink" title="7、组件"></a>7、组件</h3><p>可复用的vue实例，就是一组可重复使用的模板</p>
+<p>组件化的编码流程：</p>
+<ol>
+<li>实现静态组件：抽取组件，使用组件实现静态页面效果</li>
+<li>展示动态组件<ul>
+<li>数据的类型，名称是什么</li>
+<li>数据保存在哪个组件</li>
+</ul>
+</li>
+<li>交互——从绑定时间监听开始</li>
+</ol>
+<h4 id="7-1-组件化开步骤："><a href="#7-1-组件化开步骤：" class="headerlink" title="7,1 组件化开步骤："></a>7,1 组件化开步骤：</h4><ol>
+<li><p>创建组件（组件中使用data必须写成函数式，template：配置组件的结构）</p>
+</li>
+<li><p>注册组件</p>
+<ul>
+<li><p>局部注册：components:{</p>
+<p>​							组件名</p>
+<p>​					}</p>
+</li>
+<li><p>全局注册：Vue.compoent{‘组件路径’，组件名}</p>
+</li>
+</ul>
+</li>
+<li><p>编写组件标签</p>
+</li>
+</ol>
+<p>编写组件的几个注意点：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210817105510402.png" alt="image-20210817105510402"></p>
+<p>el和data的两种写法：</p>
+<p>第一种：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">el：#root，</span><br><span class="line"></span><br><span class="line">data：&#123;</span><br><span class="line"></span><br><span class="line">​	name: &#x27;sfag&#x27;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二种：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$mount(&#x27;#root&#x27;)</span><br><span class="line"></span><br><span class="line">data: function（）&#123;</span><br><span class="line"></span><br><span class="line">​	return&#123;</span><br><span class="line"></span><br><span class="line">​		name: &#x27;sfag&#x27;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="8、Axios"><a href="#8、Axios" class="headerlink" title="8、Axios"></a>8、Axios</h3><p>是一个开源的可以用在浏览器和NodeJS的异步通信框架</p>
+<p>功能特点：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210813095147808.png" alt="image-20210813095147808"></p>
+<h3 id="9、计算属性"><a href="#9、计算属性" class="headerlink" title="9、计算属性"></a>9、计算属性</h3><p>突出在属性两个字上，首先它是个属性，其次要有计算的能能力，计算就是一个函数，它就是一个能将计算结果缓存起来的属性、</p>
+<h3 id="10、模板语法"><a href="#10、模板语法" class="headerlink" title="10、模板语法"></a>10、模板语法</h3><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814164901011.png" alt="image-20210814164901011"></p>
+<h3 id="11、数据代理"><a href="#11、数据代理" class="headerlink" title="11、数据代理"></a>11、数据代理</h3><p>定义：通过一个对象代理对另一个对象中属性的操作（读、写）</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814172353063.png" alt="image-20210814172353063"></p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814172601141.png" alt="image-20210814172601141"></p>
+<h3 id="12、事件处理"><a href="#12、事件处理" class="headerlink" title="12、事件处理"></a>12、事件处理</h3><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814174224223.png" alt="image-20210814174224223"></p>
+<h3 id="13、不同版本的vue"><a href="#13、不同版本的vue" class="headerlink" title="13、不同版本的vue"></a>13、不同版本的vue</h3><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210815151432925.png" alt="image-20210815151432925"></p>
+<h2 id="二、工程"><a href="#二、工程" class="headerlink" title="二、工程"></a>二、工程</h2><h3 id="1、创建工程"><a href="#1、创建工程" class="headerlink" title="1、创建工程"></a>1、创建工程</h3><p>选择工程位置cmd运行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init webpack  +项目名</span><br></pre></td></tr></table></figure>
+
+<p>安装依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">npm install vue-router --save-dev//安装路由</span><br><span class="line"></span><br><span class="line">npm i element-ui -S //安装element-ui</span><br><span class="line"></span><br><span class="line">npm install //安装依赖</span><br><span class="line"></span><br><span class="line">npm install sass-loader node-sass --save-dev //安装sass加载器</span><br><span class="line"></span><br><span class="line">npm run dev //启动工程</span><br></pre></td></tr></table></figure>
+
+<p>新建项目警告：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814105717804.png" alt="image-20210814105717804"></p>
+<p>嵌套路由：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210814133902892.png" alt="image-20210814133902892"></p>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><h3 id="1、跨域问题"><a href="#1、跨域问题" class="headerlink" title="1、跨域问题"></a>1、跨域问题</h3><ul>
+<li>跨域：浏览器不能执行其他网站的脚本，也就是前后端代码运行在不同服务器上时就会出现跨域问题，是由浏览器的同源策略造成的，是浏览器对JavaScript施加的安全限制</li>
+<li>解决方案<ul>
+<li><p>方案1：使用Ajax的jsonp来解决（只能使用get请求）</p>
+</li>
+<li><p>方案2：使用JQuery的jsonp插件（对于get、post请求不做要求，但是从后台发来的消息依旧是jsonp格式的数据）</p>
+</li>
+<li><p>方案3：使用cors</p>
+</li>
+<li><p>后端程序中添加java文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> &#123;</span><br><span class="line">		registry.addMapping(<span class="string">&quot;/**&quot;</span>)</span><br><span class="line">			.allowedOriginPatterns(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">				.allowedMethods(<span class="string">&quot;GET&quot;</span>,<span class="string">&quot;POST&quot;</span>,<span class="string">&quot;PUT&quot;</span>,<span class="string">&quot;OPTIONS&quot;</span>,<span class="string">&quot;DELETE&quot;</span>,<span class="string">&quot;PATCH&quot;</span>)</span><br><span class="line">				.allowedHeaders(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">				.allowCredentials(<span class="literal">true</span>)</span><br><span class="line">				.maxAge(<span class="number">3600</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p>mock数据：指前后端同时开发的时候，后端接口数据没有出来，前端可以mock假数据，模拟开发；</p>
+<ul>
+<li><p>优势：</p>
+<ul>
+<li>团队可以并行工作</li>
+<li>开启TDD模式，即测试驱动开发</li>
+<li>隔离系统，不用请求数据库中的数据，以免污染数据库中的数据</li>
+<li>可以用来演示</li>
+<li>测试覆盖率</li>
+</ul>
+</li>
+<li><p>mock数据的几种方式</p>
+<ul>
+<li><p>直接在页面写死数据，后期改为动态数据后悔比较麻烦</p>
+</li>
+<li><p>在js里直接声明变量，并给变量赋值，在逻辑脚本中使用，并渲染到dom;</p>
+</li>
+<li><p>将模拟数据编辑成json数据或者是零碎的js脚本中，通过请求，取回数据，并进行业务逻辑处理，渲染到dom</p>
+</li>
+<li><p>- 前后台在需求分解之后，一起定义好接口api，包含：请求url（项目前缀+具体的接口名称）、请求方式、请求参数、数据响应； </p>
+<p>- 前端研发人员根据接口约定，模拟请求返回对应的数据，完成对应的交互； </p>
+<p>- 后台人员根据接口约定，完成对应的api，并完成对应的自测； </p>
+<p>- 待后台人员交付接口api后，前端人员直接修改接口项目前缀，切换到对应的环境，即可进入项目提测。</p>
+<hr>
+</li>
+</ul>
+</li>
+</ul>
+<p>vue-element-admin基础框架：<a target="_blank" rel="noopener" href="https://github.com/PanJiaChen/vue-element-admin">https://github.com/PanJiaChen/vue-element-admin</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/vue/" data-id="cl4ve2jix0003w0gvczet98vb" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SpringCloud" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/SpringCloud/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T14:10:59.738Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h1><h2 id="1、Spring-Cloud-学习笔记："><a href="#1、Spring-Cloud-学习笔记：" class="headerlink" title="1、Spring Cloud 学习笔记："></a>1、Spring Cloud 学习笔记：</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011863024/article/details/114298270">https://blog.csdn.net/u011863024/article/details/114298270</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011863024/article/details/114298282">https://blog.csdn.net/u011863024/article/details/114298282</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011863024/article/details/114298288">https://blog.csdn.net/u011863024/article/details/114298288</a></li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/31d864d1-b6ff-4bd1-8569-2dec720e8306#">https://www.yuque.com/books/share/31d864d1-b6ff-4bd1-8569-2dec720e8306?#</a></p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211024161641246.png" alt="image-20211024161641246"></p>
+<h2 id="2、SpringCloud工程搭建"><a href="#2、SpringCloud工程搭建" class="headerlink" title="2、SpringCloud工程搭建"></a>2、SpringCloud工程搭建</h2><ul>
+<li><p>父工程</p>
+<ul>
+<li><p>pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>12<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>12<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">junit.version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">junit.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">lombok.version</span>&gt;</span>1.18.10<span class="tag">&lt;/<span class="name">lombok.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">log4j.version</span>&gt;</span>1.2.17<span class="tag">&lt;/<span class="name">log4j.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mysql.version</span>&gt;</span>8.0.18<span class="tag">&lt;/<span class="name">mysql.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">druid.version</span>&gt;</span>1.1.16<span class="tag">&lt;/<span class="name">druid.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mybatis.spring.boot.version</span>&gt;</span>2.1.1<span class="tag">&lt;/<span class="name">mybatis.spring.boot.version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--SpringBoot2.2.2--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--SpringCloud Hoxton.SR1--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>Hoxton.SR1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-alibaba-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;mysql.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;druid.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring-boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;mybatis.spring.boot.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;junit.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;log4j.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;lombok.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">addResources</span>&gt;</span>true<span class="tag">&lt;/<span class="name">addResources</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>dependencyManagement的作用</p>
+<p>一般用于父工程</p>
+<p>dependencyManagement能所有在子项目中引用一个依赖而不用显示的列出的版本号。Maven会沿着父子层次向上走，直到找到一个拥有dependencyManagement元素的项目，然后就使用dependencyManagement元素中指定的版本</p>
+</li>
+</ul>
+</li>
+<li><p>子modules</p>
+<ul>
+<li>新建module：cloud-provider-payment8001</li>
+</ul>
+</li>
+</ul>
+<p>步骤：</p>
+<ul>
+<li>建module</li>
+<li>改pom</li>
+<li>写yml</li>
+<li>主启动类</li>
+<li>业务类</li>
+</ul>
+<h2 id="1、服务注册"><a href="#1、服务注册" class="headerlink" title="1、服务注册"></a>1、服务注册</h2><h3 id="eureka"><a href="#eureka" class="headerlink" title="eureka"></a>eureka</h3><p>Eureka采用了CS的设计架构，Eureka Sever作为服务注册功能的服务器，它是服务注册中心。而系统中的其他微服务，使用Eureka的客户端连接到 Eureka Server并维持心跳连接。这样系统的维护人员就可以通过Eureka Server来监控系统中各个微服务是否正常运行。</p>
+<h5 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h5><ul>
+<li><p>新建module：cloud-eureka-server7001</p>
+</li>
+<li><p>依赖信息</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- eureka新旧版本 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 以前的老版本（2018）--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupid</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 现在新版本（2020.2）--&gt;</span><span class="comment">&lt;!-- 我们使用最新的 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>application.yml配置文件</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">7001</span></span><br><span class="line"></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">locathost</span> <span class="comment">#eureka服务端的实例名称</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="comment">#false表示不向注册中心注册自己。</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">false</span></span><br><span class="line">    <span class="comment">#false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务</span></span><br><span class="line">    <span class="attr">fetch-registry:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="comment">#设置与Eureka server交互的地址查询服务和注册服务都需要依赖这个地址。</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>主启动类</p>
+</li>
+<li><p>测试运行<code>EurekaMain7001</code>，浏览器输入<code>http://localhost:7001/</code>回车，会查看到Spring Eureka服务主页。</p>
+</li>
+</ul>
+<h5 id="微服务入驻Eureka注册中心"><a href="#微服务入驻Eureka注册中心" class="headerlink" title="微服务入驻Eureka注册中心"></a>微服务入驻Eureka注册中心</h5><ul>
+<li><p>添加pom依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>application.yml配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="comment">#表示是否将自己注册进Eurekaserver默认为true。</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment">#是否从EurekaServer抓取已有的注册信息，默认为true。单节点无所谓，集群必须设置为true才能配合ribbon使用负载均衡</span></span><br><span class="line">    <span class="attr">fetchRegistry:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:7001/eureka</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>主启动类添加注解：@EnableEurekaClient（客户端）</p>
+</li>
+</ul>
+<h3 id="zookeeper"><a href="#zookeeper" class="headerlink" title="zookeeper"></a>zookeeper</h3><h2 id="2、服务调用"><a href="#2、服务调用" class="headerlink" title="2、服务调用"></a>2、服务调用</h2><h3 id="Ribben"><a href="#Ribben" class="headerlink" title="Ribben"></a>Ribben</h3><h3 id="Loadbalancer"><a href="#Loadbalancer" class="headerlink" title="Loadbalancer"></a>Loadbalancer</h3><h3 id="OpenFeign"><a href="#OpenFeign" class="headerlink" title="OpenFeign"></a>OpenFeign</h3><ul>
+<li><p>接口+注解：微服务调用接口 + @FeignClient</p>
+</li>
+<li><p>新建module：cloud-consumer-feign-order80</p>
+</li>
+<li><p>引用依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--openfeign--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>主启动类上添加@EnableFeignClients注解</p>
+</li>
+<li><p>业务逻辑接口+@FeignClient配置调用provider服务</p>
+</li>
+<li><p>新建PaymentFeignService接口并新增注解@FeignClient</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@FeignClient(value = &quot;CLOUD-PAYMENT-SERVICE&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PaymentFeignService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;/payment/get/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> CommonResult&lt;Payment&gt; <span class="title function_">getPaymentById</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long id)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>controller层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderFeignController</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> PaymentFeignService paymentFeignService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;/consumer/payment/get/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> CommonResult&lt;Payment&gt; <span class="title function_">getPaymentById</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long id)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> paymentFeignService.getPaymentById(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Feign自带负载均衡功能：集成了ribbon</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211112110346686.png" alt="image-20211112110346686"></p>
+</li>
+<li><p>配置日志Bean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> feign.Logger;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FeignConfig</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    Logger.Level <span class="title function_">feignLoggerLevel</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> Logger.Level.FULL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>yml文件里开启日志：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">level:</span></span><br><span class="line">    <span class="comment"># feign日志以什么级别监控哪个接口</span></span><br><span class="line">    <span class="attr">com.lun.springcloud.service.PaymentFeignService:</span> <span class="string">debug</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="3、服务降级"><a href="#3、服务降级" class="headerlink" title="3、服务降级"></a>3、服务降级</h2><h3 id="Hystrix（已停更维护）"><a href="#Hystrix（已停更维护）" class="headerlink" title="Hystrix（已停更维护）"></a>Hystrix（已停更维护）</h3><ul>
+<li><p>服务降级</p>
+<ul>
+<li>服务器忙，请稍后再试，不让客户端等待并立刻返回一个友好提示，fallback</li>
+<li>哪些情况需要做服务降级<ol>
+<li>程序运行导常</li>
+<li>超时</li>
+<li>服务熔断触发服务降级</li>
+<li>线程池&#x2F;信号量打满也会导致服务降级</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>服务熔断</p>
+<ul>
+<li><p><strong>类比保险丝</strong>达到最大服务访问后，直接拒绝访问，拉闸限电，然后调用服务降级的方法并返回友好提示。</p>
+<p>服务的降级 -&gt; 进而熔断 -&gt; 恢复调用链路</p>
+</li>
+</ul>
+</li>
+<li><p>服务限流</p>
+<ul>
+<li>秒杀高并发等操作，严禁一窝蜂的过来拥挤，大家排队，一秒钟N个，有序进行。</li>
+</ul>
+</li>
+<li><p>服务雪崩：</p>
+<ul>
+<li>多个微服务之间调用的时候，假设微服务A调用微服务B和微服务C，微服务B和微服务C又调用其它的微服务，这就是所谓的“扇出”。如果扇出的链路上某个微服务的调用响应时间过长或者不可用，对微服务A的调用就会占用越来越多的系统资源，进而引起系统崩溃，所谓的“雪崩效应”.</li>
+</ul>
+</li>
+</ul>
+<p>hutool工具类库</p>
+<h2 id="4、服务网关"><a href="#4、服务网关" class="headerlink" title="4、服务网关"></a>4、服务网关</h2><h3 id="Gateway"><a href="#Gateway" class="headerlink" title="Gateway"></a>Gateway</h3><p>替代了zuul</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211024162935728.png" alt="image-20211024162935728"></p>
+<h3 id="配置："><a href="#配置：" class="headerlink" title="配置："></a>配置：</h3><ul>
+<li><p>新建module</p>
+</li>
+<li><p>两种配置方法：</p>
+<ul>
+<li><p>application.yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">9527</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">cloud-gateway</span></span><br><span class="line">  <span class="comment">#############################新增网关配置###########################</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">payment_routh</span> <span class="comment">#payment_route    #路由的ID，没有固定规则但要求唯一，建议配合服务名</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8001</span>          <span class="comment">#匹配后提供服务的路由地址</span></span><br><span class="line">          <span class="comment">#uri: lb://cloud-payment-service #匹配后提供服务的路由地址 注册中心上的</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/payment/getById/**</span>   <span class="comment"># 断言，路径相匹配的进行路由</span></span><br><span class="line"></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">payment_routh2</span> <span class="comment">#payment_route    #路由的ID，没有固定规则但要求唯一，建议配合服务名</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8001</span>          <span class="comment">#匹配后提供服务的路由地址</span></span><br><span class="line">          <span class="comment">#uri: lb://cloud-payment-service #匹配后提供服务的路由地址</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/payment/lb/**</span>         <span class="comment"># 断言，路径相匹配的进行路由</span></span><br><span class="line"><span class="comment">####################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">cloud-gateway-service</span></span><br><span class="line">  <span class="attr">client:</span> <span class="comment">#服务提供者provider注册进eureka服务列表内</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">register-with-eureka:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">fetch-registry:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://eureka7001.com:7001/eureka</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>@Bean注入：config.GateWayConfig:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GateWayConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RouteLocator <span class="title function_">customerRouteLocator</span><span class="params">(RouteLocatorBuilder routeLocatorBuilder)</span>&#123;</span><br><span class="line">        RouteLocatorBuilder.<span class="type">Builder</span> <span class="variable">routes</span> <span class="operator">=</span> routeLocatorBuilder.routes();</span><br><span class="line">        routes.route(<span class="string">&quot;path_route_atguigu&quot;</span>,</span><br><span class="line">                r -&gt; r.path(<span class="string">&quot;/guonei&quot;</span>)</span><br><span class="line">                        .uri(<span class="string">&quot;http://news.baidu.com/guonei&quot;</span>)).build();</span><br><span class="line">        <span class="keyword">return</span> routes.build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="5、服务配置"><a href="#5、服务配置" class="headerlink" title="5、服务配置"></a>5、服务配置</h2><h3 id="springCloudConfig"><a href="#springCloudConfig" class="headerlink" title="springCloudConfig"></a>springCloudConfig</h3><p>配置中心：集中式的动态配置管理</p>
+<ul>
+<li><p>配置中心搭建:</p>
+<ul>
+<li><p>新建git仓库</p>
+</li>
+<li><p>配置文件上传</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211106153755795.png" alt="image-20211106153755795"></p>
+</li>
+<li><p>git本地仓库搭建：从远程仓库上克隆配置文件</p>
+</li>
+<li><p>新建module（配置中心）：cloud-config-center3344</p>
+</li>
+<li><p>pom.xml：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>application.yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">3344</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span>  <span class="string">cloud-config-center</span> <span class="comment">#注册进Eureka服务器的微服务名</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">server:</span></span><br><span class="line">        <span class="attr">git:</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">git@github.com:zzyybs/springcloud-config.git</span> <span class="comment">#GitHub上面的git仓库名字</span></span><br><span class="line">        <span class="comment">####搜索目录</span></span><br><span class="line">          <span class="attr">search-paths:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">springcloud-config</span></span><br><span class="line">      <span class="comment">####读取分支</span></span><br><span class="line">      <span class="attr">label:</span> <span class="string">master</span></span><br><span class="line"><span class="comment">#服务注册到eureka地址</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:7001/eurek</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>主启动类</p>
+</li>
+<li><p>&#96;&#96;&#96;java<br>@SpringBootApplication<br>@EnableConfigServer<br>public class ConfigCenterMain3344<br>{<br>public static void main(String[] args) {<br>        SpringApplication.run(ConfigCenterMain3344.class, args);<br>}<br>}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 客户端调用配置</span><br><span class="line"></span><br><span class="line">  - bootstrap.yml</span><br><span class="line"></span><br><span class="line">    applicaiton.yml是用户级的资源配置项</span><br><span class="line"></span><br><span class="line">    bootstrap.yml是系统级的，优先级更加高</span><br><span class="line"></span><br><span class="line">    Spring Cloud会创建一个Bootstrap Context，作为Spring应用的Application Context的父上下文。</span><br><span class="line"></span><br><span class="line">    初始化的时候，BootstrapContext负责从外部源加载配置属性并解析配置。这两个上下文共享一个从外部获取的Environment。</span><br><span class="line"></span><br><span class="line">    Bootstrap属性有高优先级，默认情况下，它们不会被本地配置覆盖。Bootstrap context和Application Context有着不同的约定，所以新增了一个bootstrap.yml文件，保证Bootstrap Context和Application Context配置的分离。</span><br><span class="line"></span><br><span class="line">    要将Client模块下的application.yml文件改为bootstrap.yml,这是很关键的，因为bootstrap.yml是比application.yml先加载的。bootstrap.yml优先级高于application.yml</span><br><span class="line"></span><br><span class="line">    ```yml</span><br><span class="line">    spring:</span><br><span class="line">      application:</span><br><span class="line">        name: config-client</span><br><span class="line">      cloud:</span><br><span class="line">        #Config客户端配置</span><br><span class="line">        config:</span><br><span class="line">          label: master #分支名称</span><br><span class="line">          name: config #配置文件名称</span><br><span class="line">          profile: dev #读取后缀名称   上述3个综合：master分支上config-dev.yml的配置文件被读取http://config-3344.com:3344/master/config-dev.yml</span><br><span class="line">          uri: http://localhost:3344 #配置中心地址k</span><br></pre></td></tr></table></figure>
+
+<p>配置读取规则：</p>
+<ul>
+<li><p>&#x2F;{label}&#x2F;{application}-{profile}.yml（推荐）</p>
+<pre><code>master分支
+    http://config-3344.com:3344/master/config-dev.yml
+    http://config-3344.com:3344/master/config-test.yml
+    http://config-3344.com:3344/master/config-prod.yml
+dev分支
+    http://config-3344.com:3344/dev/config-dev.yml
+    http://config-3344.com:3344/dev/config-test.yml
+    http://config-3344.com:3344/dev/config-prod.yml
+</code></pre>
+<ul>
+<li><p>{application}-{profile}.yml</p>
+<p>  <a target="_blank" rel="noopener" href="http://config-3344.com:3344/config-dev.yml">http://config-3344.com:3344/config-dev.yml</a><br>  <a target="_blank" rel="noopener" href="http://config-3344.com:3344/config-test.yml">http://config-3344.com:3344/config-test.yml</a><br>  <a target="_blank" rel="noopener" href="http://config-3344.com:3344/config-prod.yml">http://config-3344.com:3344/config-prod.yml</a><br>  <a target="_blank" rel="noopener" href="http://config-3344.com:3344/config-xxxx.yml(%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E9%85%8D%E7%BD%AE)">http://config-3344.com:3344/config-xxxx.yml(不存在的配置)</a></p>
+</li>
+<li><p>{application}&#x2F;{profile}[&#x2F;{label}]</p>
+<p>  <a target="_blank" rel="noopener" href="http://config-3344.com:3344/config/dev/master">http://config-3344.com:3344/config/dev/master</a><br>  <a target="_blank" rel="noopener" href="http://config-3344.com:3344/config/test/master">http://config-3344.com:3344/config/test/master</a><br>  <a target="_blank" rel="noopener" href="http://config-3344.com:3344/config/test/dev">http://config-3344.com:3344/config/test/dev</a></p>
+</li>
+</ul>
+<p>重要配置细节总结</p>
+<pre><code>/&#123;name&#125;-&#123;profiles&#125;.yml
+/&#123;label&#125;-&#123;name&#125;-&#123;profiles&#125;.yml
+label：分支(branch)
+name：服务名
+profiles：环境(dev/test/prod)
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>配置修改动态刷新之手动刷新</p>
+<p>客户端</p>
+<ul>
+<li><p>引入actuator监控依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 暴露监控端点</span></span><br><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">&quot;*&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>业务类controller添加注解@RefreshScope</p>
+</li>
+<li><p>修改配置文件后向运维人员发送post请求，终端执行命令：curl -X POST “<a target="_blank" rel="noopener" href="http://localhost:3355/actuator/refresh&quot;">http://localhost:3355/actuator/refresh&quot;</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="6、Bus消息总线"><a href="#6、Bus消息总线" class="headerlink" title="6、Bus消息总线"></a>6、Bus消息总线</h2><ul>
+<li>Spring Cloud Bus 配合Spring Cloud Config 使用可以实现配置的动态刷新。</li>
+</ul>
+<p>Spring Cloud Bus是用来将分布式系统的节点与轻量级消息系统链接起来的框架，它整合了Java的事件处理机制和消息中间件的功能。Spring Clud Bus目前支持RabbitMQ和Kafka。</p>
+<p>实现配置文件动态刷新思想</p>
+<ul>
+<li><p>利用消息总线触发一个客户端&#x2F;bus&#x2F;refresh,而刷新所有客户端的配置</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211106212150527.png" alt="image-20211106212150527"></p>
+</li>
+<li><p>利用消息总线触发一个服务端ConfigServer的&#x2F;bus&#x2F;refresh端点，而刷新所有客户端的配置</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211106212210035.png" alt="image-20211106212210035"></p>
+</li>
+</ul>
+<p>图二的架构显然更加适合，图—不适合的原因如下：</p>
+<ul>
+<li><p>打破了微服务的职责单一性，因为微服务本身是业务模块，它本不应该承担配置刷新的职责。</p>
+</li>
+<li><p>破坏了微服务各节点的对等性。</p>
+</li>
+<li><p>有一定的局限性。例如，微服务在迁移时，它的网络地址常常会发生变化，此时如果想要做到自动刷新，那就会增加更多的修改。</p>
+</li>
+</ul>
+<p>实现动态刷新全局广播的配置</p>
+<ul>
+<li><p>配置中心服务端</p>
+<ul>
+<li><p>pom依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--添加消息总线RabbitNQ支持--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-bus-amap<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org-springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>application.yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#rabbitmq相关配置&lt;--------------------------</span></span><br><span class="line"><span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">5672</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">guest</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">guest</span></span><br><span class="line"><span class="comment">##rabbitmq相关配置,暴露bus刷新配置的端点&lt;--------------------------</span></span><br><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span> <span class="comment">#暴露bus刷新配置的端点</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">&#x27;bus-refresh&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>客户端</p>
+<ul>
+<li><p>pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--添加消息总线RabbitNQ支持--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-bus-amap<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org-springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>application.yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#rabbitmq相关配置&lt;--------------------------</span></span><br><span class="line"><span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">5672</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">guest</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">guest</span></span><br><span class="line"><span class="comment"># 暴露监控端点</span></span><br><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">&quot;*&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>controller添加注解：@RefreshScope</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211108152103391.png" alt="image-20211108152103391"></p>
+</li>
+<li><p>运维发送post请求（一次发送，处处生效）</p>
+<ul>
+<li>&#96;&#96;&#96;<br>curl -X POST “<a target="_blank" rel="noopener" href="http://localhost:3344/actuator/bus-refresh&quot;">http://localhost:3344/actuator/bus-refresh&quot;</a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 定点刷新</span><br><span class="line"></span><br><span class="line">  - ```</span><br><span class="line">    curl -X POST &quot;http://localhost:3344/actuator/bus-refresh/config-client:3355</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="7、Spring-Cloud-Stream"><a href="#7、Spring-Cloud-Stream" class="headerlink" title="7、Spring Cloud Stream"></a>7、Spring Cloud Stream</h2><ul>
+<li><p>作用：屏蔽底层消息中间件的差异，降低切换成本，统一消息的<strong>编程模型</strong>，让我们不再关注具体MQ的细节。</p>
+</li>
+<li><p>定义：Spring Cloud Stream是一个构建消息驱动微服务的框架。应用程序通过inputs或者 outputs 来与Spring Cloud Stream中binder对象交互。通过我们配置来binding(绑定)，而Spring Cloud Stream 的binder对象负责与消息中间件交互。所以，我们只需要搞清楚如何与Spring Cloud Stream交互就可以方便使用消息驱动的方式。通过使用Spring Integration来连接消息代理中间件以实现消息事件驱动。<br> Spring Cloud Stream为一些供应商的消息中间件产品提供了个性化的自动化配置实现，引用了发布-订阅、消费组、分区的三个核心概念。</p>
+<p>目前仅支持RabbitMQ、 Kafka。</p>
+</li>
+<li><p><strong>通过定义绑定器Binder作为中间层，实现了应用程序与消息中间件细节之间的隔离</strong>。</p>
+<ul>
+<li>INPUT对应于消费者</li>
+<li>OUTPUT对应于生产者</li>
+</ul>
+</li>
+<li><p><strong>Stream中的消息通信方式遵循了发布-订阅模式</strong></p>
+<p>Topic主题进行广播</p>
+<ul>
+<li>在RabbitMQ就是Exchange</li>
+<li>在Kakfa中就是Topic</li>
+</ul>
+</li>
+<li><p>常用注解简介</p>
+<ul>
+<li>Binder - 很方便的连接中间件，屏蔽差异。</li>
+<li>Channel - 通道，是队列Queue的一种抽象，在消息通讯系统中就是实现存储和转发的媒介，通过Channel对队列进行配置。</li>
+<li>Source和Sink - 简单的可理解为参照对象是Spring Cloud Stream自身，从Stream发布消息就是输出，接受消息就是输入。</li>
+<li><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211107154721296.png" alt="image-20211107154721296"></li>
+</ul>
+</li>
+</ul>
+<h4 id="服务端搭建："><a href="#服务端搭建：" class="headerlink" title="服务端搭建："></a>服务端搭建：</h4><p>​		</p>
+<h4 id="问题1：rabbitMQ连接不上"><a href="#问题1：rabbitMQ连接不上" class="headerlink" title="问题1：rabbitMQ连接不上"></a>问题1：rabbitMQ连接不上</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">11</span>-08 <span class="number">18</span>:<span class="number">43</span>:<span class="number">46.085</span>  INFO <span class="number">12124</span> --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on <span class="title function_">port</span><span class="params">(s)</span>: <span class="number">8801</span> (http) with context path <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="number">2021</span>-<span class="number">11</span>-08 <span class="number">18</span>:<span class="number">43</span>:<span class="number">46.086</span>  INFO <span class="number">12124</span> --- [  restartedMain] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to <span class="number">8801</span></span><br><span class="line"><span class="number">2021</span>-<span class="number">11</span>-08 <span class="number">18</span>:<span class="number">43</span>:<span class="number">46.852</span>  INFO <span class="number">12124</span> --- [  restartedMain] c.atguigu.srpingcloud.StreamMQMain8801   : Started StreamMQMain8801 in <span class="number">12.529</span> seconds (JVM running <span class="keyword">for</span> <span class="number">14.264</span>)</span><br><span class="line"><span class="number">2021</span>-<span class="number">11</span>-08 <span class="number">18</span>:<span class="number">43</span>:<span class="number">48.330</span>  INFO <span class="number">12124</span> --- [)-<span class="number">172.27</span><span class="number">.238</span><span class="number">.19</span>] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:<span class="number">5672</span>]</span><br><span class="line"><span class="number">2021</span>-<span class="number">11</span>-08 <span class="number">18</span>:<span class="number">43</span>:<span class="number">48.333</span>  INFO <span class="number">12124</span> --- [)-<span class="number">172.27</span><span class="number">.238</span><span class="number">.19</span>] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet <span class="string">&#x27;dispatcherServlet&#x27;</span></span><br><span class="line"><span class="number">2021</span>-<span class="number">11</span>-08 <span class="number">18</span>:<span class="number">43</span>:<span class="number">48.333</span>  INFO <span class="number">12124</span> --- [)-<span class="number">172.27</span><span class="number">.238</span><span class="number">.19</span>] o.s.web.servlet.DispatcherServlet        : Initializing Servlet <span class="string">&#x27;dispatcherServlet&#x27;</span></span><br><span class="line"><span class="number">2021</span>-<span class="number">11</span>-08 <span class="number">18</span>:<span class="number">43</span>:<span class="number">48.339</span>  INFO <span class="number">12124</span> --- [)-<span class="number">172.27</span><span class="number">.238</span><span class="number">.19</span>] o.s.web.servlet.DispatcherServlet        : Completed initialization in <span class="number">6</span> ms</span><br><span class="line"><span class="number">2021</span>-<span class="number">11</span>-08 <span class="number">18</span>:<span class="number">43</span>:<span class="number">52.340</span>  WARN <span class="number">12124</span> --- [)-<span class="number">172.27</span><span class="number">.238</span><span class="number">.19</span>] o.s.b.a.amqp.RabbitHealthIndicator       : Rabbit health check failed</span><br><span class="line"></span><br><span class="line">org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: connect</span><br><span class="line">	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:<span class="number">62</span>) ~[spring-rabbit-<span class="number">2.2</span><span class="number">.2</span>.RELEASE.jar:<span class="number">2.2</span><span class="number">.2</span>.RELEASE]</span><br><span class="line">	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:<span class="number">510</span>) ~[spring-rabbit-<span class="number">2.2</span><span class="number">.2</span>.RELEASE.jar:<span class="number">2.2</span><span class="number">.2</span>.RELEASE]</span><br><span class="line">	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:<span class="number">751</span>) ~[spring-rabbit-<span class="number">2.2</span><span class="number">.2</span>.RELEASE.jar:<span class="number">2.2</span><span class="number">.2</span>.RELEASE]</span><br><span class="line">	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:<span class="number">215</span>) ~[spring-rabbit-<span class="number">2.2</span><span class="number">.2</span>.RELEASE.jar:<span class="number">2.2</span><span class="number">.2</span>.RELEASE]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>没有检测到<code>spring.rabbitmq</code>相关的配置，就使用了默认的配置，尝试连接<code>localhost:5672</code>，然后就出现了<code>org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: connect</code>。</p>
+<ul>
+<li><p>解決方法：禁用<code>RabbitHealthIndicator</code></p>
+<p>在application.yml中</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">health:</span></span><br><span class="line">    <span class="attr">rabbit:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="8、Spring-Cloud-Nacos"><a href="#8、Spring-Cloud-Nacos" class="headerlink" title="8、Spring Cloud Nacos"></a>8、Spring Cloud Nacos</h2><h3 id="Nacos注册中心"><a href="#Nacos注册中心" class="headerlink" title="Nacos注册中心"></a>Nacos注册中心</h3><ul>
+<li><p>nacos注册中心和其他注册中心的对比：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211112111110967.png" alt="image-20211112111110967"></p>
+<p><strong>Nacos支持AP和CP模式的切换</strong></p>
+<p><strong>何时选择使用何种模式?</strong></p>
+<p>—般来说，如果不需要存储服务级别的信息且服务实例是通过nacos-client注册，并能够保持心跳上报，那么就可以选择AP模式。当前主流的服务如Spring cloud和Dubbo服务，都适用于AP模式，AP模式为了服务的可能性而减弱了一致性，因此AP模式下只支持注册临时实例。</p>
+<p>如果需要在服务级别编辑或者存储配置信息，那么CP是必须，K8S服务和DNS服务则适用于CP模式。CP模式下则支持注册持久化实例，此时则是以Raft协议为集群运行模式，该模式下注册实例之前必须先注册服务，如果服务不存在，则会返回错误。</p>
+<p>切换命令：</p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X PUT <span class="string">&#x27;$NACOS_SERVER:8848/nacos/v1/ns/operator/switches?entry=serverMode&amp;value=CP</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Nacos配置中心"><a href="#Nacos配置中心" class="headerlink" title="Nacos配置中心"></a>Nacos配置中心</h3><ul>
+<li><p>Nacos上创建配置文件</p>
+<ul>
+<li>命名空间</li>
+<li>组</li>
+<li>文件</li>
+</ul>
+</li>
+<li><p>从配置中心获取配置文件</p>
+<p>bootstrap.yml：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nacos配置</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">3377</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">nacos-config-client</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="string">localhost:8848</span> <span class="comment">#Nacos服务注册中心地址</span></span><br><span class="line">      <span class="attr">config:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="string">localhost:8848</span> <span class="comment">#Nacos作为配置中心地址</span></span><br><span class="line">        <span class="attr">file-extension:</span> <span class="string">yaml</span> <span class="comment">#指定yaml格式的配置</span></span><br><span class="line">        <span class="attr">group:</span> <span class="string">DEV_GROUP</span></span><br><span class="line">        <span class="attr">namespace:</span> <span class="string">7d8f0f5a-6a53-4785-9686-dd460158e5d4</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># $&#123;spring.application.name&#125;-$&#123;spring.profile.active&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;</span></span><br><span class="line"><span class="comment"># nacos-config-client-dev.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># nacos-config-client-test.yaml   ----&gt; config.info</span></span><br></pre></td></tr></table></figure>
+
+<p>application.yml：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">profiles:</span></span><br><span class="line">    <span class="attr">active:</span> <span class="string">dev</span> <span class="comment"># 表示开发环境</span></span><br><span class="line">    <span class="comment">#active: test # 表示测试环境</span></span><br><span class="line">    <span class="comment">#active: info</span></span><br></pre></td></tr></table></figure>
+
+<p>${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}与nacos配置中心的配置文件名相对应</p>
+<ul>
+<li>prefix默认为spring.application.name的值，也可以通过配置项spring.cloud.nacos.config.prefix来配置。</li>
+<li>spring.profile.active即为当前环境对应的 profile，详情可以参考 Spring Boot文档。注意：当spring.profile.active为空时，对应的连接符 - 也将不存在，datald 的拼接格式变成${prefix}.${file-extension}</li>
+<li>file-exetension为配置内容的数据格式，可以通过配置项spring .cloud.nacos.config.file-extension来配置。目前只支持properties和yaml类型。</li>
+<li>通过Spring Cloud 原生注解@RefreshScope实现配置自动更新。</li>
+</ul>
+</li>
+<li><p><strong>Namespace+Group+Data lD三者关系？为什么这么设计？</strong></p>
+<ul>
+<li>namespace<ul>
+<li>比方说我们现在有三个环境：开发、测试、生产环境，我们就可以创建三个Namespace，不同的Namespace之间是隔离的。</li>
+</ul>
+</li>
+<li>group<ul>
+<li>Group默认是DEFAULT_GROUP，Group可以把不同的微服务划分到同一个分组里面去</li>
+</ul>
+</li>
+<li>service<ul>
+<li>Service就是微服务:一个Service可以包含多个Cluster (集群)，Nacos默认Cluster是DEFAULT，Cluster是对指定微服务的一个虚拟划分。</li>
+</ul>
+</li>
+<li>Instance<ul>
+<li>就是微服务的实例。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Nacos集群架构（linux）"><a href="#Nacos集群架构（linux）" class="headerlink" title="Nacos集群架构（linux）"></a>Nacos集群架构（linux）</h3><p>  环境支撑：mysql，jdk8</p>
+<ul>
+<li><p>Nacos下载Linux版</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/releases/tag/1.1.4">https://github.com/alibaba/nacos/releases/tag/1.1.4</a></li>
+<li>nacos-server-1.1.4.tar.gz 解压后安装</li>
+</ul>
+</li>
+<li><p>集群配置</p>
+<ul>
+<li>mysql执行nacos&#x2F;conf&#x2F;nacos-mysql.sql脚本文件</li>
+</ul>
+</li>
+<li><p>配置nacos&#x2F;conf&#x2F;application.properties</p>
+<ul>
+<li><p>添加数据源配置</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.datasource.platform</span>=<span class="string">mysql</span></span><br><span class="line"></span><br><span class="line"><span class="attr">db.num</span>=<span class="string">1</span></span><br><span class="line"><span class="attr">db.url.0</span>=<span class="string">jdbc:mysql://localhost:3306/nacos_devtest?characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true</span></span><br><span class="line"><span class="attr">db.user</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">db.password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>集群配置nacos&#x2F;conf&#x2F;cluster.conf</p>
+<p>添加内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.111.144:3333</span><br><span class="line">192.168.111.144:4444</span><br><span class="line">192.168.111.144:5555</span><br></pre></td></tr></table></figure>
+
+<p>这个IP不能写127.0.0.1，必须是Linux命令<code>hostname -i</code>能够识别的IP</p>
+</li>
+<li><p>编辑启动脚本startup.sh</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211114210709720.png" alt="image-20211114210709720"></p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211114210733337.png" alt="image-20211114210733337"></p>
+</li>
+<li><p>执行方式：</p>
+<p>startup.sh - p 端口号</p>
+</li>
+<li><p>配置nginx负载均衡</p>
+<ul>
+<li><p>修改nginx配置文件：usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf</p>
+<p><img src="F:\work\typore\notes\知识点\image-20211114210926731.png" alt="image-20211114210926731"></p>
+</li>
+<li><p>启动nginx</p>
+<p>.&#x2F;nginx&#x2F;sbin&#x2F;nginx -c &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf</p>
+</li>
+<li><p>启动三个nacos注册中心</p>
+</li>
+<li><p>启动nginx</p>
+</li>
+<li><p>访问：<a target="_blank" rel="noopener" href="http://192.168.111.144:1111/nacos/#/login">http://192.168.111.144:1111/nacos/#/login</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="9、Sentinel"><a href="#9、Sentinel" class="headerlink" title="9、Sentinel"></a>9、Sentinel</h2><p>随着微服务的流行，服务和服务之间的稳定性变得越来越重要。Sentinel以流量作为切入点，从流量控制、熔断降级、系统负载保护等多个维度保护服务的稳定性</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>丰富的应用场景：Sentinel 承接了阿里巴巴近 10 年的双十一大促流量的核心场景，例如秒杀（即突发流量控制在系统容量可以承受的范围）、消息削峰填谷、集群流量控制、实时熔断下游不可用应用等。</li>
+<li>完备的实时监控：Sentinel 同时提供实时的监控功能。您可以在控制台中看到接入应用的单台机器秒级数据，甚至 500 台以下规模的集群的汇总运行情况。</li>
+<li>广泛的开源生态：Sentinel 提供开箱即用的与其它开源框架&#x2F;库的整合模块，例如与 Spring Cloud、Dubbo、gRPC 的整合。您只需要引入相应的依赖并进行简单的配置即可快速地接入 Sentinel。</li>
+<li>完善的SPI扩展点：Sentinel 提供简单易用、完善的 SPI 扩展接口。您可以通过实现扩展接口来快速地定制逻辑。例如定制规则管理、适配动态数据源等</li>
+</ul>
+<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><h3 id="服务降级和熔断"><a href="#服务降级和熔断" class="headerlink" title="服务降级和熔断"></a>服务降级和熔断</h3><ul>
+<li><p>熔断降级概述</p>
+<p>除了流量控制以外，对调用链路中不稳定的资源进行熔断降级也是保障高可用的重要措施之一。一个服务常常会调用别的模块，可能是另外的一个远程服务、数据库，或者第三方 API 等。例如，支付的时候，可能需要远程调用银联提供的 API；查询某个商品的价格，可能需要进行数据库查询。然而，这个被依赖服务的稳定性是不能保证的。如果依赖的服务出现了不稳定的情况，请求的响应时间变长，那么调用服务的方法的响应时间也会变长，线程会产生堆积，最终可能耗尽业务自身的线程池，服务本身也变得不可用。</p>
+<p>现代微服务架构都是分布式的，由非常多的服务组成。不同服务之间相互调用，组成复杂的调用链路。以上的问题在链路调用中会产生放大的效果。复杂链路上的某一环不稳定，就可能会层层级联，最终导致整个链路都不可用。因此我们需要对不稳定的弱依赖服务调用进行熔断降级，暂时切断不稳定调用，避免局部不稳定因素导致整体的雪崩。熔断降级作为保护自身的手段，通常在客户端（调用端）进行配置。</p>
+</li>
+</ul>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211115144700227.png" alt="image-20211115144700227"></p>
+<ul>
+<li><p>降级策略</p>
+<ul>
+<li>RT（平均响应时间，秒级）（DEGRADE_GRADE_RT）<ul>
+<li>平均响应时间 超出阈值 且 在时间窗口内通过的请求&gt;&#x3D;5，两个条件同时满足后触发降级。</li>
+<li>窗口期过后关闭断路器</li>
+<li>RT最大4900（更大的需要通过-Dcsp.sentinel.statistic.max.rt&#x3D;XXXX才能生效）</li>
+</ul>
+</li>
+<li>异常比列（秒级）（ERROR_RATIO）<ul>
+<li>QPS &gt;&#x3D; 5且异常比例（秒级统计）超过阈值时，触发降级;时间窗口结束后，关闭降级 。</li>
+<li>当资源的每秒请求量 &gt;&#x3D; 5，并且每秒异常总数占通过量的比值超过阈值（ DegradeRule中的 count）之后，资源进入降级状态，即在接下的时间窗口( DegradeRule中的timeWindow，以s为单位）之内，对这个方法的调用都会自动地返回。异常比率的阈值范围是[0.0, 1.0]，代表0% -100%。</li>
+</ul>
+</li>
+<li>异常数(分钟级)：DEGRADE_GRADF_EXCEPTION_COUNT<ul>
+<li>异常数(分钟统计）超过阈值时，触发降级;时间窗口结束后，关闭降级</li>
+<li>资源近1分钟的异常数目超过阈值之后会进行熔断。注意由于统计时间窗口是分钟级别的，若<code>timeWindow</code>小于60s，则结束熔断状态后码可能再进入熔断状态。</li>
+</ul>
+</li>
+</ul>
+<p>Sentinel熔断降级会在调用链路中某个资源出现不稳定状态时（例如调用超时或异常比例升高)，对这个资源的调用进行限制，让请求快速失败，避免影响到其它的资源而导致级联错误。</p>
+<p>当资源被降级后，在接下来的降级时间窗口之内，对该资源的调用都自动熔断（默认行为是抛出 DegradeException）。</p>
+<p>Sentinei的断路器是没有类似Hystrix半开状态的。(Sentinei 1.8.0 已有半开状态)</p>
+<p>半开的状态系统自动去检测是否请求有异常，没有异常就关闭断路器恢复使用，有异常则继续打开断路器不可用。</p>
+</li>
+</ul>
+<h3 id="热点规则（限制访问次数）"><a href="#热点规则（限制访问次数）" class="headerlink" title="热点规则（限制访问次数）"></a>热点规则（限制访问次数）</h3><p>热点就是经常访问的数据</p>
+<p>很多时候我们希望统计某个热点数据中访问频次最高的 Top K 数据，并对其访问进行限制。比如：</p>
+<ul>
+<li>商品 ID 为参数，统计一段时间内最常购买的商品 ID 并进行限制</li>
+<li>用户 ID 为参数，针对一段时间内频繁访问的用户 ID 进行限制</li>
+<li>热点参数限流会统计传入参数中的热点参数，并根据配置的限流阈值与模式，对包含热点参数的资源调用进行限流。热点参数限流可以看做是一种特殊的流量控制，仅对包含热点参数的资源调用生效。</li>
+</ul>
+<h3 id="系统规则"><a href="#系统规则" class="headerlink" title="系统规则"></a>系统规则</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/SpringCloud/" data-id="cl4ve2jir0001w0gvd2dc29yz" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Git" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/Git/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T10:49:51.180Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><ul>
+<li><p>码云gitee：<a target="_blank" rel="noopener" href="https://gitee.com/">https://gitee.com/</a></p>
+</li>
+<li><p>github：<a target="_blank" rel="noopener" href="https://github.com/">https://github.com/</a></p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211102171505528.png" alt="image-20211102171505528"></p>
+</li>
+</ul>
+<h3 id="本地仓库"><a href="#本地仓库" class="headerlink" title="本地仓库"></a>本地仓库</h3><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211102171424721.png" alt="image-20211102171424721"></p>
+<h3 id="git常用命令"><a href="#git常用命令" class="headerlink" title="git常用命令"></a>git常用命令</h3><ul>
+<li><p>git init：初始化本地库，获取目录管理权，会自动生成.git文件夹</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211102171638576.png" alt="image-20211102171638576"></p>
+</li>
+<li><p>git status：查看当前本地库的状态</p>
+</li>
+<li><p>git clone + 远程仓库地址：克隆远程仓库到本地</p>
+</li>
+<li><p>git add *：将所有文件提交到暂存区 </p>
+</li>
+<li><p>git commit -m “备注信息”  +文件名</p>
+</li>
+<li><p>git reflog&#x2F;log：查看提交代码的版本信息&#x2F;详细信息</p>
+</li>
+<li><p>git reset –hard +版本号：切换代码版本</p>
+</li>
+<li><p>git pull</p>
+</li>
+<li><p>分支的操作：</p>
+<ul>
+<li><p>git branch +分支名：创建分支</p>
+</li>
+<li><p>git branch -v：查看分支</p>
+</li>
+<li><p>git checkout  分支名：切换分支</p>
+</li>
+<li><p>git merge +分支名：把指定的分支合并到当当前分支上</p>
+</li>
+</ul>
+</li>
+<li><p>冲突解决</p>
+<p>当同一个文件被两个人同时修改时，提交或合并后会出现代码冲突‘</p>
+<p>解决办法：</p>
+<ol>
+<li>删除特殊符号，选择要保留的内容</li>
+<li>添加到缓存区：git add +目标文件</li>
+<li>执行提交：git commit -m “备注信息”（注意：此处不能带文件名）</li>
+</ol>
+</li>
+<li><p>团队内协作</p>
+<ul>
+<li>git commit -m “版本日志信息备注”  +文件名：提交</li>
+<li>git push origin  +分支名：推送代码到远程仓库的指定分支</li>
+<li>git clone</li>
+<li>git pull ：拉取远程仓库的代码到本地仓库</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/Git/" data-id="cl4vd9h1h0000ssgv78wcgm2c" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-java中的修饰符" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/java%E4%B8%AD%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T10:49:51.180Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="java中的修饰符"><a href="#java中的修饰符" class="headerlink" title="java中的修饰符"></a>java中的修饰符</h1><ul>
+<li><p>类修饰符</p>
+<ul>
+<li><p>访问修饰符：public（公共类修饰符）</p>
+<p>java 语言中类的访问控制符只有 public 即公共的。每个 Java 程序的有且只有一个类是 public，它被称为主类 ，其他外部类无访问控制修饰符，具有包访问性。注意：一个类的内部类可以被其他访问控制修饰符protected、缺省默认(default、friendly)、private修饰，相当于类的成员。</p>
+</li>
+<li><p>非访问类修饰符：抽象类abstract，最终类final</p>
+<ul>
+<li>抽象类abstract：用 abstract 修饰符修饰的类，被称为抽象类。</li>
+<li>最终类final：当一个类不能被继承时可用修饰符 final修饰为最终类。被定义为 final 的类通常是一些有固定作用、用来完成某种标准功能的类。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>方法修饰符</p>
+<ul>
+<li><p>访问控制修饰符</p>
+<p>公共访问控制符<strong>public</strong>、保护访问控制符<strong>protected</strong>、缺省默认访问控制符、私有访问控制符<strong>private</strong></p>
+</li>
+<li><p>非访问控制修饰符</p>
+<p> 抽象方法控制符<strong>abstract</strong> 、静态方法控制符<strong>static</strong> 、最终方法控制符<strong>final</strong> 、本地方法控制符<strong>native</strong> 、同步方法控制符<strong>synchronized</strong></p>
+<p>（1）抽象方法控制符 abstract ： abstract 修饰的方法称为抽象方法。抽象方法仅有方法头，没有方法体和具体实现。</p>
+<p>（2）静态方法控制符 static ：用修饰符 static 修饰的方法称为静态方法。静态方法是属于整个类的类方法；而不使用static 修饰、限定的方法是属于某个具体类对象的方法。 由于 static方法是属于整个类的，所以它不能操纵和处理属于某个对象的成员变量，而只能处理属于整个类的成员变量，即 static 方法只能处理 static的域。</p>
+<p>（3）最终方法控制符 final ：用修饰符 final修饰的方法称为最终方法。最终方法是功能和内部语句不能更改的方法，即最终方法不能重写覆盖。final固定了方法所具有的功能和操作，防止当前类的子类对父类关键方法的错误定义，保证了程序的安全性和正确性。所有被 private 修饰符限定为私有的方法，以及所有包含在 final 类 ( 最终类) 中的方法，都被认为是最终方法。</p>
+<p>（4）本地方法控制符 native ：用修饰符 native 修饰的方法称为本地方法。为了提高程序的运行速度，需要用其它的高级语言书写程序的方法体，那么该方法可定义为本地方法用修饰符 native 来修饰。</p>
+<p>（5）同步方法控制符 synchronized ：该修饰符主要用于多线程程序中的协调和同步。</p>
+</li>
+</ul>
+</li>
+<li><p>变量修饰符</p>
+</li>
+<li><p>访问控制修饰符</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/java%E4%B8%AD%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6/" data-id="cl4vd9h1z0004ssgv4mpi8tv9" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JVM（java虚拟机）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/JVM%EF%BC%88java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="JVM（java虚拟机）"><a href="#JVM（java虚拟机）" class="headerlink" title="JVM（java虚拟机）"></a>JVM（java虚拟机）</h1><p><strong>java：跨平台的语言</strong></p>
+<p><strong>jvm：跨语言的平台</strong></p>
+<ul>
+<li>三种JVM<ul>
+<li>Sun公司：Java HotShop</li>
+<li>BEA ：JRockit</li>
+<li>IBM：J9VM</li>
+</ul>
+</li>
+</ul>
+<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><ul>
+<li>概念：就是一台虚拟的计算机。它是一款软件，用来执行一系列虚拟计算机指令。大体上可分为系统虚拟机（如：VMware）和程序虚拟机（JVM）</li>
+<li>java虚拟机是一台用于执行java字节码的虚拟计算机，它拥有独立的运行机制，其运行的java字节码也未必由java语言编译而成</li>
+<li>java技术的核心就是java虚拟机</li>
+</ul>
+<p><strong>特点：</strong></p>
+<ul>
+<li>一次编译，多处运行</li>
+<li>自动内存管理</li>
+<li>自动垃圾回收功能</li>
+</ul>
+<p><strong>JVM是运行在操作系统上的， 与硬件没有直接的交互</strong></p>
+<p>JVM的整体结构：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211128135252574.png" alt="image-20211128135252574"></p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211128135653464.png" alt="image-20211128135653464"></p>
+<p>java程序执行流程：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211128140444203.png" alt="image-20211128140444203"> </p>
+<h3 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h3><p>主要是在方法区和堆进行调优，java栈、本地方法栈和程序计数器中不会出现垃圾回收</p>
+<h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h3><ul>
+<li><p>JVM提供了ClassLoader</p>
+<ul>
+<li><strong>Bootstrap classLoader</strong>:主要负责加载核心的类库(java.lang.*等)，构造ExtClassLoader和APPClassLoader</li>
+<li><strong>ExtClassLoader</strong>：主要负责加载jre&#x2F;lib&#x2F;ext目录下的一些扩展的jar</li>
+<li><strong>AppClassLoader</strong>：主要负责加载应用程序的主函数类</li>
+</ul>
+</li>
+<li><p>作用：加载class文件</p>
+</li>
+<li><p><strong>加载过程</strong></p>
+<ul>
+<li>类加载器收到类加载的请求（Application）</li>
+<li>将这个请求向上委托给父类加载器去完成，一直向上委托了，直到启动类加载器（BOOT）</li>
+<li>启动加载器检查是否能加载当前的这个类，能加载就结束，并使用当前类加载器，否则，抛出异常，通知子加载器进行加载</li>
+<li>Class not found</li>
+</ul>
+</li>
+<li><h6 id=""><a href="#" class="headerlink" title=""></a><img src="https://img-blog.csdnimg.cn/2020121722082798.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NvZGV5YW5iYW8=,size_16,color_FFFFFF,t_70" alt="img"></h6></li>
+</ul>
+<h3 id="双亲委派机制（类加载机制）"><a href="#双亲委派机制（类加载机制）" class="headerlink" title="双亲委派机制（类加载机制）"></a>双亲委派机制（类加载机制）</h3><p>​		当一个Hello.class这样的文件要被加载时。不考虑我们自定义类加载器，首先会在AppClassLoader中检查是否加载过，如果有那就无需再加载了。如果没有，那么会拿到父加载器，然后调用父加载器的loadClass方法。父类中同理也会先检查自己是否已经加载过，如果没有再往上。注意这个类似递归的过程，直到到达Bootstrap classLoader之前，都是在检查是否加载过，并不会选择自己去加载。直到BootstrapClassLoader，已经没有父加载器了，这时候开始考虑自己是否能加载了，如果自己无法加载，会下沉到子加载器去加载，一直到最底层，如果没有任何加载器能加载，就会抛出ClassNotFoundException</p>
+<p>作用：为了安全，一定程度上防止的危险代码的植入，防止有人恶意篡改系统级别的类</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211128150615195.png" alt="image-20211128150615195"></p>
+<p><strong>new一个对象所发生的一系列事情：</strong></p>
+<ol>
+<li>new student（）</li>
+<li>类加载器加载<ul>
+<li>加载：由类加载器负责根据一个类的全限定名来读取此类的二进制字节流到JVM内部，并存储在运行时内存区的方法区，然后将其转换为一个与目标类型对应的java.lang.Class对象实例</li>
+<li>验证：验证是否符合class文件规范</li>
+<li>准备：为类中的所有静态变量分配内存空间，并为其设置一个初始值（由于还没有产生对象，实例变量不在此操作范围内），被final修饰的static变量（常量），会直接赋值；</li>
+<li>初始化：先父后子<ul>
+<li>为静态变量赋值</li>
+<li>执行static代码块（static代码块只有jvm能够调用）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>创建对象<ul>
+<li>在堆内分配对象所需要的内存</li>
+<li>对所有实例变量赋默认值</li>
+<li>执行实例初始化代码，先执行实例代码，然后执行构造方法，建立引用关系</li>
+</ul>
+</li>
+</ol>
+<h3 id="沙箱安全机制"><a href="#沙箱安全机制" class="headerlink" title="沙箱安全机制"></a>沙箱安全机制</h3><p>组成沙箱的基本组件</p>
+<ul>
+<li><p>字节码校验器：确保java类文件遵循java语言规范。可以帮助java实现内存保护。但不是所有的类文件都会经过字节码校验，比如核心类</p>
+</li>
+<li><p>类加载器：在三个方面对沙箱起作用：</p>
+<ul>
+<li>防止恶意的代码去干涉善意的代码</li>
+<li>守护了被信任的类库边界</li>
+<li>将代码归入保护域，确定了代码可以进行那些操作</li>
+</ul>
+<p>虚拟机为不同的类加载器载入的类提供不同的命名空间，命名空间由一系列唯一的名称组成，每个被装载的类都将有一个名字，这个命名空间是由java虚拟机为每一个类加载器维护的，它们之间甚至不可见</p>
+</li>
+<li><p>存取控制器：存取控制器可以控制核心API对操作系统的存取权限，而这个控制策略的设定，可以由用户指定</p>
+</li>
+<li><p>安全管理器：是核心API和操作系统之间的主要接口，实现权限控制，比存取控制器优先级高</p>
+</li>
+<li><p>安全软件包：java.security下的类和扩展包下的类，允许用户为自己的应用增加新的安全特性，包括：</p>
+<ul>
+<li>安全提供者</li>
+<li>消息摘要</li>
+<li>数字签名</li>
+<li>加密</li>
+<li>鉴别</li>
+</ul>
+</li>
+</ul>
+<h3 id="native关键字"><a href="#native关键字" class="headerlink" title="native关键字"></a>native关键字</h3><p>凡是带了native关键字的方法，说明Java的作用范围无法实现了，需要调用底层C语言的库，会进入本地方法栈（Native Method Strack），随后调用本地方法接口（Java Native Interface，简称：JNI）</p>
+<ul>
+<li>本地方法接口（Java Native Interface，简称：JNI）的作用：扩展java的使用，融合不同的编程语言为java所用</li>
+<li>产生背景：java诞生之初，c语言和c++横行，所以想要立足，就必须能融合c和c++，最初JNI就用于扩展c和c++为java所用</li>
+<li>在内存区域中，专门开辟了一块标记区域：本地方法栈（Native Method Strack），登记native关键字的方法，最终执行的时候，通过JNI加载本地方法库中的方法</li>
+</ul>
+<h3 id="PC寄存器（Program-Counter-Register）"><a href="#PC寄存器（Program-Counter-Register）" class="headerlink" title="PC寄存器（Program Counter Register）"></a>PC寄存器（Program Counter Register）</h3><p>又称程序计数器</p>
+<p>每个线程都有一个程序计数器，是线程私有的，就是一个指针，指向方法区中的方法字节码（用于存贮指向一条指令的地址，也就是将要执行的指令代码），在执行引擎读取下一条指令，是一个非常狭小的内存空间，几乎可以忽略不计</p>
+<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>Method Area</p>
+<p>​		是被所有线程共享的，所有字段和方法字节码，以及一些特殊方法，如构造函数、接口代码也在这里定义，简单说，所有定义的方法的信息都保存在该区域，属于共享空间；</p>
+<p>​		静态方法、常量、类信息（构造方法、接口定义）、运行时的常量池存在方法区中，但是实例变量存在堆内存中，和方法区无关</p>
+<p>static、class、final、常量池</p>
+<h3 id="JVM内存"><a href="#JVM内存" class="headerlink" title="JVM内存"></a>JVM内存</h3><p>运行时数据区Runable Date area</p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈是运行时的单位，</p>
+<ul>
+<li>程序&#x3D;算法+数据结构</li>
+<li>栈：先进后出，后进先出</li>
+<li>队列：先进先出（FIFO）</li>
+<li>主管程序的运行、生命周期和线程同步，线程结束后，则栈内存也会释放，所以对于栈不存在垃圾回收</li>
+<li>主要存储：8大基本类型、对象引用、实例的方法<ul>
+<li>栈运行原理：栈帧，每个方法在执行时都会创建一个栈帧用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每个方法从调用到执行结束，就对应着一个栈帧从虚拟机栈中入栈到出栈的过程</li>
+<li>局部变量表：存放了编译器可知的各种基本类型(boolean、byte、char、short、int、float、long、double)、对象引用(reference 类型)和 returnAddress 类型(指向了一条字节码指令的地址)</li>
+</ul>
+</li>
+<li>栈满：StackOverFlowErorr</li>
+</ul>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>Heap</p>
+<p>堆是存储时的单位，主要存放对象实例和数组</p>
+<p>内存划分：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211129222840327.png" alt="image-20211129222840327"></p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211202153633679.png" alt="image-20211202153633679"></p>
+<ul>
+<li><p>一个JVM只有一个堆内存，且堆内存是可以调节的</p>
+</li>
+<li><p>堆内存的用途：存放的是对象，垃圾收集器就是收集这些对象，然后根据GC算法回收</p>
+</li>
+<li><p>堆内存中划分</p>
+<ul>
+<li><p>年轻代</p>
+<ul>
+<li>新生区（Eden区）</li>
+<li>幸存区（谁空谁是to）<ul>
+<li>FromSpace </li>
+<li>ToSpace</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>老年代</p>
+<p>Java7及以前将堆空间逻辑上分成三部分：新生区+养老区+永久代</p>
+</li>
+</ul>
+<p>　　Java8及以后将堆内存逻辑上分为：新生区+养老区+元空间（逻辑上存在，物理上不存在）</p>
+</li>
+<li><p>GC垃圾回收主要在新生区和养老区，假如内存满了，会报<strong>OOM错误</strong>（java.lang.OutOfMemory）</p>
+</li>
+<li><p>java1.8废除了永久代，替代的是<strong>元空间</strong>，元空间和永久代类似，都是方法区的实现，最大的区别是：<strong>元空间并不在JVM中</strong>，而是使用本地内存</p>
+<ul>
+<li>元空间有两个参数：<ul>
+<li><strong>MetaspaceSize</strong> ：初始化元空间大小，控制发生GC阈值</li>
+<li><strong>MaxMetaspaceSize</strong> ： 限制元空间大小上限，防止异常占用过多物理内存</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>移除永久代的原因</strong>：</p>
+<ul>
+<li>为融合HotSpot JVM与JRockit VM（新JVM技术）而做出的改变，因为JRockit没有永久代</li>
+<li>有了元空间就不会出现永久代OOM问题（内存溢出）问题了</li>
+</ul>
+</li>
+<li><p><strong>堆内存溢出（OOM）的原因</strong></p>
+<p>在新生代中经过GC后还存活的对象会被复制到老年代中。当老年代空间不足时，JVM会对老年代进行完全的垃圾回收。如果GC后还是无法存放从幸存区（survivor区）复制过来的对象，就会出现OOM（OutOfMemory）</p>
+<p><strong>解决方案：</strong></p>
+<ul>
+<li><p>先尝试将堆内存扩大，再次运行看结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xms1024m -Xmx1024m -XX:+PrintGCDetail</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>扩大内存无法解决则需要分析内存占用情况，找问题原因</p>
+<p>使用内存快照分析工具：Jprofiler、MAT</p>
+<p>内存快照分析工具作用</p>
+<ul>
+<li>分析Dump内存文件，快速定位内存泄露</li>
+<li>分析堆中的数据</li>
+<li>获得大的对象</li>
+</ul>
+<p>使用方法：</p>
+<ul>
+<li><p>IDEA安装Jprofiler插件，重启IDEA</p>
+</li>
+<li><p>安装Jprofiler客户端工具，下载：<a target="_blank" rel="noopener" href="https://www.ej-technologies.com/download/jprofiler/files">https://www.ej-technologies.com/download/jprofiler/files</a></p>
+</li>
+<li><p>IDEA配置：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211202163901504.png" alt="image-20211202163901504"></p>
+</li>
+<li><p>配置JVM参数：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211202164010355.png" alt="image-20211202164010355"></p>
+</li>
+<li><p>程序代码：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211202164041124.png" alt="image-20211202164041124"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>代码分析</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">BirthDate</span><span class="params">(<span class="type">int</span> d, <span class="type">int</span> m, <span class="type">int</span> y)</span>&#123;</span><br><span class="line">    day =d;</span><br><span class="line">    mouth=m;</span><br><span class="line">    year=y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">BirthDate</span> <span class="variable">bir</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BirthDate</span>(<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>);</span><br></pre></td></tr></table></figure>
+
+<p>代码中bir为对象引用，存在栈中；</p>
+<p>对象new BirthDate（）存在堆中</p>
+<p>d&#x3D;7,m&#x3D;8,y&#x3D;9为局部变量且数据类型为基本数据类型，所以变量和值都存储在栈中</p>
+<p>day，mouth，year为BirthDate的成员变量，它们存储在堆中存储的new BirthDate（）对象中</p>
+<h3 id="垃圾回收机制（GC）"><a href="#垃圾回收机制（GC）" class="headerlink" title="垃圾回收机制（GC）"></a>垃圾回收机制（GC）</h3><ul>
+<li><p>垃圾回收作用范围：堆和方法区</p>
+</li>
+<li><p>垃圾回收的两种类型：轻GC（普通的GC）、重GC（全局的GC）</p>
+</li>
+<li><p><strong>垃圾</strong>：在堆中存在，但是不可能再被任何途径使用的对象</p>
+<ul>
+<li><p>垃圾判断算法</p>
+<ul>
+<li><strong>引用判断法</strong>：为对象添加一个引用计数器，当对象增加一个引用时计数器加 1，引用失效时计数器减 1。引用计数为 0 的对象可被回收。</li>
+<li><strong>可达性分析法</strong>：以 <code>GC Roots</code> 为起始点进行搜索，可达的对象都是存活的，不可达的对象可被回收。</li>
+</ul>
+</li>
+<li><p>GC root中包含的东西</p>
+<ul>
+<li>虚拟机栈空间中非静态变量表中引用的对象</li>
+<li>本地方法栈中 <code>JNI</code> 中引用的对象</li>
+<li>方法区中静态变量引用的对象</li>
+<li>方法区中的常量引用的对象</li>
+</ul>
+</li>
+<li><p>垃圾回收算法</p>
+<ul>
+<li><strong>复制算法</strong>：</li>
+<li><strong>标记清除算法</strong>：扫描所有的对象，将需要存活的对象进行标记，然后清除没有标记的对象<ul>
+<li>优点：不需要额外的空间</li>
+<li>缺点：两次扫描会严重浪费时间，会产生内存碎片</li>
+</ul>
+</li>
+<li><strong>标记压缩算法</strong>：防止产生内存碎片，再次扫描，向一端移动存活的对象，标记—清除—压缩</li>
+</ul>
+</li>
+<li><p>常用的<strong>垃圾收集器</strong></p>
+<ul>
+<li><strong>serial</strong>：年轻代单线程串行垃圾收集器</li>
+<li><strong>CMS</strong>：老年代多线程并行垃圾收集器</li>
+</ul>
+</li>
+<li><p>垃圾回收器可以马上回收内存么？</p>
+<ul>
+<li><p>垃圾回收器不会马上释放内存空间，而是在某个对象被标记为垃圾之后的下一次GC时才会对内存空间进行释放。</p>
+<p>我们可以手动执行<code>System.gc()</code>，通知虚拟机进行GC，但是Java语言规范并不保证GC一定会执行。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>总结：</p>
+<ul>
+<li><p>算法对比</p>
+<ul>
+<li>内存效率：复制算法&gt;标记清除算法&gt;标记压缩算法（时间复杂度）</li>
+<li>内存整齐度：复制算法&#x3D;标记压缩算法&gt;标记清除算法</li>
+<li>内存利用率：标记压缩算法&#x3D;标记清除算法&gt;复制算法</li>
+</ul>
+</li>
+<li><p>没有最优的算法，只有最合适的算法</p>
+<p>年轻代：</p>
+<ul>
+<li>存活率低</li>
+<li>复制算法</li>
+</ul>
+<p>老年代</p>
+<ul>
+<li>区域大，存活率高</li>
+<li>标记清除+标记压缩（多次标记清楚，一次压缩）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/JVM%EF%BC%88java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%89/" data-id="cl4vd9h1t0001ssgvcj47dk0l" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-easyBI的使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/easyBI%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="easyBI的使用"><a href="#easyBI的使用" class="headerlink" title="easyBI的使用"></a>easyBI的使用</h1><p>Dashboards：对报表进行分类</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li><p>source Data：新建source application——-SQL</p>
+</li>
+<li><p>复制视图的SQL语句粘贴到</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210817203847333.png" alt="image-20210817203847333"></p>
+</li>
+<li></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/easyBI%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="cl4vd9h1w0002ssgv7txv66nf" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Jekins" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/Jekins/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h1><h3 id="持续部署"><a href="#持续部署" class="headerlink" title="持续部署"></a>持续部署</h3><p>关注点在于项目功能部署至服务器后能正常运行，项目push到git后能立马通过钩子程序通知Jenkins进行部署</p>
+<h3 id="持续集成"><a href="#持续集成" class="headerlink" title="持续集成"></a>持续集成</h3><p>各个小组分别负责各个模块的具体开发，各个模块独立测试时虽然能正常运行，但整合到一块后一起集成测试却出现很多问题，持续集成就是经常性的、频繁的把所有模块集成在一起测试，有问题尽早发现</p>
+<p>关注点；尽早发现项目整体运行的问题，尽早解决</p>
+<h3 id="持续交付"><a href="#持续交付" class="headerlink" title="持续交付"></a>持续交付</h3><p>面向用户，持续交付的关注点在于研发团队的最新代码能尽快的让用户体验到 </p>
+<p>优点：</p>
+<ul>
+<li>减少风险</li>
+<li>减少重复过程</li>
+<li>任何时间、任何地点生成可部署的软件</li>
+<li>增强项目的可见性</li>
+<li>建立团队对开发产品的信息</li>
+</ul>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210810103412650.png"></p>
+<h4 id="jenkins使用"><a href="#jenkins使用" class="headerlink" title="**jenkins使用"></a>**jenkins使用</h4><p>将Jenkins的war包放在tomcat服务器的webApp目录下</p>
+<p>启动tomcat，使用网址192.168.10.100:8080&#x2F;Jenkins即可访问Jenkins</p>
+<p>使用：</p>
+<ul>
+<li>全局安全配置：允许用户注册</li>
+<li>授权策略：任何用户可以做任何事（学习时使用）</li>
+<li>全局工具配置：指定maven的setting.xml文件位置、指定jdk路径、指定maven路径</li>
+<li>安装插件Deploy to Co ntainer</li>
+</ul>
+<p>配置步骤：</p>
+<p><strong>git上配置钩子程序，实现每次push到git后立马可以在Jenkins中构建项目</strong></p>
+<p>1. </p>
+<p>忘记用户名密码？</p>
+<p>进入用户目录下.jenkins&#x2F;config.xml  ，改为false，然后咋在Jenkins中修改密码</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210904162347498.png" alt="image-20210904162347498"></p>
+<h2 id="linux下配置jenkins"><a href="#linux下配置jenkins" class="headerlink" title="linux下配置jenkins"></a>linux下配置jenkins</h2><ol>
+<li>下载jenkins.war包</li>
+<li>运行jenkins，java -jar jenkins.war</li>
+<li>登录jenkins：服务器地址：8080</li>
+<li>git版本过低</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="http://10.10.0.153:8080//job/test3/build?token=token_ims">http://10.10.0.153:8080//job/test3/build?token=token_ims</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/Jekins/" data-id="cl4vd9h1x0003ssgvb72scrab" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-kettle" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/kettle/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="kettle"><a href="#kettle" class="headerlink" title="kettle"></a>kettle</h1><p>kettle是一款开源的ETL 工具，纯java编写，可以在windows，linux、Unix上运行，绿色无需安装，数据抽取高效稳定</p>
+<p>工程存储方式：</p>
+<ul>
+<li><p>kettle的两种设计：Transformation（转化）：完成针对数据的基础转换</p>
+</li>
+<li><p>Job（作业）：完成对整个工作流的控制 </p>
+<p>区别：</p>
+<ul>
+<li>作业是步骤流，转换是数据流，这是作业和转换最大的区别</li>
+<li>作业的每一个步骤，必须等到前面的步骤都跑完了，后面的步骤才会执行，而转换会 一次性把所有空间全部先启动（一个控件对应启动一个线程），然后数据流会从第一个控件开始，一条记录一条记录地流向最后的控件</li>
+<li><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210816144959990.png" alt="image-20210816144959990"></li>
+</ul>
+</li>
+</ul>
+<p>案例一：两个表之间的插入和更新:</p>
+<ul>
+<li>注意事项：<ul>
+<li>用来查询的字段只能是两个表里共同有的字段</li>
+</ul>
+</li>
+</ul>
+<h3 id="windows下使用kettle："><a href="#windows下使用kettle：" class="headerlink" title="windows下使用kettle："></a>windows下使用kettle：</h3><p>安装：</p>
+<ul>
+<li>安装JDK</li>
+<li>kettle安装包上传到linux，解压</li>
+<li>将mysql驱动拷贝到lib下</li>
+<li>运行</li>
+</ul>
+<h3 id="Linux下使用kettle："><a href="#Linux下使用kettle：" class="headerlink" title="Linux下使用kettle："></a>Linux下使用kettle：</h3><ul>
+<li>运行数据资源库中的转换 :  .&#x2F;pan.sh -rep&#x3D;my_repo -user&#x3D;admin -pass&#x3D;admin -trans&#x3D;stu1tostu2 -dir&#x3D;&#x2F;<ul>
+<li>-rep：资源库名</li>
+<li>-user：用户名</li>
+<li>-pass：密码</li>
+<li>-tran：转换名</li>
+<li>-dir：要运行的转换所在的目录</li>
+</ul>
+</li>
+<li>运行数据资源库中的作业： .&#x2F;pan.sh -rep&#x3D;my_repo -user&#x3D;admin -pass&#x3D;admin -job&#x3D;job1 -logfile&#x3D;.&#x2F;logs&#x2F;log.txt -dir&#x3D;&#x2F;<ul>
+<li>-job：作业名</li>
+<li>-log：日志目录</li>
+</ul>
+</li>
+</ul>
+<p>后台运行job：nohup  .&#x2F;kitchen.sh -file&#x3D;&#x2F;usr&#x2F;softwares&#x2F;kettle&#x2F;job&#x2F;发送邮件.kjb &amp;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget  ftp://ftp.pbone.net/mirror/ftp5.gwdg.de/pub/opensuse/repositories/home:/matthewdva:/build:/EPEL:/el7/RHEL_7/x86_64/webkitgtk-2.4.9-1.el7.x86_64.rpm </span><br><span class="line"></span><br><span class="line">yum install webkitgtk-2.4.9-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<p>参数参考：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210816175538583.png" alt="image-20210816175538583"></p>
+<h3 id="多表级联："><a href="#多表级联：" class="headerlink" title="多表级联："></a>多表级联：</h3><p>将一个数据库student中的stu1，stu2，stuinfo的信息集中到数据库b中的表stu_item上：</p>
+<ul>
+<li>新建一个转换</li>
+<li>建立数据库连接，连接数据库a和数据库b</li>
+<li>新建一个表输入</li>
+<li>编辑数据输入源，双击表输入</li>
+</ul>
+<h3 id="kettle发送邮件邮件主题表格显示"><a href="#kettle发送邮件邮件主题表格显示" class="headerlink" title="kettle发送邮件邮件主题表格显示"></a>kettle发送邮件邮件主题表格显示</h3><p>SQL语句嵌套HTML查询——&gt;设置查询数据为一个变量——&gt;在邮件内容中使用变量</p>
+<p>注意：如果查询出来的数据不完整，需要修改数据库的配置文件，配置文件中添加以下内容</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210904163119109.png" alt="image-20210904163119109"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/kettle/" data-id="cl4vd9h200005ssgvbska56e2" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-layUI" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/26/layUI/" class="article-date">
+  <time class="dt-published" datetime="2022-06-26T10:49:51.164Z" itemprop="datePublished">2022-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="layUI"><a href="#layUI" class="headerlink" title="layUI"></a>layUI</h1><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
+<li>下载layui：<a target="_blank" rel="noopener" href="https://www.layuiweb.com/index.htm">https://www.layuiweb.com/index.htm</a></li>
+</ul>
+<p>使用某个模块的实现步骤：</p>
+<ul>
+<li><p>引入资源（css）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;layui-v2.5.6/layui/css/layui.css&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;layui-v2.5.6/layui/layui.js&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加载依赖模块</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 导航 依赖element模块,否则无法进行功能性操作    </span></span></span><br><span class="line"><span class="language-javascript">    layui.<span class="title function_">use</span>(<span class="string">&#x27;element&#x27;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;        </span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> element = layui.<span class="property">element</span>;    </span></span><br><span class="line"><span class="language-javascript">    &#125;);					</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/26/layUI/" data-id="cl4vd9h210006ssgv4do94rpt" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/26/RabbitMQ%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/redis/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/ody-db/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/Nginx/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/26/PMO%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
