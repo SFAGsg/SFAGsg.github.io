@@ -1,0 +1,1537 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="数据结构与算法, 阿SFAG的个人博客">
+    <meta name="description" content="程序=数据结构+算法，把数据元素按照一定的关系组织起来的集合，用来组织和存储数据即数据结构">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+
+    <title>数据结构与算法 | 阿SFAG的个人博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">阿SFAG的个人博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">阿SFAG的个人博客</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/SFAGsg/SFAGsg.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>SFAGsg
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/SFAGsg/SFAGsg.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="SFAGsg" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">数据结构与算法</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="container content">
+
+    
+    <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                                <span class="chip bg-color">数据结构</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">算法</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Markdown/" class="post-category">
+                                Markdown
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-11-07
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="数据结构与算法（java）"><a href="#数据结构与算法（java）" class="headerlink" title="数据结构与算法（java）"></a>数据结构与算法（java）</h1><h3 id="数据结构与算法概述"><a href="#数据结构与算法概述" class="headerlink" title="数据结构与算法概述"></a>数据结构与算法概述</h3><p>程序&#x3D;数据结构+算法</p>
+<h5 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h5><p>定义</p>
+<ul>
+<li>把数据元素按照一定的关系组织起来的集合，用来组织和存储数据</li>
+</ul>
+<h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><ol>
+<li><p><strong>逻辑结构</strong></p>
+<p>逻辑结构是从具体问题中抽象出来的模型，是抽象意义上的结构，按照对象中数据元素之间的相互关系分类</p>
+<p>可分为</p>
+<ul>
+<li><p><strong>集合结构</strong>：集合中元素除了属于同一个集合以外，不再有其他的任何关系</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211203174213957.png" alt="image-20211203174213957"></p>
+</li>
+<li><p><strong>线性结构</strong>：线性结构中的元素之间存在一对一的关系</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211203174544793.png" alt="image-20211203174544793"></p>
+</li>
+<li><p><strong>树形结构</strong>：树形结构中的元素存在一对多的关系</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211203174554010.png"></p>
+</li>
+<li><p><strong>图形结构</strong>：图形结构中的元素存在多对多的关系</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211203174618818.png" alt="image-20211203174618818"></p>
+</li>
+</ul>
+</li>
+<li><p><strong>物理结构</strong></p>
+<p>定义：是逻辑结构在计算机中真正的表现方式（又称为映像），也可以叫做存储结构，常见的存储结构有顺序存储结构、链式存储结构</p>
+<ul>
+<li><p>顺序存储结构</p>
+<p>​	把数据元素存储在地址连续的存储单元里，其数据间的逻辑关系和物理关系是一致的，比如常用的数组就是顺序存储结构</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+</table>
+<p>缺点：对添加或删除操作不太方便，此时就需要链式存储结构</p>
+</li>
+<li><p>链式存储结构</p>
+<p>​		是把数据元素放在任意的存储单元里，这组数据可以是连续的也可以是不连续的，此时，数据元素之间并不能反映元素间的逻辑关系，因此在链式存储结构中引进了一个指针存放数据元素的地址，这样通过地址就可以找到相关联数据的位置</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><p>​		官方解释：算法是指解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法解决问题的策略机制。也就是所，能够对一定规范的输入，在一定时间内获得所要求的结果</p>
+<p>​		算法就是根据一定的条件，对已有的数据进行计算，得到需要的结果</p>
+<ul>
+<li>花费最少的时间完成需求</li>
+<li>占用最少的内存空间完成需求</li>
+</ul>
+<h5 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h5><ul>
+<li><p>算法函数中的常数可以忽略</p>
+</li>
+<li><p>算法函数中最高次幂的常数因子可以忽略</p>
+</li>
+<li><p>随着输入规模的增大，与最高次项的相乘的常数可以忽略</p>
+</li>
+<li><p>算法函数中最高次幂越小，算法效率越高</p>
+</li>
+</ul>
+<h5 id="大O记法"><a href="#大O记法" class="headerlink" title="大O记法"></a>大O记法</h5><p>规则：</p>
+<ol>
+<li><p>用常数1取代运行次数中所有的加法常数</p>
+</li>
+<li><p>在修改后的运行次数中，只保留高阶项</p>
+</li>
+<li><p>如果最高阶项存在，且常数因子不为1，则去除与这个项相乘的常数</p>
+<p>例：</p>
+<ul>
+<li>算法一：3—&gt;O(1)</li>
+<li>算法二：n+3—&gt;O(n)</li>
+<li>算法三：n<del>2+2—&gt;O(n</del>2)</li>
+</ul>
+</li>
+</ol>
+<h5 id="空间复杂度分析"><a href="#空间复杂度分析" class="headerlink" title="空间复杂度分析"></a>空间复杂度分析</h5><p>描述算法对内存的占用</p>
+<p>java中常见的内存占用</p>
+<ul>
+<li><p>基本数据类型内存占用情况</p>
+<table>
+<thead>
+<tr>
+<th align="center">数据类型</th>
+<th align="center">内存占用字节</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">byte</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h5 id="comparable接口"><a href="#comparable接口" class="headerlink" title="comparable接口"></a>comparable接口</h5><p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211205150113199.png" alt="image-20211205150113199"></p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211205150202489.png" alt="image-20211205150202489"></p>
+<h4 id="简单排序"><a href="#简单排序" class="headerlink" title="简单排序"></a>简单排序</h4><h5 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h5><p>排序原理：</p>
+<ul>
+<li><p>比较相邻的两个元素，如果前一个元素比后一个元素大，就交换这两个元素的位置</p>
+</li>
+<li><p>对每一对相邻的元素做同样 的工作，从开始第一对元素到结尾的最后一对元素，最终最后位置的元素就是最大值</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211205150711149.png" alt="image-20211205150711149"></p>
+</li>
+<li><p>代码实现</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">&#x2F;&#x2F;冒泡排序
+public class sort1 &#123;
+
+    public static void sort(Comparable[] a)&#123;
+        &#x2F;&#x2F;i为数组长度
+        for(int i&#x3D; a.length-1;i&gt;1;i--)&#123;
+            &#x2F;&#x2F;j为元素对应的索引
+            for (int j &#x3D; 0; j &lt; i; j++) &#123;
+                &#x2F;&#x2F;比较索引j和索引j+1处的元素
+                if(great(a[j],a[j+1]))&#123;
+                    exch(a,j,j+1);
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    &#x2F;&#x2F;比较大小
+    public static Boolean great(Comparable s , Comparable t)&#123;
+        return s.compareTo(t)&gt;0;
+    &#125;
+    &#x2F;&#x2F;数组中元素位置交换
+    public static void exch(Comparable[] a,int i, int j)&#123;
+        Comparable temp;
+        temp&#x3D;a[i];
+        a[i]&#x3D;a[j];
+        a[j]&#x3D;temp;
+    &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">import com.sfag.algorithm.sort.sort1;
+import java.util.Arrays;
+
+
+&#x2F;&#x2F;测试冒泡排序
+public class sort1Test &#123;
+    public static void main(String[] args) &#123;
+        Integer [] a &#x3D; &#123;4,6,5,1,2,3&#125;;
+        sort1.sort(a);
+        System.out.println(Arrays.toString(a));
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>时间复杂度：</p>
+<p>元素比较的次数：(n-1)+(n-2)+(n-3)+……+3+2+1&#x3D;((n-1)+1)*(n-1)&#x2F;2&#x3D;n∧2&#x2F;2-n&#x2F;2</p>
+<p>元素交换位置的次数：(n-1)+(n-2)+(n-3)+……+3+2+1&#x3D;((n-1)+1)*(n-1)&#x2F;2&#x3D;n∧2&#x2F;2-n&#x2F;2</p>
+<p>时间复杂度：n∧2&#x2F;2-n&#x2F;2+n∧2&#x2F;2-n&#x2F;2&#x3D;O(n∧2)</p>
+</li>
+</ul>
+<h5 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h5><p>原理：</p>
+<ul>
+<li><p>每一次遍历的过程中，都假定第一个索引处的元素是最小值，和其他索引处的值依次比较，如果当前索引的值大于其他某个索引处的值，则假定其他某个索引处的值为最小值，继续比下午，到最后可以找到最小值所在的索引</p>
+</li>
+<li><p>交换第一个索引处和最小值所在索引处的值</p>
+</li>
+<li><p>代码实现：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">&#x2F;&#x2F;选择排序
+public class SelectSort &#123;
+    public static void sort(Comparable[] a)&#123;
+        &#x2F;&#x2F;从索引0开始，默认最小值索引为0
+        for(int i&#x3D;0;i&lt;&#x3D;a.length-2;i++)&#123;
+            int minIndex &#x3D; i;
+            for (int j &#x3D; i+1; j &lt; a.length; j++) &#123;
+                &#x2F;&#x2F;如果索引为minIndex处的值大于索引为j处的值，则让最小值的索引变为j
+                if(great(a[minIndex],a[j]))&#123;
+                    minIndex&#x3D;j;
+                &#125;
+            &#125;
+            &#x2F;&#x2F;交换元素位置
+            exch(a,i,minIndex);
+        &#125;
+    &#125;
+    &#x2F;&#x2F;比较大小
+    public static Boolean great(Comparable s , Comparable t)&#123;
+        return s.compareTo(t)&gt;0;
+    &#125;
+    &#x2F;&#x2F;数组中元素位置交换
+    public static void exch(Comparable[] a,int i, int j)&#123;
+        Comparable temp;
+        temp&#x3D;a[i];
+        a[i]&#x3D;a[j];
+        a[j]&#x3D;temp;
+    &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>时间复杂度：</p>
+<ul>
+<li>数据比较次数：(n-1)+(n-2)+(n-3)+……+3+2+1&#x3D;((n-1)+1)*(n-1)&#x2F;2&#x3D;n∧2&#x2F;2-n&#x2F;2</li>
+<li>位置交换次数：n-1</li>
+<li>时间复杂度：n∧2&#x2F;2-n&#x2F;2+(n-1)&#x3D;O(n∧2)</li>
+</ul>
+</li>
+</ul>
+<h5 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h5><ul>
+<li><p>实现原理：</p>
+<ul>
+<li>把所有元素分为两部分：已经排序的和未排序的</li>
+<li>找到未排序的组中的第一个元素，向已经排序的元素组中插入</li>
+<li>倒序遍历已经排序的元素，依次和待插入的元素进行比较，知道在已经排序的元素中找到小于等于待插入的元素，那么就把待插入元素放到这个元素后面，其他元素向后移动一位</li>
+</ul>
+</li>
+<li><p>代码实现：</p>
+</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">public class InsertSort &#123;
+    public static void InsertSort(Comparable[] a)&#123;
+        &#x2F;&#x2F;一开始有一个已排序的元素，从索引为1的元素开始
+        for (int i &#x3D; 1; i &lt; a.length; i++)&#123;
+            for (int j &#x3D; i; j &gt; 0 ; j--) &#123;
+                if(method.great(a[j-1],a[j]))&#123;
+                    method.exch(a,j-1,j);
+                &#125;else &#123;
+                    break;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>时间复杂度分析：<ul>
+<li>数据比较次数：(n-1)+(n-2)+(n-3)+……+3+2+1&#x3D;((n-1)+1)*(n-1)&#x2F;2&#x3D;n∧2&#x2F;2-n&#x2F;2</li>
+<li>位置交换次数：(n-1)+(n-2)+(n-3)+……+3+2+1&#x3D;((n-1)+1)*(n-1)&#x2F;2&#x3D;n∧2&#x2F;2-n&#x2F;2</li>
+<li>时间复杂度：n∧2&#x2F;2-n&#x2F;2+n∧2&#x2F;2-n&#x2F;2&#x3D;O(n∧2)</li>
+</ul>
+</li>
+</ul>
+<h4 id="复杂排序"><a href="#复杂排序" class="headerlink" title="复杂排序"></a>复杂排序</h4><h5 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h5><ul>
+<li><p>排序原理</p>
+<ol>
+<li><p>选定一个增长量h，按照增长量h作为数据分组的依据，对数组进行分组</p>
+</li>
+<li><p>对分好组的每一组数据完成插入排序</p>
+</li>
+<li><p>减小增长量，最小为1，重复第二步操作</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211206104144547.png" alt="image-20211206104144547"></p>
+</li>
+<li><p>增长量的确认</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211206104427923.png" alt="image-20211206104427923"></p>
+</li>
+</ol>
+</li>
+<li><p>代码实现</p>
+</li>
+</ul>
+<h5 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h5><p>​	归并排序是建立在归并操作上的一种有效的排序算法，算法采用分治法的一个非常经典的应用。将已经有序的子序列合并，得到完全有序的序列；即先让每个子序列有序，再使各个子序列之间有序。若将两个有序表合成一个有序表，成为二路归并</p>
+<ul>
+<li><p>排序原理：</p>
+<ul>
+<li>尽可能的一组数据拆分为两个元素数量相等的子组，并对每一个子组继续拆分，直到拆分后的每个子组的元素个数为1为止</li>
+<li>将相邻的两个子组合并成一个有序的大组</li>
+<li>不断的重复步骤，直到最终只有一个组为止</li>
+</ul>
+</li>
+<li><p>代码实现：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">package com.sfag.algorithm.sort;
+import com.sfag.algorithm.common.method;
+public class MergeSort &#123;
+    private static Comparable[] assist;
+
+    &#x2F;&#x2F;对数组a中的元素进行排序
+    public static void sort(Comparable[] a)&#123;
+        assist &#x3D; new Comparable[a.length];
+        int lo&#x3D;0;
+        int hi&#x3D;a.length-1;
+        sort(a,lo,hi);
+    &#125;
+    &#x2F;&#x2F;重载Sort，对数组a中的子组进行排序
+    public static void sort(Comparable[] a, int lo, int hi)&#123;
+        if (hi&lt;&#x3D;lo) &#123;
+          return;
+        &#125;
+        int mid &#x3D; lo+(hi-lo)&#x2F;2;
+        sort(a,lo,mid);
+        sort(a,mid+1,hi);
+        merge(a,lo,mid,hi);
+    &#125;
+    &#x2F;&#x2F;排序+归并
+    public static void merge(Comparable[] a, int lo,int mid ,int hi)&#123;
+        &#x2F;&#x2F;定义三个指针
+        int i&#x3D;lo;
+        int p1&#x3D;lo;
+        int p2&#x3D;mid+1;
+        &#x2F;&#x2F;遍历比较两个子组索引处的元素，将小的放到辅助数组的对应索引位置
+        while (p1&lt;&#x3D;mid &amp;&amp; p2&lt;&#x3D;hi)&#123;
+            if(method.great(a[p1],a[p2]))&#123;
+                assist[i++]&#x3D;a[p2++];
+            &#125;
+        &#125;
+        &#x2F;&#x2F;如果p1的指针没走完，那么顺序移动p1指针，并把对应的元素放到辅助数组对应的位置
+        while (p1&lt;&#x3D;mid)&#123;
+            assist[i++]&#x3D;a[p1++];
+        &#125;
+        &#x2F;&#x2F;如果p2的指针没走完，那么顺序移动p1指针，并把对应的元素放到辅助数组对应的位置
+        while (p2&lt;&#x3D;hi)&#123;
+            assist[i++]&#x3D;a[p2++];
+        &#125;
+        &#x2F;&#x2F;将辅助数组中的元素放回原数组
+        for(int j&#x3D;lo;j&lt;&#x3D;hi;j++)&#123;
+            a[j]&#x3D;assist[j];
+        &#125;
+    &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>时间复杂度分析：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211212150446144.png" alt="image-20211212150446144"></p>
+<ul>
+<li>如果一个数组有八个元素，那么它将每次除以二寻找最小的子数组，共拆分log8次，值为3，所以共有三层，自上到下，第k层有2^k个数组，每个数组的长度为2^(3-k)，归并最多需要2^(3-k)次比较，因此每层比较次数为2^k*2^(3-k)&#x3D;2^3，那么是三层总共为3 *2^3</li>
+<li>假设元素的个数为n，那么使用归并排序拆分的次数为log2(n)，所以共log2(n)层，则总共为log2(n)*2^(log2(n))&#x3D;log2(n) *n，即归并排序的时间复杂度为：log2(n) *n，根据大O计发：时间复杂度为n *log(n)</li>
+</ul>
+</li>
+</ul>
+<h5 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h5><ul>
+<li><p>排序原理：</p>
+<ol>
+<li>首先设定一个分界值，通过改分界值将数组分为两部分；</li>
+<li>将大于或等于分界值的数据放到数组右边，小于分界值的数据放到数组的左边</li>
+<li>然后，左边和右边的数据可以独立排序。对于左侧的数组数据，又可以取一个分界值，将该部分数据分成左右部分，童颜跟步骤2一样</li>
+<li>重复上述操作，可以看出，这是一个递归定义。通过递归将左侧数据排好序后，再递归排好右侧部分的顺序，则整个数组就完成排序了</li>
+</ol>
+</li>
+<li><p>数组切分原理：</p>
+<ol>
+<li>找一个基准值，用两个指针分别指向数组的头和尾</li>
+<li>先从尾部向头部开始搜索一个比基准值小的元素，搜索到即停止，并记录指针的位置</li>
+<li>再从同头部向尾部开始搜索一个比基准值大的元素，搜索到即停止，并记录指针的位置</li>
+<li>交换左右两边指针所指元素的位置</li>
+<li>重复234步骤，直到左边指针的值大于右边指针的值停止</li>
+</ol>
+</li>
+<li><p>代码实现：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">package com.sfag.algorithm.sort;
+import com.sfag.algorithm.common.method;
+
+public class QuickSort &#123;
+    public static void sort(Comparable[] a)&#123;
+        int lo &#x3D; 0;
+        int hi &#x3D; a.length-1;
+        sort(a,lo,hi);
+    &#125;
+    &#x2F;&#x2F;排序
+    public static void sort(Comparable[] a,int lo, int hi)&#123;
+        if(lo&gt;&#x3D;hi)&#123;
+            return;
+        &#125;
+        int p &#x3D; partition(a, lo,hi);
+        &#x2F;&#x2F;对拆分后的左边子组进行排序
+        sort(a, lo, p-1);
+        &#x2F;&#x2F;对拆分后的右边子组进行排序
+        sort(a, p+1, hi);
+    &#125;
+
+    &#x2F;&#x2F;对数组进行分组
+    public static int partition(Comparable[] a, int lo, int hi)&#123;
+        Comparable key &#x3D; a[lo];
+        &#x2F;&#x2F;定义左指针和右指针
+        int left &#x3D; lo;
+        int right &#x3D; hi+1;
+        &#x2F;&#x2F;切分
+        while (true)&#123;
+            &#x2F;&#x2F;System.out.println(Arrays.toString(a));
+            &#x2F;&#x2F;从右往左扫描，找到一个比分界值小的，停止
+            while (method.great(a[--right],key))&#123;
+                if(right&#x3D;&#x3D;lo)&#123;
+                    break;
+                &#125;
+            &#125;
+            &#x2F;&#x2F;从左往右扫描，找到一个比分界值大的，停止
+            while (method.great(key,a[++left]))&#123;
+                if(left&#x3D;&#x3D;hi)&#123;
+                   break;
+                &#125;
+            &#125;
+            &#x2F;&#x2F;判断left&gt;&#x3D;rirht,如果是，说明遍历结束，停止循环，如果不是，则交换指针所指元素
+            if(left&gt;&#x3D;right)&#123;
+                break;
+            &#125;else &#123;
+                method.exch(a,left,right);
+            &#125;
+        &#125;
+        &#x2F;&#x2F;交换分界值和最后两个指针同时指向的值的位置
+        method.exch(a,lo,right);
+        return right;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>时间复杂度分析：拆分的次数*n</p>
+<p>取决于拆分的次数：</p>
+<ul>
+<li>最优情况：每此拆分的分界值刚好将数组等分，一共切分了logn次，则时间负责度为：nlogn</li>
+<li>最坏情况：每此切分的分界值为数组中的最大值或最小值，则需要切分n次，时间复杂度为：n^2</li>
+</ul>
+</li>
+</ul>
+<h5 id="排序的稳定性分析"><a href="#排序的稳定性分析" class="headerlink" title="排序的稳定性分析"></a>排序的稳定性分析</h5><p>稳定与不稳定：数组中油若干元素，如果有两个相等的元素a和b，排序之前a在b之前，如果经过排序之后，a依旧在b前面，则说明排序算法是稳定的，否则就是不稳定的</p>
+<ul>
+<li>稳定的排序算法：冒泡排序、插入排序、归并排序</li>
+<li>不稳定的算法：选择排序、希尔排序、快速排序</li>
+</ul>
+<h3 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h3><h3 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h3><h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><h3 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h3><h3 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h3><h3 id="图"><a href="#图" class="headerlink" title="图"></a>图</h3>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">shangguandanyu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2021/11/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">http://example.com/2021/11/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">shangguandanyu</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                                    <span class="chip bg-color">数据结构</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">算法</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/11/07/vue/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Vue">
+                        
+                        <span class="card-title">Vue</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一套基于构建用户界面的渐进式框架，可以自底层向上逐层应用
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
+                                    前端
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%A7%86%E5%9B%BE%E5%B1%82/">
+                        <span class="chip bg-color">视图层</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                        <span class="chip bg-color">前端</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B8%90%E8%BF%9B%E5%BC%8F%E6%A1%86%E6%9E%B6/">
+                        <span class="chip bg-color">渐进式框架</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/11/07/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="数据结构与算法">
+                        
+                        <span class="card-title">数据结构与算法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            程序=数据结构+算法，把数据元素按照一定的关系组织起来的集合，用来组织和存储数据即数据结构
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Markdown/" class="post-category">
+                                    Markdown
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2022</span>
+            
+            <a href="/about" target="_blank">shangguandanyu</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/SFAGsg" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:917596627@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=917596627" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 917596627" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
