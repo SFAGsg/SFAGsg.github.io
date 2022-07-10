@@ -4,8 +4,19 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="docker, 阿SFAG的个人博客">
-    <meta name="description" content="Docker是一种运行环境和配置文件的软件容器，方便做持续集成并有助于整体发布的容器虚拟化技术">
+    <meta name="keywords" content="阿SFAG的个人博客">
+    <meta name="description" content="JVM（java虚拟机）java：跨平台的语言
+jvm：跨语言的平台
+
+三种JVM
+Sun公司：Java HotShop
+BEA ：JRockit
+IBM：J9VM
+
+
+
+虚拟机
+概念：就是一台虚拟的计算机。它是一款软件，用来执行一系列虚拟">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +30,7 @@
 
     
 
-    <title>docker | 阿SFAG的个人博客</title>
+    <title>阿SFAG的个人博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -309,12 +320,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">docker</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -324,39 +335,116 @@
 
 
 
-<main class="container content">
+<main class="post-container content">
 
     
-    <!-- 文章内容详情 -->
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/Typora/">
-                                <span class="chip bg-color">Typora</span>
-                            </a>
-                        
-                            <a href="/tags/Markdown/">
-                                <span class="chip bg-color">Markdown</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/Markdown/" class="post-category">
-                                Markdown
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -365,7 +453,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-11-08
+                    2022-07-10
                 </div>
                 
 
@@ -394,207 +482,293 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p>概念：解决了运行环境和配置文件的软件容器，方便做持续集成并有助于整体发布的容器虚拟化技术</p>
-<p>作用：透过镜像，将作业系统核心除外，运作应用程序所需要的系统环境，由上而下的，达到应用程序跨平台间的无缝接轨运行，达到一次封装，多处运行</p>
-<p>其实就是缩小版，高度浓缩版的小型linux系统</p>
-<p>Docker本身是一个容器运行载体或称之为管理引擎，我们把应用程序和配置依赖打包好形成一个可交付的运行环境，这个打包好的运行环境就是image镜像文件，只有通过这个镜像文件才能生成Docker容器。image文件可以看作是容器的模板，Docker根据image文件生成容器之间的实例。同一个image文件，可以生成多个同时运行的容器实例</p>
-<p>传统虚拟机技术：</p>
+                <h1 id="JVM（java虚拟机）"><a href="#JVM（java虚拟机）" class="headerlink" title="JVM（java虚拟机）"></a>JVM（java虚拟机）</h1><p><strong>java：跨平台的语言</strong></p>
+<p><strong>jvm：跨语言的平台</strong></p>
 <ul>
-<li>资源占用多</li>
-<li>冗余步骤多</li>
-<li>启动慢</li>
-</ul>
-<p>Docker和传统虚拟化方式的不同之处：</p>
-<ul>
-<li>传统虚拟技术是虚拟出一套硬件后，在其上面运行一个完整操作系统，再在该系统上运行所需应用程序</li>
-<li>而容器内的应用程序直接运行在宿主的内核，容器内没有自己的内核，也没有硬件虚拟，所以Docker更加轻便</li>
-<li>每个容器之间互相隔离，每个容器都有自己的文件系统，容器间进程不会互相影响，能区分计算资源</li>
-<li><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210808160355478.png" alt="image-20210808160355478"></li>
-</ul>
-<p><strong>Docker三要素：</strong></p>
-<ul>
-<li><p>镜像：即由image文件生成的容器实例，Docker镜像就是一个只读的模板，镜像可以用来创建容器，一个镜像可以创建多个容器</p>
-</li>
-<li><p>容器：容器是用镜像创建的运行实例，一个容器运行一种服务，容器可以被启动，开始，停止，删除。每个容器都是相互隔离的、保证安全的平台，</p>
-<p>可以把容器看成是一个简易版的linux环境和运行在其中的应用程序，容器和镜像的定义几乎一模一样，唯一的区别就是容器最上面的那一层是可读可写的</p>
-</li>
-<li><p>仓库：仓库是集中存放镜像文件的场所。仓库（repository）和仓库注册服务器（registry）是有区别的，仓库注册服务器往往存放着多个仓库，每个仓库又包含了多个镜像，每个镜像都有不同的标签</p>
-<ul>
-<li>公开仓库：最大的公开仓库是Docker Hub（<a target="_blank" rel="noopener" href="https://hub.docker.com),存放了数量庞大的镜像供用户下载.国内的公开仓库包括阿里云、网易云等/">https://hub.docker.com），存放了数量庞大的镜像供用户下载。国内的公开仓库包括阿里云、网易云等</a></li>
-<li>私有仓库</li>
+<li>三种JVM<ul>
+<li>Sun公司：Java HotShop</li>
+<li>BEA ：JRockit</li>
+<li>IBM：J9VM</li>
 </ul>
 </li>
 </ul>
-<p>运行步骤：</p>
+<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><ul>
+<li>概念：就是一台虚拟的计算机。它是一款软件，用来执行一系列虚拟计算机指令。大体上可分为系统虚拟机（如：VMware）和程序虚拟机（JVM）</li>
+<li>java虚拟机是一台用于执行java字节码的虚拟计算机，它拥有独立的运行机制，其运行的java字节码也未必由java语言编译而成</li>
+<li>java技术的核心就是java虚拟机</li>
+</ul>
+<p><strong>特点：</strong></p>
+<ul>
+<li>一次编译，多处运行</li>
+<li>自动内存管理</li>
+<li>自动垃圾回收功能</li>
+</ul>
+<p><strong>JVM是运行在操作系统上的， 与硬件没有直接的交互</strong></p>
+<p>JVM的整体结构：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211128135252574.png" alt="image-20211128135252574"></p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211128135653464.png" alt="image-20211128135653464"></p>
+<p>java程序执行流程：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211128140444203.png" alt="image-20211128140444203"> </p>
+<h3 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h3><p>主要是在方法区和堆进行调优，java栈、本地方法栈和程序计数器中不会出现垃圾回收</p>
+<h3 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h3><ul>
+<li><p>JVM提供了ClassLoader</p>
+<ul>
+<li><strong>Bootstrap classLoader</strong>:主要负责加载核心的类库(java.lang.*等)，构造ExtClassLoader和APPClassLoader</li>
+<li><strong>ExtClassLoader</strong>：主要负责加载jre&#x2F;lib&#x2F;ext目录下的一些扩展的jar</li>
+<li><strong>AppClassLoader</strong>：主要负责加载应用程序的主函数类</li>
+</ul>
+</li>
+<li><p>作用：加载class文件</p>
+</li>
+<li><p><strong>加载过程</strong></p>
+<ul>
+<li>类加载器收到类加载的请求（Application）</li>
+<li>将这个请求向上委托给父类加载器去完成，一直向上委托了，直到启动类加载器（BOOT）</li>
+<li>启动加载器检查是否能加载当前的这个类，能加载就结束，并使用当前类加载器，否则，抛出异常，通知子加载器进行加载</li>
+<li>Class not found</li>
+</ul>
+</li>
+<li><h6 id=""><a href="#" class="headerlink" title=""></a><img src="https://img-blog.csdnimg.cn/2020121722082798.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NvZGV5YW5iYW8=,size_16,color_FFFFFF,t_70" alt="img"></h6></li>
+</ul>
+<h3 id="双亲委派机制（类加载机制）"><a href="#双亲委派机制（类加载机制）" class="headerlink" title="双亲委派机制（类加载机制）"></a>双亲委派机制（类加载机制）</h3><p>​		当一个Hello.class这样的文件要被加载时。不考虑我们自定义类加载器，首先会在AppClassLoader中检查是否加载过，如果有那就无需再加载了。如果没有，那么会拿到父加载器，然后调用父加载器的loadClass方法。父类中同理也会先检查自己是否已经加载过，如果没有再往上。注意这个类似递归的过程，直到到达Bootstrap classLoader之前，都是在检查是否加载过，并不会选择自己去加载。直到BootstrapClassLoader，已经没有父加载器了，这时候开始考虑自己是否能加载了，如果自己无法加载，会下沉到子加载器去加载，一直到最底层，如果没有任何加载器能加载，就会抛出ClassNotFoundException</p>
+<p>作用：为了安全，一定程度上防止的危险代码的植入，防止有人恶意篡改系统级别的类</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211128150615195.png" alt="image-20211128150615195"></p>
+<p><strong>new一个对象所发生的一系列事情：</strong></p>
 <ol>
-<li>拉取镜像文件到本地</li>
-<li>以镜像文件为模板，运行一个容器实例</li>
-</ol>
-<p><strong>Docker常用命令：</strong></p>
-<ol>
-<li>辅助命令<ul>
-<li>docker version：查看docker版本</li>
-<li>docker info：查看docker信息描述</li>
-<li>docker –help：查看docker命令帮助</li>
-</ul>
-</li>
-<li>镜像命令<ul>
-<li>docker images：列出本地主机上的镜像<ul>
-<li>-a：列出本地主机上的所有镜像（包括中间映射层）</li>
-<li>-q：列出本地主机上的所有镜像的id</li>
-<li>–digests：显示镜像的摘要信息</li>
-<li>–no-truncs：显示完整的镜像信息</li>
-</ul>
-</li>
-<li>docker search +镜像名：在dockerHub中查询某镜像文件<ul>
-<li>–no-truncs：显示完整的镜像信息<ul>
-<li>-s：列出收藏数不小于指定值的镜像</li>
-<li>–automated：只列出automated bulid类型的镜像</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>docker pull +镜像名：拉取某镜像文件</li>
-<li>docker rmi + 镜像名：删除镜像文件<ul>
-<li>-f：强制删除</li>
-<li>删除全部镜像：docker rmi -f ${docker images -qa}</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>容器命令<ul>
-<li>docker run +镜像名或镜像id：新建并启动容器<ul>
-<li>-i：以交互模式运行容器，通常与-t同时使用</li>
-<li>-t：为容器重新输入一个伪输入终端，通常与-i同时使用</li>
-<li>-d：后台运行容器，并返回容器id<ul>
-<li>-P：随机端口映射：docker run -it -P tomcat</li>
-</ul>
-</li>
-<li>-p：指定端口映射：docker run -it -p 8888:8080 tomcat</li>
-<li>–name&#x3D;“名称”：为容器指定一个新名称</li>
-</ul>
-</li>
-<li>docker ps：查看正在运行的容器<ul>
-<li>-l：查看上一次运行的容器】</li>
-<li>-n +数字：查看前几次运行的容器</li>
-<li>-q：静默模式：只显示容器编号</li>
-<li>–no-trunc：</li>
-</ul>
-</li>
-<li>exit：退出当前容器</li>
-<li>docker start + 容器名或容器id：启动容器 </li>
-<li>docker restart   + 容器名或容器id：重启容器</li>
-<li>docker stop +  + 容器名或容器id：停止容器</li>
-<li>docker kill +  + 容器名或容器id：强制停止容器</li>
-<li>docker rm + 容器名或容器id：删除容器； -f：强制删除</li>
-<li>docker rm -f ${docker images -qa} 或docker ps -aq | xargs docker rm：删除多个容器</li>
-<li>docker run -d ：守护式启动容器，不进入容器，不发生交互</li>
-<li>docker logs -f -t –tail + 数字 + 容器id：查看容器日志<ul>
-<li>-t：加入时间戳</li>
-<li>-f：跟随最新的日志打印</li>
-<li>–tail + 数字：显示最后多少条</li>
-</ul>
-</li>
-<li>docker top + 容器id：查看容器内运行的进程</li>
-<li>docker inspect + 容器id：查看容器内部的细节</li>
-<li>docker exec -it 容器id bashshell：重新进入容器并以命令行模式进行交互，在容器中打开新的终端，可以启动新的进程</li>
-<li>docker attach 容器id：重新进入容器，直接进入容器启动命令的终端，不会启动新的进程</li>
-<li>docker cp 容器id ：容器内路径   目的主机路径：在容器内拷贝文件到主机上</li>
-<li>docker commit -a “作者信息” -m “备注信息”  + 容器id + 新生成的容器名&#x2F;tags ：提交容器副本使之成为一个新的镜像</li>
+<li>new student（）</li>
+<li>类加载器加载<ul>
+<li>加载：由类加载器负责根据一个类的全限定名来读取此类的二进制字节流到JVM内部，并存储在运行时内存区的方法区，然后将其转换为一个与目标类型对应的java.lang.Class对象实例</li>
+<li>验证：验证是否符合class文件规范</li>
+<li>准备：为类中的所有静态变量分配内存空间</li>
+<li>解析：将常量池内的符号引用替换为直接引用的过程</li>
+<li>初始化：开始执行类中编写的Java程序代码，将主导权移交给应用程序。</li>
 </ul>
 </li>
 </ol>
-<p><strong>Docker 镜像：</strong></p>
-<p>概念：镜像是一种轻量级的、可执行的独立软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含某个软件所需的所有内容，包括代码、运行时、库、环境变量和配置文件</p>
-<p>UnionFS（联合文件系统）：Union文件系统是一种分层 、轻量级且高性能的文件系统，它支持对文件系统的修改作为一次次来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下。Union文件系统是Docker镜像的基础。镜像可以通过分层来继承，基于基础镜像，可以制作各种具体的应用镜像</p>
-<p>特性：一次同时加载多个文件系统，但从外面看来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件会包含所有底层的文件和目录</p>
-<p>Docker镜像加载原理：</p>
 <ul>
-<li><p>bootfs（boot file system）主要包含bootloader和kernel，bootloader主要是引导加载kernel，linux刚启动时回家再包bootfs文件系统，在Docker镜像的最底层是bootfs。这一层与典型的linux&#x2F;Unix系统是一样的，包含boot加载器和内核，当boot加载完成之后整个内核就都在内存中了，此时内存的使用权已经由bootfs转交给内核，此时系统也会卸载bootfs</p>
-<ul>
-<li><p>rootfs：在bootfs之上。包含的就是linux系统中的&#x2F;dev ,   &#x2F;bin等标准目录和文件。rootfs就是各种不同的操作系统发行版，如Ubuntu，centos等，rootfs可以很小，只需要包括最基本的命令、工具和程序库就可以了，所以在Docker中安装的centos镜像文件比较小。对于不同的linux发行版，bootfs是基本一致的，rootfs会有差别。所以不同的发行版可以公共bootfs</p>
+<li><p>字节码校验器：确保java类文件遵循java语言规范。可以帮助java实现内存保护。但不是所有的类文件都会经过字节码校验，比如核心类</p>
 </li>
-<li><p>镜像文件分层结构：</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210809102621508.png" alt="image-20210809102621508"></p>
-</li>
-<li><p>docker镜像都是只读的，当容器启动时，一个新的可写层被加载到镜像的顶部。这一层通常被称为“容器层”，“容器层”之下的都称为“镜像层”。</p>
-<p><strong>Docker容器数据卷</strong>：就是目录或者文件，存在于一个或多个容器中，由docker挂载到容器，但不属于联合文件系统，因此能绕过Union file System提供一些用于持续存储和共享数据的特性</p>
-</li>
-</ul>
-<p>作用：</p>
+<li><p>类加载器：在三个方面对沙箱起作用：</p>
 <ul>
-<li>容器持久化</li>
-<li>容器间的继承和数据共享</li>
+<li>防止恶意的代码去干涉善意的代码</li>
+<li>守护了被信任的类库边界</li>
+<li>将代码归入保护域，确定了代码可以进行那些操作</li>
 </ul>
-<p>特点：</p>
+<p>虚拟机为不同的类加载器载入的类提供不同的命名空间，命名空间由一系列唯一的名称组成，每个被装载的类都将有一个名字，这个命名空间是由java虚拟机为每一个类加载器维护的，它们之间甚至不可见</p>
+</li>
+<li><p>存取控制器：存取控制器可以控制核心API对操作系统的存取权限，而这个控制策略的设定，可以由用户指定</p>
+</li>
+<li><p>安全管理器：是核心API和操作系统之间的主要接口，实现权限控制，比存取控制器优先级高</p>
+</li>
+<li><p>安全软件包：java.security下的类和扩展包下的类，允许用户为自己的应用增加新的安全特性，包括：</p>
 <ul>
-<li>数据卷可以在容器之间共享或重用数据</li>
-<li>卷中的更改可以直接生效</li>
-<li>数据卷的更改不会包含在镜像的更新中</li>
-<li>数据卷的更新一致持续到没有容器使用它为止</li>
-<li>容器停止运行后，主机修改数据，数据一样能同步到容器上</li>
+<li>安全提供者</li>
+<li>消息摘要</li>
+<li>数字签名</li>
+<li>加密</li>
+<li>鉴别</li>
 </ul>
-<p><strong>创建容器数据卷：</strong></p>
-<p>使用-v 创建容器数据卷：</p>
-<p>docker run -it -v &#x2F;MyDataVolumn:&#x2F;DataVolumnContainer centos  ：运行centos并创建容器数据卷，可读可写</p>
-<p>创建带权限的容器数据卷 ：</p>
-<p>docker run -it -v &#x2F;MyDataVolumn:&#x2F;DataVolumnContainer <strong>ro</strong> centos：运行centos并创建容器数据卷，只读</p>
-<p>使用dockerFile添加容器数据卷</p>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210809145258349.png" alt="image-20210809145258349"></p>
 </li>
 </ul>
-<p><strong>DockerFile解析：</strong></p>
-<p>DockerFile是用来构建Docker镜像的构建文件，是由一系列命令和参数构成的脚本</p>
-<p>构建三步骤</p>
-<ul>
-<li>编写DockerFile文件</li>
-<li>docker build 目标文件 -t +新镜像名字：TAG ，获得自定义镜像</li>
-<li>运行镜像文件</li>
+<h3 id="沙箱安全机制"><a href="#沙箱安全机制" class="headerlink" title="沙箱安全机制"></a>沙箱安全机制</h3><p>将java代码限定在虚拟机JVM特定的运行范围中，并且严格限制代码对本地资源的访问，通过这样的措施来保证代码的有效隔离，防止对本地系统造成破坏</p>
+<h3 id="native关键字"><a href="#native关键字" class="headerlink" title="native关键字"></a>native关键字</h3><ul>
+<li>本地方法接口（Java Native Interface，简称：JNI）的作用：扩展java的使用，融合不同的编程语言为java所用</li>
+<li>产生背景：java诞生之初，c语言和c++横行，所以想要立足，就必须能融合c和c++，最初JNI就用于扩展c和c++为java所用</li>
+<li>在内存区域中，专门开辟了一块标记区域：本地方法栈（Native Method Strack），登记native关键字的方法，最终执行的时候，通过JNI加载本地方法库中的方法</li>
 </ul>
-<p>DockerFile内容基础知识：</p>
+<h3 id="PC寄存器（Program-Counter-Register）"><a href="#PC寄存器（Program-Counter-Register）" class="headerlink" title="PC寄存器（Program Counter Register）"></a>PC寄存器（Program Counter Register）</h3><p>又称程序计数器</p>
+<p>每个线程都有一个程序计数器，是线程私有的，就是一个指针，指向方法区中的方法字节码（用于存贮指向一条指令的地址，也就是将要执行的指令代码），在执行引擎读取下一条指令，是一个非常狭小的内存空间，几乎可以忽略不计</p>
+<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>Method Area</p>
+<p>​		是被所有线程共享的，所有字段和方法字节码，以及一些特殊方法，如构造函数、接口代码也在这里定义，简单说，所有定义的方法的信息都保存在该区域，属于共享空间；</p>
+<p>​		静态方法、常量、类信息（构造方法、接口定义）、运行时的常量池存在方法区中，但是实例变量存在堆内存中，和方法区无关</p>
+<p>static、class、final、常量池</p>
+<h3 id="JVM内存"><a href="#JVM内存" class="headerlink" title="JVM内存"></a>JVM内存</h3><p>运行时数据区Runable Date area</p>
+<h3 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h3><p>栈是运行时的单位，</p>
 <ul>
-<li>每条保留字指令都必须为大写字母且后面要跟随至少一个参数</li>
-<li>指令按照从上到下，顺序执行</li>
-<li>#表示注释</li>
-<li>每条指令都会创建一个新的镜像层，并对镜像进行提交</li>
-</ul>
-<p>DockerFile体系结构（保留字指令）：</p>
-<ol>
-<li>FROM：指定基础镜像</li>
-<li>MAINTAINER：镜像维护者的名字和邮箱地址</li>
-<li>RUN：容器构建石需要运行的命令</li>
-<li>EXPOSE：当前容器对外暴露的端口号</li>
-<li>WORKDIR：指定在创建容器后，终端默认登录的进来工作目录，一个落脚点</li>
-<li>ENV：用来在构建镜像是设置环境变量</li>
-<li>ADD：将宿主机目录下的文件拷贝进镜像且ADD命令会自动处理URL和解压他tar压缩包</li>
-<li>COPY：类似ADD，拷贝文件到目标镜像中；将从构建上下文目录中&lt;源路径&gt;的文件&#x2F;目录复制到新的一层镜像内的&lt;目标路径&gt;位置，两种写法<ul>
-<li>COPY src dest</li>
-<li>COPY [“src” , “dest”]</li>
+<li>程序&#x3D;算法+数据结构</li>
+<li>栈：先进后出，后进先出</li>
+<li>队列：先进先出（FIFO）</li>
+<li>主管程序的运行、生命周期和线程同步，线程结束后，则栈内存也会释放，所以对于栈不存在垃圾回收</li>
+<li>主要存储：<strong>8大基本类型、引用变量名</strong>、对象引用、实例的方法<ul>
+<li>栈运行原理：栈帧，每个方法在执行时都会创建一个栈帧用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每个方法从调用到执行结束，就对应着一个栈帧从虚拟机栈中入栈到出栈的过程</li>
+<li>局部变量表：存放了编译器可知的各种基本类型(boolean、byte、char、short、int、float、long、double)、对象引用(reference 类型)和 returnAddress 类型(指向了一条字节码指令的地址)</li>
 </ul>
 </li>
-<li>VOLUME：容器数据卷，用于数据保存和持久化工作</li>
-<li>CMD：指定一个容器启动时要运行的命令，dockerFile中可以有多个CMD命令，但是只有最后一个会生效，CMD会被docker run之后的参数替换</li>
-<li>ENTRYPOINT：指定一个容器启动时要运行的命令，目的和CMD一样，但是命令不会被覆盖，都会生效 </li>
-<li>ONBUILD：当构建一个被继承的DockerFile时运行命令，父镜像在被子继承之后父镜像的onbuild会被触发</li>
+<li>栈满：StackOverFlowErorr</li>
+</ul>
+<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>与栈发挥的作用相似，区别是虚拟机栈为虚拟机执行java方法，而本地方法栈是为是为虚拟机使用到的本地方法服务</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>Heap</p>
+<p>堆是存储时的单位，主要存放对象实例和数组</p>
+<p>内存划分：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211129222840327.png" alt="image-20211129222840327"></p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211202153633679.png" alt="image-20211202153633679"></p>
+<ul>
+<li><p>一个JVM只有一个堆内存，且堆内存是可以调节的</p>
+</li>
+<li><p>堆内存的用途：存放的是对象，垃圾收集器就是收集这些对象，然后根据GC算法回收</p>
+</li>
+<li><p>堆内存中划分</p>
+<ul>
+<li><p>年轻代</p>
+<ul>
+<li>新生区（Eden区）</li>
+<li>幸存区（谁空谁是to）<ul>
+<li>FromSpace </li>
+<li>ToSpace</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>老年代</p>
+<p>Java7及以前将堆空间逻辑上分成三部分：新生区+养老区+永久代</p>
+</li>
+</ul>
+<p>　　Java8及以后将堆内存逻辑上分为：新生区+养老区+元空间（逻辑上存在，物理上不存在）</p>
+</li>
+<li><p>GC垃圾回收主要在新生区和养老区，假如内存满了，会报<strong>OOM错误</strong>（java.lang.OutOfMemory）</p>
+</li>
+<li><p>java1.8废除了永久代，替代的是<strong>元空间</strong>，元空间和永久代类似，都是方法区的实现，最大的区别是：<strong>元空间并不在JVM中</strong>，而是使用本地内存</p>
+<ul>
+<li>元空间有两个参数：<ul>
+<li><strong>MetaspaceSize</strong> ：初始化元空间大小，控制发生GC阈值</li>
+<li><strong>MaxMetaspaceSize</strong> ： 限制元空间大小上限，防止异常占用过多物理内存</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>移除永久代的原因</strong>：</p>
+<ul>
+<li>为融合HotSpot JVM与JRockit VM（新JVM技术）而做出的改变，因为JRockit没有永久代</li>
+<li>有了元空间就不会出现永久代OOM问题（内存溢出）问题了</li>
+</ul>
+</li>
+<li><p><strong>堆内存溢出（OOM）的原因</strong></p>
+<p>在新生代中经过GC后还存活的对象会被复制到老年代中。当老年代空间不足时，JVM会对老年代进行完全的垃圾回收。如果GC后还是无法存放从幸存区（survivor区）复制过来的对象，就会出现OOM（OutOfMemory）</p>
+<p><strong>解决方案：</strong></p>
+<ul>
+<li><p>先尝试将堆内存扩大，再次运行看结果</p>
+<pre class="line-numbers language-none"><code class="language-none">-Xms1024m -Xmx1024m -XX:+PrintGCDetail<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>扩大内存无法解决则需要分析内存占用情况，找问题原因</p>
+<p>使用内存快照分析工具：Jprofiler、MAT</p>
+<p>内存快照分析工具作用</p>
+<ul>
+<li>分析Dump内存文件，快速定位内存泄露</li>
+<li>分析堆中的数据</li>
+<li>获得大的对象</li>
+</ul>
+<p>使用方法：</p>
+<ul>
+<li><p>IDEA安装Jprofiler插件，重启IDEA</p>
+</li>
+<li><p>安装Jprofiler客户端工具，下载：<a target="_blank" rel="noopener" href="https://www.ej-technologies.com/download/jprofiler/files">https://www.ej-technologies.com/download/jprofiler/files</a></p>
+</li>
+<li><p>IDEA配置：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211202163901504.png" alt="image-20211202163901504"></p>
+</li>
+<li><p>配置JVM参数：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211202164010355.png" alt="image-20211202164010355"></p>
+</li>
+<li><p>程序代码：</p>
+<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20211202164041124.png" alt="image-20211202164041124"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>代码分析</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">public BirthDate(int d, int m, int y)&#123;
+    day &#x3D;d;
+    mouth&#x3D;m;
+    year&#x3D;y;
+&#125;
+BirthDate bir &#x3D; new BirthDate(7,8,9);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>代码中bir为对象引用，存在栈中；</p>
+<p>对象new BirthDate（）存在堆中</p>
+<p>d&#x3D;7,m&#x3D;8,y&#x3D;9为局部变量且数据类型为基本数据类型，所以变量和值都存储在栈中</p>
+<p>day，mouth，year为BirthDate的成员变量，它们存储在堆中存储的new BirthDate（）对象中</p>
+<h3 id="垃圾回收机制（GC）"><a href="#垃圾回收机制（GC）" class="headerlink" title="垃圾回收机制（GC）"></a>垃圾回收机制（GC）</h3><ul>
+<li><p>垃圾回收作用范围：堆和方法区</p>
+<ul>
+<li>方法区的垃圾回收主要是针对常量池的回收和不再使用的类型</li>
+</ul>
+</li>
+<li><p>垃圾回收的两种类型：轻GC（普通的GC）、重GC（全局的GC）</p>
+</li>
+<li><p><strong>垃圾</strong>：在堆中存在，但是不可能再被任何途径使用的对象</p>
+<ul>
+<li><p>垃圾判断算法</p>
+<ul>
+<li><strong>引用判断法</strong>：为对象添加一个引用计数器，当对象增加一个引用时计数器加 1，引用失效时计数器减 1。引用计数为 0 的对象可被回收。</li>
+<li><strong>可达性分析法</strong>：以 <code>GC Roots</code> 为起始点进行搜索，可达的对象都是存活的，不可达的对象可被回收。</li>
+</ul>
+</li>
+<li><p>GC root中包含的东西</p>
+<ul>
+<li>虚拟机栈空间中非静态变量表中引用的对象</li>
+<li>本地方法栈中 <code>JNI</code> 中引用的对象</li>
+<li>方法区中静态变量引用的对象</li>
+<li>方法区中的常量引用的对象</li>
+</ul>
+</li>
+<li><p>垃圾回收算法</p>
+<ul>
+<li><strong>复制算法</strong>：</li>
+<li><strong>标记清除算法</strong>：扫描所有的对象，将需要存活的对象进行标记，然后清除没有标记的对象<ul>
+<li>优点：不需要额外的空间</li>
+<li>缺点：两次扫描会严重浪费时间，会产生内存碎片</li>
+</ul>
+</li>
+<li><strong>标记压缩算法</strong>：防止产生内存碎片，再次扫描，向一端移动存活的对象，标记—清除—压缩</li>
+</ul>
+</li>
+<li><p>常用的<strong>垃圾收集器</strong></p>
+<ul>
+<li><strong>serial</strong>：年轻代单线程串行垃圾收集器</li>
+<li><strong>CMS</strong>：老年代多线程并行垃圾收集器</li>
+</ul>
+</li>
+<li><p>垃圾回收器可以马上回收内存么？</p>
+<ul>
+<li><p>垃圾回收器不会马上释放内存空间，而是在某个对象被标记为垃圾之后的下一次GC时才会对内存空间进行释放。</p>
+<p>我们可以手动执行<code>System.gc()</code>，通知虚拟机进行GC，但是Java语言规范并不保证GC一定会执行。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>总结：</p>
+<ul>
+<li><p>算法对比</p>
+<ul>
+<li>内存效率：复制算法&gt;标记清除算法&gt;标记压缩算法（时间复杂度）</li>
+<li>内存整齐度：复制算法&#x3D;标记压缩算法&gt;标记清除算法</li>
+<li>内存利用率：标记压缩算法&#x3D;标记清除算法&gt;复制算法</li>
+</ul>
+</li>
+<li><p>没有最优的算法，只有最合适的算法</p>
+<p>年轻代：</p>
+<ul>
+<li>存活率低</li>
+<li>复制算法</li>
+</ul>
+<p>老年代</p>
+<ul>
+<li>区域大，存活率高</li>
+<li>标记清除+标记压缩（多次标记清楚，一次压缩）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="java代码编译过程"><a href="#java代码编译过程" class="headerlink" title="java代码编译过程"></a>java代码编译过程</h3><ol>
+<li>准备过程：初始化插入式注解处理器</li>
+<li>解析分析语法、词法、语义</li>
+<li>处理注解</li>
+<li>字节码生成器生成字节码文件</li>
 </ol>
-<p>安装mysql：</p>
-<ul>
-<li>拉取mysql镜像文件</li>
-<li>运行mysql容器</li>
-</ul>
-<p><img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210809192841682.png" alt="image-20210809192841682"></p>
-<ul>
-<li>进入mysql容器：<img src="C:\Users\SFAG\AppData\Roaming\Typora\typora-user-images\image-20210809201820771.png" alt="image-20210809201820771"></li>
-</ul>
-<p>安装redis：</p>
-<p>docker run -p 6397:6397 -v &#x2F;sfag&#x2F;myredis&#x2F;data:&#x2F;data -v &#x2F;sfag&#x2F;myredis&#x2F;conf&#x2F;redis.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis.conf&#x2F;redis.conf -d redis redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis.conf&#x2F;redis.conf –appendonly yes</p>
-<p>推送镜像文件到云平台：</p>
-<ol>
-<li>docker login –username registry. cn-hangzhou,aliyuncs.com</li>
-<li>docker tag 镜像id  registry cn-hangzhou,aliyuncs.com&#x2F;镜像文件：版本号</li>
-<li>docker push registry cn-hangzhou,aliyuncs.com&#x2F;镜像文件：版本号</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1QgnpSqd6DFyWqsfVJp3ePw">https://pan.baidu.com/s/1QgnpSqd6DFyWqsfVJp3ePw</a></p>
 
                 
             </div>
@@ -621,7 +795,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/11/08/Docker/">http://example.com/2021/11/08/Docker/</a>
+                    <a href="http://example.com/2022/07/10/JVM%EF%BC%88java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%89/">http://example.com/2022/07/10/JVM%EF%BC%88java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%89/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -658,15 +832,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/Typora/">
-                                    <span class="chip bg-color">Typora</span>
-                                </a>
-                            
-                                <a href="/tags/Markdown/">
-                                    <span class="chip bg-color">Markdown</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -838,9 +1004,48 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/07/10/JVM%EF%BC%88java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%89/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            shangguandanyu
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2021/11/08/Jekins/">
                     <div class="card-image">
@@ -858,9 +1063,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-08
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -886,63 +1091,6 @@
                     
                     <a href="/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/">
                         <span class="chip bg-color">持续交付</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/11/07/Git/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Git的使用">
-                        
-                        <span class="card-title">Git的使用</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            代码管理工具
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-07
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Markdown/" class="post-category">
-                                    Markdown
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Typora/">
-                        <span class="chip bg-color">Typora</span>
-                    </a>
-                    
-                    <a href="/tags/Markdown/">
-                        <span class="chip bg-color">Markdown</span>
-                    </a>
-                    
-                    <a href="/tags/%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
-                        <span class="chip bg-color">代码管理工具</span>
                     </a>
                     
                 </div>
@@ -980,6 +1128,87 @@
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
 
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
 
     
 
